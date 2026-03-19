@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (XModAlg) - Chapter 2: Algebras and their Actions</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap2"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap2.html">[MathJax off]</a></p>
+<p><a id="X85E897DA7DEFA8FB" name="X85E897DA7DEFA8FB"></a></p>
+<div class="ChapSects"><a href="chap2_mj.html#X85E897DA7DEFA8FB">2 <span class="Heading">Algebras and their Actions</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X8313C8E07E64957A">2.1 <span class="Heading">Multipliers</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X8695ED0A7B9D2D3E">2.1-1 RegularAlgebraMultiplier</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X79D9464285963A52">2.1-2 IsAlgebraMultiplier</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X874D72C17FDC0F57">2.1-3 MultiplierAlgebraOfIdealBySubalgebra </a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7D3640FB8658B360">2.1-4 MultiplierAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7FE8408D7F13C3B9">2.1-5 MultiplierHomomorphism</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X7DD27C4F832785C0">2.2 <span class="Heading">Commutative actions</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X87F6A0237B15AEC8">2.2-1 AlgebraAction</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X79F1962A7F2230D3">2.2-2 AlgebraActionByMultipliers</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7EAF09677CAE12D5">2.2-3 AlgebraActionBySurjection</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X8530E1B27BC2FBB7">2.2-4 AlgebraActionByHomomorphism</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X854D23487A8FF78A">2.3 <span class="Heading">Algebra modules</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X83A1091782FF581C">2.3-1 ModuleAsAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X837793B87FFBA954">2.3-2 IsModuleAsAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X8235F36D7EB63BA3">2.3-3 ModuleToAlgebraIsomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7C1C8B987B2167B9">2.3-4 AlgebraActionByModule</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X82E784EB7EBAEEA4">2.4 <span class="Heading">Actions on direct sums of algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X86FC4981819374E4">2.4-1 DirectSumOfAlgebrasWithInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X800F0CFE7F431D92">2.4-2 Embedding</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X86CCCCB4786AC96B">2.5 <span class="Heading">Other operations on algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7A9527E97EC79B4F">2.5-1 SemidirectProductOfAlgebras</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X8536D21A80AFE08E">2.5-2 SemidirectProductOfAlgebrasInfo</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X7960904E7A0536A8">2.6 <span class="Heading">Lists of algebra homomorphisms</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X81C710788550185A">2.6-1 AllAlgebraHomomorphisms</a></span>
+</div></div>
+</div>
+
+<h3>2 <span class="Heading">Algebras and their Actions</span></h3>
+
+<p>All the algebras considered in this package will be associative and commutative. Scalars belong to a commutative ring <strong class="button">k</strong> with <span class="SimpleMath">\(1 \neq 0\)</span>.</p>
+
+<p><em>(Why not a field? A group ring over the integers is not an algebra. [CDW])</em></p>
+
+<p><a id="X8313C8E07E64957A" name="X8313C8E07E64957A"></a></p>
+
+<h4>2.1 <span class="Heading">Multipliers</span></h4>
+
+<p>A <em>multiplier</em> in a commutative algebra <span class="SimpleMath">\(A\)</span> is a function <span class="SimpleMath">\(\mu : A \to A\)</span> such that</p>
+
+<p class="center">\[
+\mu(ab) ~=~ (\mu a)b ~=~ a(\mu b) \quad \forall~ a,b \in A. 
+\]</p>
+
+<p>The <em>regular multipliers</em> of <span class="SimpleMath">\(A\)</span> are the functions</p>
+
+<p class="center">\[
+\mu_a : A \to A ~:~ \mu_ab = ab \quad \forall~ b \in A. 
+\]</p>
+
+<p>When <span class="SimpleMath">\(A\)</span> has a one, it follows from the defining condition that <span class="SimpleMath">\(\mu(b1) = (\mu 1)b\)</span> and so <span class="SimpleMath">\(\mu = \mu_a\)</span> where <span class="SimpleMath">\(a = \mu 1\)</span>. Since an ideal <span class="SimpleMath">\(I\)</span> of <span class="SimpleMath">\(A\)</span> is closed under multiplication, a multiplier <span class="SimpleMath">\(\mu\)</span> may be restricted to <span class="SimpleMath">\(I\)</span>.</p>
+
+<p><strong class="button">Question:</strong> Is there an example of an algebra <span class="SimpleMath">\(A\)</span> <em>without</em> a one which has multipliers <em>not</em> of the form <span class="SimpleMath">\(\mu_a\)</span>?</p>
+
+<p><a id="X8695ED0A7B9D2D3E" name="X8695ED0A7B9D2D3E"></a></p>
+
+<h5>2.1-1 RegularAlgebraMultiplier</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RegularAlgebraMultiplier</code>( <var class="Arg">A</var>, <var class="Arg">I</var>, <var class="Arg">a</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>This operation defines the multiplier <span class="SimpleMath">\(\mu_a : I \to I\)</span> on an ideal <span class="SimpleMath">\(I\)</span> of <span class="SimpleMath">\(A\)</span>.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A1 := GroupRing( GF(5), Group( (1,2,3,4,5,6) ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetName( A1, "A1" );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">BA1 := BasisVectors( Basis( A1 ) );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">v := BA1[1] + BA1[3] + BA1[5];</span>
+(Z(5)^0)*()+(Z(5)^0)*(1,3,5)(2,4,6)+(Z(5)^0)*(1,5,3)(2,6,4)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">I1 := Ideal( A1, [v] );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetName( I1, "I1" );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">v1 := BA1[2];</span>
+(Z(5)^0)*(1,2,3,4,5,6)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m1 := RegularAlgebraMultiplier( A1, I1, v1 ); </span>
+[ (Z(5)^0)*()+(Z(5)^0)*(1,3,5)(2,4,6)+(Z(5)^0)*(1,5,3)(2,6,4), 
+  (Z(5)^0)*(1,2,3,4,5,6)+(Z(5)^0)*(1,4)(2,5)(3,6)+(Z(5)^0)*(1,6,5,4,3,2) ] -&gt; 
+[ (Z(5)^0)*(1,2,3,4,5,6)+(Z(5)^0)*(1,4)(2,5)(3,6)+(Z(5)^0)*(1,6,5,4,3,2), 
+  (Z(5)^0)*()+(Z(5)^0)*(1,3,5)(2,4,6)+(Z(5)^0)*(1,5,3)(2,6,4) ]
+
+</pre></div>
+
+<p><a id="X79D9464285963A52" name="X79D9464285963A52"></a></p>
+
+<h5>2.1-2 IsAlgebraMultiplier</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsAlgebraMultiplier</code>( <var class="Arg">mu</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>This function tests the condition <span class="SimpleMath">\(\mu(ab) = (\mu a)b = a(\mu b)\)</span> for all <span class="SimpleMath">\(a,b\)</span> in the basis for <span class="SimpleMath">\(A\)</span>.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsAlgebraMultiplier( m1 ); </span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">id1 := One( A1 );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">L1 := List( BA1, v -&gt; id1 );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">h1 := LeftModuleHomomorphismByImages( A1, A1, BA1, L1 ); </span>
+[ (Z(5)^0)*(), (Z(5)^0)*(1,2,3,4,5,6), (Z(5)^0)*(1,3,5)(2,4,6), 
+  (Z(5)^0)*(1,4)(2,5)(3,6), (Z(5)^0)*(1,5,3)(2,6,4), (Z(5)^0)*(1,6,5,4,3,2) 
+ ] -&gt; [ (Z(5)^0)*(), (Z(5)^0)*(), (Z(5)^0)*(), (Z(5)^0)*(), (Z(5)^0)*(), 
+  (Z(5)^0)*() ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsAlgebraMultiplier( h1 );                                                </span>
+false
+
+</pre></div>
+
+<p><a id="X874D72C17FDC0F57" name="X874D72C17FDC0F57"></a></p>
+
+<h5>2.1-3 MultiplierAlgebraOfIdealBySubalgebra </h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MultiplierAlgebraOfIdealBySubalgebra </code>( <var class="Arg">A</var>, <var class="Arg">I</var>, <var class="Arg">B</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>The regular multipliers <span class="SimpleMath">\(\mu_b : I \to I\)</span> for all <span class="SimpleMath">\(b \in B\)</span>, where <span class="SimpleMath">\(I\)</span> is an ideal in <span class="SimpleMath">\(A\)</span> and <span class="SimpleMath">\(B\)</span> is a subalgebra of <span class="SimpleMath">\(A\)</span>, form an algebra with product <span class="SimpleMath">\(\mu_b \circ \mu_{b'} = \mu_{bb'}\)</span>.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">u1 := BA1[3];</span>
+(Z(5)^0)*(1,3,5)(2,4,6)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">S1 := Subalgebra( A3, [ u1 ] );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetName( S1, "S1" );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MS1 := MultiplierAlgebraOfIdealBySubalgebra( A1, I1, S1 );</span>
+&lt;algebra of dimension 1 over GF(5)&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetName( MS1, "MS1" );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">BMS1 := BasisVectors( Basis( MS1 ) );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">BMS1[1];</span>
+&lt;linear mapping by matrix, I1 -&gt; I1&gt;
+
+</pre></div>
+
+<p><a id="X7D3640FB8658B360" name="X7D3640FB8658B360"></a></p>
+
+<h5>2.1-4 MultiplierAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MultiplierAlgebra</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>The regular multipliers <span class="SimpleMath">\(\mu_a : A \to A\)</span> for all <span class="SimpleMath">\(a \in A\)</span> form an algebra isomorphic to <span class="SimpleMath">\(A\)</span> by the map <span class="SimpleMath">\(a \mapsto \mu_a\)</span>. This operation returns <code class="code">MultiplierAlgebraOfIdealBySubalgebra(A,A,A);</code>.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MA1 := MultiplierAlgebra( A1 );</span>
+&lt;algebra of dimension 6 over GF(5)&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">BMA1 := BasisVectors( Basis( MA1 ) );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">BMA1[3];</span>
+&lt;linear mapping by matrix, &lt;algebra-with-one of dimension 
+6 over GF(5)&gt; -&gt; &lt;algebra-with-one of dimension 6 over GF(5)&gt;&gt;
+
+</pre></div>
+
+<p><a id="X7FE8408D7F13C3B9" name="X7FE8408D7F13C3B9"></a></p>
+
+<h5>2.1-5 MultiplierHomomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MultiplierHomomorphism</code>( <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>If <span class="SimpleMath">\(M\)</span> is a multiplier algebra with elements of a subalgebra <span class="SimpleMath">\(B\)</span> of an algebra <span class="SimpleMath">\(A\)</span> multiplying an ideal <span class="SimpleMath">\(I\)</span> then this operation returns the homomorphism from <span class="SimpleMath">\(B\)</span> to <span class="SimpleMath">\(M\)</span> mapping <span class="SimpleMath">\(b\)</span> to <span class="SimpleMath">\(\mu_b\)</span>.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">hom1 := MultiplierHomomorphism( MA1 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ImageElm( hom1, BA1[2] ); </span>
+Basis( A1, [ (Z(5)^0)*(), (Z(5)^0)*(1,2,3,4,5,6), (Z(5)^0)*(1,3,5)(2\
+,4,6), 
+  (Z(5)^0)*(1,4)(2,5)(3,6), (Z(5)^0)*(1,5,3)(2,6,4), (Z(5)^0)*(1,6,5,4,3,2) 
+ ] ) -&gt; [ (Z(5)^0)*(1,2,3,4,5,6), (Z(5)^0)*(1,3,5)(2,4,6), 
+  (Z(5)^0)*(1,4)(2,5)(3,6), (Z(5)^0)*(1,5,3)(2,6,4), (Z(5)^0)*(1,6,5,4,3,2), 
+  (Z(5)^0)*() ]
+
+</pre></div>
+
+<p><a id="X7DD27C4F832785C0" name="X7DD27C4F832785C0"></a></p>
+
+<h4>2.2 <span class="Heading">Commutative actions</span></h4>
+
+<p>If <span class="SimpleMath">\(S\)</span> and <span class="SimpleMath">\(R\)</span> are commutative <strong class="button">k</strong>-algebras, a map</p>
+
+<p class="center">\[
+R \times S  ~\to~ S, 
+\qquad 
+(r,s)  ~\mapsto~  r \cdot s
+\]</p>
+
+<p>is a commutative action if and only if the following five axioms hold:</p>
+
+
+<ul>
+<li><p><span class="SimpleMath">\(k(r \cdot s) ~=~ (kr) \cdot s ~=~ r \cdot (ks)\)</span>,</p>
+
+</li>
+<li><p><span class="SimpleMath">\(r \cdot (s + s') ~=~ r \cdot s + r \cdot s', \qquad\)</span> (so <span class="SimpleMath">\(r \cdot 0_S = 0_S ~\forall~ r \in R\)</span>),</p>
+
+</li>
+<li><p><span class="SimpleMath">\((r + r') \cdot s ~=~ r \cdot s + r' \cdot s, \qquad\)</span> (so <span class="SimpleMath">\(0_R \cdot s = 0_S ~\forall~ s \in S\)</span>),</p>
+
+</li>
+<li><p><span class="SimpleMath">\(r \cdot (ss') ~=~ (r \cdot s)s' = s(r \cdot s')\)</span>,</p>
+
+</li>
+<li><p><span class="SimpleMath">\((rr') \cdot s ~=~ r \cdot (r' \cdot s), \qquad\)</span> (so <span class="SimpleMath">\(1_R \cdot s = s ~\forall~ s \in S\)</span> when <span class="SimpleMath">\(R\)</span> has a one),</p>
+
+</li>
+</ul>
+<p>for all <span class="SimpleMath">\(k \in \)</span><strong class="button">k</strong>, <span class="SimpleMath">\(r,r' \in R\)</span>, and <span class="SimpleMath">\(s,s' \in S\)</span>.</p>
+
+<p>Notice in particular that, for fixed <span class="SimpleMath">\(r \in R\)</span>, the map <span class="SimpleMath">\(s \mapsto r \cdot s\)</span> is a vector space homomorphism, but not in general an algebra homomorphism.</p>
+
+<p><a id="X87F6A0237B15AEC8" name="X87F6A0237B15AEC8"></a></p>
+
+<h5>2.2-1 AlgebraAction</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AlgebraAction</code>( <var class="Arg">args</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>This global function calls one of the following operations, depending on the arguments supplied.</p>
+
+<p><a id="X79F1962A7F2230D3" name="X79F1962A7F2230D3"></a></p>
+
+<h5>2.2-2 AlgebraActionByMultipliers</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AlgebraActionByMultipliers</code>( <var class="Arg">A</var>, <var class="Arg">I</var>, <var class="Arg">B</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>When <span class="SimpleMath">\(I\)</span> is an ideal in <span class="SimpleMath">\(A\)</span> and <span class="SimpleMath">\(B\)</span> is a subalgebra of <span class="SimpleMath">\(A\)</span>, we have seen that the multiplier homomorphism from <span class="SimpleMath">\(A\)</span> to <code class="code">MultiplierAlgebraOfIdealBySubalgebra(A,I,B)</code> is an action.</p>
+
+<p>In the example the algebra is the group ring of the cyclic group <span class="SimpleMath">\(C_6\)</span> over the field <span class="SimpleMath">\(GF(5)\)</span>. The ideal is generated by <span class="SimpleMath">\(v = () + (1,3,5)(2,4,6) + (1,5,3)(2,6,4)\)</span>. The generator <span class="SimpleMath">\(r = (1,2,3,4,5,6)\)</span> acts on <span class="SimpleMath">\(v\)</span> by multiplication to give the vector <span class="SimpleMath">\(r \cdot v = (1,2,3,4,5,6) + (1,4)(2,5)(3,6) + (1,6,5,4,3,2)\)</span>, as shown in <code class="func">AlgebraActionByHomomorphism</code> (<a href="chap2_mj.html#X8530E1B27BC2FBB7"><span class="RefLink">2.2-4</span></a>)</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A1 := GroupRing( GF(5), Group( (1,2,3,4,5,6) ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">BA1 := BasisVectors( Basis( A1 ) );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">v := BA1[1] + BA1[3] + BA1[5];</span>
+(Z(5)^0)*()+(Z(5)^0)*(1,3,5)(2,4,6)+(Z(5)^0)*(1,5,3)(2,6,4)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">I1 := Ideal( A1, [v] );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">act1 := AlgebraActionByMultipliers( A1, I1, A1 );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">act12 := Image( act1, BA1[2] );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Image( act12, v );</span>
+(Z(5)^0)*(1,2,3,4,5,6)+(Z(5)^0)*(1,4)(2,5)(3,6)+(Z(5)^0)*(1,6,5,4,3,2)
+
+</pre></div>
+
+<p><a id="X7EAF09677CAE12D5" name="X7EAF09677CAE12D5"></a></p>
+
+<h5>2.2-3 AlgebraActionBySurjection</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AlgebraActionBySurjection</code>( <var class="Arg">hom</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Let <span class="SimpleMath">\(\theta : B \to A\)</span> be a surjective algebra homomorphism such that <span class="SimpleMath">\(\ker\theta\)</span> is contained in the annihilator of <span class="SimpleMath">\(B\)</span>. Then <span class="SimpleMath">\(A\)</span> acts on <span class="SimpleMath">\(B\)</span> by <span class="SimpleMath">\(a \cdot b = pb\)</span> where <span class="SimpleMath">\(p \in (\theta^{-1}a)\)</span>. Note that this action is well defined since <span class="SimpleMath">\(\theta^{-1}a = \{ p+k ~|~ k \in \ker\theta \}\)</span> and <span class="SimpleMath">\((p+k)b = pb+kb = pb+0\)</span>.</p>
+
+<p>Continuing with the previous example, we construct the quotient algebra <span class="SimpleMath">\(Q1 = A1/I1\)</span>, and the natural homomorphism <span class="SimpleMath">\(\theta_1 : A1 \to Q1\)</span>. The kernel of <span class="SimpleMath">\(\theta\)</span> is not contained in the annihilator of <span class="SimpleMath">\(A1\)</span>, so an attempt to form the action fails.</p>
+
+<p>An alternative example involves a matrix algebra <span class="SimpleMath">\(A_2\)</span> with generator <span class="SimpleMath">\(m_2\)</span>, basis <span class="SimpleMath">\(\{m_2,m_2^2,m_2^3\}\)</span>, and where <span class="SimpleMath">\(m_2^4=0\)</span>. The ideal <span class="SimpleMath">\(I_2\)</span> is generated by <span class="SimpleMath">\(m_2^3\)</span> and the quotient <span class="SimpleMath">\(Q_2\)</span> has basis <span class="SimpleMath">\(\{[m_2],[m_2^2]\}\)</span>.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">theta1 := NaturalHomomorphismByIdeal( A1, I1 );</span>
+&lt;linear mapping by matrix, &lt;algebra-with-one of dimension 
+6 over GF(5)&gt; -&gt; &lt;algebra of dimension 4 over GF(5)&gt;&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( BA1, v -&gt; ImageElm( theta1, v ) ); </span>
+[ v.1, v.2, v.3, v.4, (Z(5)^2)*v.1+(Z(5)^2)*v.3, (Z(5)^2)*v.2+(Z(5)^2)*v.4 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">AlgebraActionBySurjection( theta1 );</span>
+kernel of hom is not in the annihilator of A
+fail
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">## an example which does not fail: </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m2 := [ [0,1,2,3], [0,0,1,2], [0,0,0,1], [0,0,0,0] ];; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m2^2;</span>
+[ [ 0, 0, 1, 4 ], [ 0, 0, 0, 1 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m2^3;</span>
+[ [ 0, 0, 0, 1 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A2 := Algebra( Rationals, [m2] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetName( A2, "A2" );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">S2 := Subalgebra( A2, [m2^3] );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetName( S2, "S2" );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">nat2 := NaturalHomomorphismByIdeal( A2, S2 ); </span>
+&lt;linear mapping by matrix, A2 -&gt; &lt;algebra of dimension 2 over Ration\
+als&gt;&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Q2 := Image( nat2 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetName( Q2, "Q2" );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display( nat2 );</span>
+LeftModuleHomomorphismByMatrix( Basis( A2, 
+[ [ [ 0, 0, 0, 1 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ] ], 
+  [ [ 0, 1, 2, 3 ], [ 0, 0, 1, 2 ], [ 0, 0, 0, 1 ], [ 0, 0, 0, 0 ] ], 
+  [ [ 0, 0, 1, 4 ], [ 0, 0, 0, 1 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ] ] ] ), 
+[ [ 0, 0 ], [ 1, 0 ], [ 0, 1 ] ], CanonicalBasis( Q2 ) )
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">act2 := AlgebraActionBySurjection( nat2 );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">I2 := Image( act2 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">BI2 := BasisVectors( Basis( I2 ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">b1 := BI2[1];;  b2 := BI2[2];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">[ Image(b1,m2)=m2^2, Image(b1,m2^2)=m2^3, Image(b1,m2^3)=Zero(A2) ];</span>
+[ true, true, true ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">[ Image(b2,m2)=m2^3, b2=b1^2 ];</span>
+[true, true ]
+
+</pre></div>
+
+<p><a id="X8530E1B27BC2FBB7" name="X8530E1B27BC2FBB7"></a></p>
+
+<h5>2.2-4 AlgebraActionByHomomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AlgebraActionByHomomorphism</code>( <var class="Arg">hom</var>, <var class="Arg">alg</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>If <span class="SimpleMath">\(\alpha : A \to C\)</span> is an algebra homomorphism where <span class="SimpleMath">\(C\)</span> is an algebra of left module isomorphisms of an algebra <span class="SimpleMath">\(B\)</span>, then <code class="code">AlgebraActionByHomomorphism( alpha, B )</code> attempts to return an action of <span class="SimpleMath">\(A\)</span> on <span class="SimpleMath">\(B\)</span>.</p>
+
+<p>In the example the matrix algebra <code class="code">A3</code> and the group algebra <code class="code">Rc3</code> are isomorphic algebras, so the resulting action is equivalent to the multiplier action of <code class="code">Rc3</code> on itself.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m3 := [ [0,1,0], [0,0,1], [1,0,0,] ];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A3 := Algebra( Rationals, [m3] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetName( A3, "A3" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">c3 := Group( (1,2,3) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Rc3 := GroupRing( Rationals, c3 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetName( Rc3, "GR(c3)" );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g3 := GeneratorsOfAlgebra( Rc3 )[2];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mg3 := RegularAlgebraMultiplier( Rc3, Rc3, g3 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Amg3 := AlgebraByGenerators( Rationals, [ mg3 ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">homg3 := AlgebraHomomorphismByImages( A3, Amg3, [ m3 ], [ mg3 ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">actg3 := AlgebraActionByHomomorphism( homg3, Rc3 );</span>
+[ [ [ 0, 1, 0 ], [ 0, 0, 1 ], [ 1, 0, 0 ] ] ] -&gt; 
+[ [ (1)*(), (1)*(1,2,3), (1)*(1,3,2) ] -&gt; [ (1)*(1,2,3), (1)*(1,3,2), (1)*() 
+    ] ]
+
+</pre></div>
+
+<p><a id="X854D23487A8FF78A" name="X854D23487A8FF78A"></a></p>
+
+<h4>2.3 <span class="Heading">Algebra modules</span></h4>
+
+<p>Recall that a module can be made into an algebra by defining every product to be zero. When we apply this construction to a (left) algebra module, we obtain an algebra action on an algebra.</p>
+
+<p>Recall the construction of algebra modules from Chapter 62 of the <strong class="pkg">GAP</strong> reference manual. In the example, the vector space <span class="SimpleMath">\(V3\)</span> becomes an algebra module <span class="SimpleMath">\(M3\)</span> with a left action by <span class="SimpleMath">\(A3\)</span>. Conversion between vectors in <span class="SimpleMath">\(V3\)</span> and those in <span class="SimpleMath">\(M3\)</span> is achieved using the operations <code class="code">ObjByExtRep</code> and <code class="code">ExtRepOfObj</code>. These vectors are indistinguishable when printed.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">V3 := Rationals^3;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">M3 := LeftAlgebraModule( A3, \*, V3 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetName( M3, "M3" );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">famM3 := ElementsFamily( FamilyObj( M3 ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">v3 := [3,4,5];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">v3 := ObjByExtRep( famM3, v3 );</span>
+[ 3, 4, 5 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m3*v3;</span>
+[ 4, 5, 3 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">genM3 := GeneratorsOfLeftModule( M3 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">u4 := 6*genM3[1] + 7*genM3[2] + 8*genM3[3];</span>
+[ 6, 7, 8 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">u4 := ExtRepOfObj( u4 );</span>
+[ 6, 7, 8 ]
+
+</pre></div>
+
+<p><a id="X83A1091782FF581C" name="X83A1091782FF581C"></a></p>
+
+<h5>2.3-1 ModuleAsAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ModuleAsAlgebra</code>( <var class="Arg">leftmod</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>To form an algebra <span class="SimpleMath">\(B\)</span> from <span class="SimpleMath">\(M\)</span> with zero products we may construct an algebra with the correct dimension using an empty structure constants table, as shown below. In doing so, the remaining information about <span class="SimpleMath">\(M\)</span> is lost, so it is essential to form isomorphisms between the corresponding underlying vector spaces.</p>
+
+<p>If the module <span class="SimpleMath">\(M\)</span> has been given a name, then the operation <code class="code">ModuleAsAlgebra</code> assigns a name to the resulting algebra. The operation <code class="code">AlgebraByStructureConstants</code> assigns names <span class="SimpleMath">\(v_i\)</span> to the basis vectors unless a list of names is provided. The operation <code class="code">ModuleAsAlgebra</code> converts the basis elements of <span class="SimpleMath">\(M\)</span> into strings, with additional brackets added, and uses these as the names for the basis vectors. Note that these <code class="code">[[i,j,k]]</code> are just strings, and not vectors.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">D3 := LeftActingDomain( M3 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T3 := EmptySCTable( Dimension(M3), Zero(D3), "symmetric" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">B3a := AlgebraByStructureConstants( D3, T3 );</span>
+&lt;algebra of dimension 3 over Rationals&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GeneratorsOfAlgebra( B3a );</span>
+[ v.1, v.2, v.3 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">B3 := ModuleAsAlgebra( M3 );               </span>
+A(M3)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GeneratorsOfAlgebra( B3 );</span>
+[ [[ 1, 0, 0 ]], [[ 0, 1, 0 ]], [[ 0, 0, 1 ]] ]
+
+</pre></div>
+
+<p><a id="X837793B87FFBA954" name="X837793B87FFBA954"></a></p>
+
+<h5>2.3-2 IsModuleAsAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsModuleAsAlgebra</code>( <var class="Arg">alg</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>This is the property acquired when a module is converted into an algebra.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsModuleAsAlgebra( B3 );</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsModuleAsAlgebra( A3 );   </span>
+false
+
+</pre></div>
+
+<p><a id="X8235F36D7EB63BA3" name="X8235F36D7EB63BA3"></a></p>
+
+<h5>2.3-3 ModuleToAlgebraIsomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ModuleToAlgebraIsomorphism</code>( <var class="Arg">alg</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AlgebraToModuleIsomorphism</code>( <var class="Arg">alg</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>These two algebra mappings are attributes of a module converted into an algebra. They are required for the process of converting the action of <span class="SimpleMath">\(A\)</span> on <span class="SimpleMath">\(M\)</span> into an action on <span class="SimpleMath">\(B\)</span>. Note that these left module homomorphisms have as source or range the underlying module <span class="SimpleMath">\(V\)</span>, not <span class="SimpleMath">\(M\)</span>.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">KnownAttributesOfObject( B3 );</span>
+[ "Name", "ZeroImmutable", "LeftActingDomain", "Dimension",
+  "GeneratorsOfLeftOperatorAdditiveGroup", "GeneratorsOfLeftOperatorRing",
+  "ModuleToAlgebraIsomorphism", "AlgebraToModuleIsomorphism" ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">M2B3 := ModuleToAlgebraIsomorphism( B3 );</span>
+[ [ 1, 0, 0 ], [ 0, 1, 0 ], [ 0, 0, 1 ] ] -&gt; [ [[ 1, 0, 0 ]], [[ 0, 1, 0 ]], 
+  [[ 0, 0, 1 ]] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Source( M2B3 ) = M3;</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Source( M2B3 ) = V3;</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">B2M3 := AlgebraToModuleIsomorphism( B3 );</span>
+[ [[ 1, 0, 0 ]], [[ 0, 1, 0 ]], [[ 0, 0, 1 ]] ] -&gt;
+[ [ 1, 0, 0 ], [ 0, 1, 0 ], [ 0, 0, 1 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Range( B2M3 ) = M3;</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Range( B2M3 ) = V3;</span>
+true
+
+</pre></div>
+
+<p><a id="X7C1C8B987B2167B9" name="X7C1C8B987B2167B9"></a></p>
+
+<h5>2.3-4 AlgebraActionByModule</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AlgebraActionByModule</code>( <var class="Arg">alg</var>, <var class="Arg">leftmod</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>This operation converts the action of <span class="SimpleMath">\(A\)</span> on <span class="SimpleMath">\(M\)</span> into an action of <span class="SimpleMath">\(A\)</span> on <span class="SimpleMath">\(B\)</span>.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">act3 := AlgebraActionByModule( A3, M3 );</span>
+[ [ [ 0, 1, 0 ], [ 0, 0, 1 ], [ 1, 0, 0 ] ] ] -&gt; 
+[ [ [[ 1, 0, 0 ]], [[ 0, 1, 0 ]], [[ 0, 0, 1 ]] ] -&gt; 
+    [ [[ 0, 0, 1 ]], [[ 1, 0, 0 ]], [[ 0, 1, 0 ]] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">a3 := 2*m3 + 3*m3^2;</span>
+[ [ 0, 2, 3 ], [ 3, 0, 2 ], [ 2, 3, 0 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Image( act3, a3 );</span>
+Basis( A(M3), [ [[ 1, 0, 0 ]], [[ 0, 1, 0 ]], [[ 0, 0, 1 ]] ] ) -&gt; 
+[ (3)*[[ 0, 1, 0 ]]+(2)*[[ 0, 0, 1 ]], (2)*[[ 1, 0, 0 ]]+(3)*[[ 0, 0, 1 ]], 
+  (3)*[[ 1, 0, 0 ]]+(2)*[[ 0, 1, 0 ]] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Image( act3 );</span>
+&lt;algebra over Rationals, with 1 generator&gt;
+
+</pre></div>
+
+<p><a id="X82E784EB7EBAEEA4" name="X82E784EB7EBAEEA4"></a></p>
+
+<h4>2.4 <span class="Heading">Actions on direct sums of algebras</span></h4>
+
+<p><a id="X86FC4981819374E4" name="X86FC4981819374E4"></a></p>
+
+<h5>2.4-1 DirectSumOfAlgebrasWithInfo</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DirectSumOfAlgebrasWithInfo</code>( <var class="Arg">A1</var>, <var class="Arg">A2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DirectSumOfAlgebrasInfo</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>This attribute for direct sums of algebras is missing from the main library, and is added here to be used in methods for <code class="code">Embedding</code> and <code class="code">Projection</code>. In order to construct a direct sum with this information attribute the operation <code class="code">DirectSumOfAlgebrasWithInfo</code> may be used. This just calls <code class="code">DirectSumOfAlgebras</code> and sets up the attribute.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A3Rc3 := DirectSumOfAlgebrasWithInfo( A3, Rc3 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetName( A3Rc3, Concatenation( Name(A3), "(+)", Name(Rc3) ) );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DirectSumOfAlgebrasInfo( A3Rc3 );</span>
+rec( algebras := [ A3, GR(c3) ], 
+  embeddings := 
+    [ 
+      Basis( A3, [ [ [ 0, 1, 0 ], [ 0, 0, 1 ], [ 1, 0, 0 ] ], 
+          [ [ 0, 0, 1 ], [ 1, 0, 0 ], [ 0, 1, 0 ] ], 
+          [ [ 1, 0, 0 ], [ 0, 1, 0 ], [ 0, 0, 1 ] ] ] ) -&gt; [ v.1, v.2, v.3 ], 
+      CanonicalBasis( GR(c3) ) -&gt; [ v.4, v.5, v.6 ] ], first := [ 1, 4 ], 
+  projections := 
+    [ CanonicalBasis( A3(+)GR(c3) ) -&gt; 
+        [ [ [ 0, 1, 0 ], [ 0, 0, 1 ], [ 1, 0, 0 ] ], 
+          [ [ 0, 0, 1 ], [ 1, 0, 0 ], [ 0, 1, 0 ] ], 
+          [ [ 1, 0, 0 ], [ 0, 1, 0 ], [ 0, 0, 1 ] ], 
+          [ [ 0, 0, 0 ], [ 0, 0, 0 ], [ 0, 0, 0 ] ], 
+          [ [ 0, 0, 0 ], [ 0, 0, 0 ], [ 0, 0, 0 ] ], 
+          [ [ 0, 0, 0 ], [ 0, 0, 0 ], [ 0, 0, 0 ] ] ], 
+      CanonicalBasis( A3(+)GR(c3) ) -&gt; [ &lt;zero&gt; of ..., &lt;zero&gt; of ..., 
+          &lt;zero&gt; of ..., (1)*(), (1)*(1,2,3), (1)*(1,3,2) ] ] )
+
+</pre></div>
+
+<p><a id="X800F0CFE7F431D92" name="X800F0CFE7F431D92"></a></p>
+
+<h5>2.4-2 Embedding</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Embedding</code>( <var class="Arg">A</var>, <var class="Arg">nr</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Projection</code>( <var class="Arg">A</var>, <var class="Arg">nr</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Methods for <code class="code">Embedding</code> and <code class="code">Projection</code> for direct sums of algebras are missing from the main library, and so are included here.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Embedding( A3Rc3, 1 );</span>
+Basis( A3, [ [ [ 0, 1, 0 ], [ 0, 0, 1 ], [ 1, 0, 0 ] ], 
+  [ [ 0, 0, 1 ], [ 1, 0, 0 ], [ 0, 1, 0 ] ], 
+  [ [ 1, 0, 0 ], [ 0, 1, 0 ], [ 0, 0, 1 ] ] ] ) -&gt; [ v.1, v.2, v.3 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Projection( A3Rc3, 2 );</span>
+CanonicalBasis( A3(+)GR(c3) ) -&gt; [ &lt;zero&gt; of ..., &lt;zero&gt; of ..., 
+  &lt;zero&gt; of ..., (1)*(), (1)*(1,2,3), (1)*(1,3,2) ]
+
+</pre></div>
+
+<p><a id="X86CCCCB4786AC96B" name="X86CCCCB4786AC96B"></a></p>
+
+<h4>2.5 <span class="Heading">Other operations on algebras</span></h4>
+
+<p><a id="X7A9527E97EC79B4F" name="X7A9527E97EC79B4F"></a></p>
+
+<h5>2.5-1 SemidirectProductOfAlgebras</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SemidirectProductOfAlgebras</code>( <var class="Arg">R</var>, <var class="Arg">act</var>, <var class="Arg">S</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>When <span class="SimpleMath">\(R,S\)</span> are commutative algebras and <span class="SimpleMath">\(R\)</span> acts on <span class="SimpleMath">\(S\)</span> then we can form the semidirect product <span class="SimpleMath">\(R \ltimes S\)</span>, where the product is given by:</p>
+
+<p class="center">\[
+(r_1,s_1)(r_2,s_2) ~=~ (r_1r_2,~ r_1 \cdot s_2 + r_2 \cdot s_1 + s_1s_2). 
+\]</p>
+
+<p>This product, as well as being commutative, is associative: <span class="SimpleMath">\((r_1,s_1)(r_2,s_2)(r_3,s_3)\)</span> expands as:</p>
+
+<p class="center">\[
+(r_1r_2r_3,~ \left (r_1r_2)\cdot s3 + (r_1r_3)\cdot s_2 + (r_2r_3)\cdot s_1 
+            + r_1 \cdot (s_2s_3) + r_2 \cdot (s_1s_3) + r_3 \cdot (s_1s_2) 
+            + s_1s_2s_3 \right).
+\]</p>
+
+<p>If <span class="SimpleMath">\(B_R, B_S\)</span> are the sets of basis vectors for <span class="SimpleMath">\(R\)</span> and <span class="SimpleMath">\(S\)</span> then <span class="SimpleMath">\(R \ltimes S\)</span> has basis</p>
+
+<p class="center">\[
+\{(r,0_S) ~|~ r \in B_R\} ~\cup~ \{(0_R,s) ~|~ s \in B_S\} 
+\]</p>
+
+<p>with defining products</p>
+
+<p class="center">\[
+(r_1,0_S)(r_2,0_S) = (r_1r_2,0_S), \qquad 
+(r,0_S)(0_R,s) = (0_R,r \cdot s), \qquad 
+(0_R,s_1)(0_R,s_2) = (0_R,s_1s_2). 
+\]</p>
+
+<p>Continuing the example above,</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">P1 := SemidirectProductOfAlgebras( A1, act1, I1 ); </span>
+&lt;algebra of dimension 8 over GF(5)&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Embedding( P1, 1 );</span>
+[ (Z(5)^0)*(), (Z(5)^0)*(1,2,3,4,5,6), (Z(5)^0)*(1,3,5)(2,4,6), 
+  (Z(5)^0)*(1,4)(2,5)(3,6), (Z(5)^0)*(1,5,3)(2,6,4), (Z(5)^0)*(1,6,5,4,3,2) 
+ ] -&gt; [ v.1, v.2, v.3, v.4, v.5, v.6 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Embedding( P1, 2 );</span>
+[ (Z(5)^0)*()+(Z(5)^0)*(1,3,5)(2,4,6)+(Z(5)^0)*(1,5,3)(2,6,4), 
+  (Z(5)^0)*(1,2,3,4,5,6)+(Z(5)^0)*(1,4)(2,5)(3,6)+(Z(5)^0)*(1,6,5,4,3,2) ] -&gt; 
+[ v.7, v.8 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Projection( P1, 1 );</span>
+[ v.1, v.2, v.3, v.4, v.5, v.6, v.7, v.8 ] -&gt; 
+[ (Z(5)^0)*(), (Z(5)^0)*(1,2,3,4,5,6), (Z(5)^0)*(1,3,5)(2,4,6), 
+  (Z(5)^0)*(1,4)(2,5)(3,6), (Z(5)^0)*(1,5,3)(2,6,4), (Z(5)^0)*(1,6,5,4,3,2), 
+  &lt;zero&gt; of ..., &lt;zero&gt; of ... ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">P2 := SemidirectProductOfAlgebras( Q2, act2, A2 );</span>
+Q2 |X A2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Embedding( P2, 1 );</span>
+[ v.1, v.2 ] -&gt; [ v.1, v.2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Embedding( P2, 2 );</span>
+[ [ [ 0, 1, 2, 3 ], [ 0, 0, 1, 2 ], [ 0, 0, 0, 1 ], [ 0, 0, 0, 0 ] ], 
+  [ [ 0, 0, 1, 4 ], [ 0, 0, 0, 1 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ] ], 
+  [ [ 0, 0, 0, 1 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ] ] ] -&gt; 
+[ v.3, v.4, v.5 ]
+
+</pre></div>
+
+<p><a id="X8536D21A80AFE08E" name="X8536D21A80AFE08E"></a></p>
+
+<h5>2.5-2 SemidirectProductOfAlgebrasInfo</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SemidirectProductOfAlgebrasInfo</code>( <var class="Arg">P</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>The <code class="code">SemidirectProductOfAlgebrasInfo(P)</code> for <span class="SimpleMath">\(P = R \ltimes S\)</span> is a record with fields <code class="code">P.action</code>; <code class="code">P.algebras</code>; <code class="code">P.embeddings</code>; and <code class="code">P.projections</code>.</p>
+
+<p><a id="X7960904E7A0536A8" name="X7960904E7A0536A8"></a></p>
+
+<h4>2.6 <span class="Heading">Lists of algebra homomorphisms</span></h4>
+
+<p><a id="X81C710788550185A" name="X81C710788550185A"></a></p>
+
+<h5>2.6-1 AllAlgebraHomomorphisms</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AllAlgebraHomomorphisms</code>( <var class="Arg">A</var>, <var class="Arg">B</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AllBijectiveAlgebraHomomorphisms</code>( <var class="Arg">A</var>, <var class="Arg">B</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AllIdempotentAlgebraHomomorphisms</code>( <var class="Arg">A</var>, <var class="Arg">B</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>These three operations list all the homomorphisms from <span class="SimpleMath">\(A\)</span> to <span class="SimpleMath">\(B\)</span> of the specified type. These lists can get very long, so the operations should only be used with small algebras.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A2c6 := GroupRing( GF(2), Group( (1,2,3,4,5,6) ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">R2c3 := GroupRing( GF(2), Group( (7,8,9) ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">homAR := AllAlgebraHomomorphisms( A2c6, R2c3 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( homAR, h -&gt; MappingGeneratorsImages(h) );</span>
+[ [ [ (Z(2)^0)*(1,6,5,4,3,2) ], [ &lt;zero&gt; of ... ] ], 
+  [ [ (Z(2)^0)*(1,6,5,4,3,2) ], [ (Z(2)^0)*() ] ], 
+  [ [ (Z(2)^0)*(1,6,5,4,3,2) ], [ (Z(2)^0)*()+(Z(2)^0)*(7,8,9) ] ], 
+  [ [ (Z(2)^0)*(1,6,5,4,3,2) ], 
+      [ (Z(2)^0)*()+(Z(2)^0)*(7,8,9)+(Z(2)^0)*(7,9,8) ] ], 
+  [ [ (Z(2)^0)*(1,6,5,4,3,2) ], [ (Z(2)^0)*()+(Z(2)^0)*(7,9,8) ] ], 
+  [ [ (Z(2)^0)*(1,6,5,4,3,2) ], [ (Z(2)^0)*(7,8,9) ] ], 
+  [ [ (Z(2)^0)*(1,6,5,4,3,2) ], [ (Z(2)^0)*(7,8,9)+(Z(2)^0)*(7,9,8) ] ], 
+  [ [ (Z(2)^0)*(1,6,5,4,3,2) ], [ (Z(2)^0)*(7,9,8) ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">homRA := AllAlgebraHomomorphisms( R2c3, A2c6 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( homRA, h -&gt; MappingGeneratorsImages(h) );</span>
+[ [ [ (Z(2)^0)*(7,8,9) ], [ &lt;zero&gt; of ... ] ], 
+  [ [ (Z(2)^0)*(7,8,9) ], [ (Z(2)^0)*() ] ], 
+  [ [ (Z(2)^0)*(7,8,9) ], [ (Z(2)^0)*()+(Z(2)^0)*(1,3,5)(2,4,6) ] ], 
+  [ [ (Z(2)^0)*(7,8,9) ], 
+      [ (Z(2)^0)*()+(Z(2)^0)*(1,3,5)(2,4,6)+(Z(2)^0)*(1,5,3)(2,6,4) ] ], 
+  [ [ (Z(2)^0)*(7,8,9) ], [ (Z(2)^0)*()+(Z(2)^0)*(1,5,3)(2,6,4) ] ], 
+  [ [ (Z(2)^0)*(7,8,9) ], [ (Z(2)^0)*(1,3,5)(2,4,6) ] ], 
+  [ [ (Z(2)^0)*(7,8,9) ], [ (Z(2)^0)*(1,3,5)(2,4,6)+(Z(2)^0)*(1,5,3)(2,6,4) ] 
+     ], [ [ (Z(2)^0)*(7,8,9) ], [ (Z(2)^0)*(1,5,3)(2,6,4) ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">bijAA := AllBijectiveAlgebraHomomorphisms( A2c6, A2c6 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( bijAA, h -&gt; MappingGeneratorsImages(h) );</span>
+[ [ [ (Z(2)^0)*(1,6,5,4,3,2) ], 
+      [ (Z(2)^0)*()+(Z(2)^0)*(1,3,5)(2,4,6)+(Z(2)^0)*(1,4)(2,5)(3,6) ] ], 
+  [ [ (Z(2)^0)*(1,6,5,4,3,2) ], 
+      [ (Z(2)^0)*()+(Z(2)^0)*(1,4)(2,5)(3,6)+(Z(2)^0)*(1,5,3)(2,6,4) ] ], 
+  [ [ (Z(2)^0)*(1,6,5,4,3,2) ], [ (Z(2)^0)*(1,2,3,4,5,6) ] ], 
+  [ [ (Z(2)^0)*(1,6,5,4,3,2) ], 
+      [ (Z(2)^0)*(1,2,3,4,5,6)+(Z(2)^0)*(1,3,5)(2,4,6)+(Z(2)^0)*(1,5,3)
+            (2,6,4) ] ], 
+  [ [ (Z(2)^0)*(1,6,5,4,3,2) ], 
+      [ (Z(2)^0)*(1,3,5)(2,4,6)+(Z(2)^0)*(1,5,3)(2,6,4)+(Z(2)^0)*
+            (1,6,5,4,3,2) ] ], 
+  [ [ (Z(2)^0)*(1,6,5,4,3,2) ], [ (Z(2)^0)*(1,6,5,4,3,2) ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ideAA := AllIdempotentAlgebraHomomorphisms( A2c6, A2c6 );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length( ideAA );</span>
+14
+
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

@@ -1,0 +1,481 @@
+  
+  [1X4 [33X[0;0YCrossed modules[133X[101X
+  
+  [33X[0;0YIn this chapter we will present the notion of crossed modules of commutative
+  algebras and their implementation in this package.[133X
+  
+  
+  [1X4.1 [33X[0;0YDefinition and Examples[133X[101X
+  
+  [33X[0;0YA  [13Xcrossed  module[113X  is  a  [12Xk[112X-algebra morphism [22XmathcalX:=(∂:S→ R)[122X with a left
+  action of [22XR[122X on [22XS[122X satisfying[133X
+  
+  
+  [24X[33X[0;6Y{\bf  XModAlg\  1}  ~:~  \partial(r  \cdot  s)  = r(\partial s), \qquad {\bf
+  XModAlg\ 2} ~:~ (\partial s) \cdot s^{\prime} = ss^{\prime},[133X
+  
+  [124X
+  
+  [33X[0;0Yfor  all  [22Xs,s^'  ∈  S,  r∈  R[122X.  The morphism [22X∂[122X is called the [13Xboundary map[113X of
+  [22XmathcalX[122X[133X
+  
+  [33X[0;0YNote  that,  although  in this definition we have used a left action, in the
+  category of commutative algebras left and right actions coincide.[133X
+  
+  [33X[0;0YWhen  only  the first axiom is satisfied, it is a [13Xprecrossed module[113X which is
+  constructed.[133X
+  
+  [33X[0;0YThe details of these implementations can be found in [Oda09].[133X
+  
+  [1X4.1-1 XModAlgebra[101X
+  
+  [33X[1;0Y[29X[2XXModAlgebra[102X( [3Xargs[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XPreXModAlgebra[102X( [3Xargs[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XIsXModAlgebra[102X( [3XX0[103X ) [32X property[133X
+  [33X[1;0Y[29X[2XIsPreXModAlgebra[102X( [3XX0[103X ) [32X property[133X
+  
+  [33X[0;0YThese  two  global  function  call  one  of  the  following  six operations,
+  depending  on the arguments supplied. The two properties listed are assigned
+  as appropriate to the resulting structures.[133X
+  
+  [1X4.1-2 XModAlgebraByIdeal[101X
+  
+  [33X[1;0Y[29X[2XXModAlgebraByIdeal[102X( [3XA[103X, [3XI[103X ) [32X operation[133X
+  
+  [33X[0;0YLet  [22XA[122X  be  an  algebra and [22XI[122X an ideal of [22XA[122X. Then [22XmathcalX = (inc:I→ A)[122X is a
+  crossed  module  whose  action is left multiplication of [22XA[122X on [22XI[122X. Conversely,
+  given  a  crossed module [22XmathcalX = (∂ : S → R)[122X, it is the case that [22X∂(S)[122X is
+  an ideal of [22XR[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XF5 := GF(5);;[127X[104X
+    [4X[25Xgap>[125X [27Xid5 := One( F5 );;[127X[104X
+    [4X[25Xgap>[125X [27Xtwo := Z(5);; [127X[104X
+    [4X[25Xgap>[125X [27Xz5 := Zero( F5 );; [127X[104X
+    [4X[25Xgap>[125X [27Xn0 := [ [id5,z5,z5], [z5,id5,z5], [z5,z5,id5] ];; [127X[104X
+    [4X[25Xgap>[125X [27Xn1 := [ [z5,id5,two^3], [z5,z5,id5], [z5,z5,z5] ];;[127X[104X
+    [4X[25Xgap>[125X [27Xn2 := [ [z5,z5,id5], [z5,z5,z5], [z5,z5,z5] ];; [127X[104X
+    [4X[25Xgap>[125X [27XAn := Algebra( F5, [ n0, n1 ] );; [127X[104X
+    [4X[25Xgap>[125X [27XSetName( An, "An" ); [127X[104X
+    [4X[25Xgap>[125X [27XBn := Subalgebra( An, [ n1 ] );; [127X[104X
+    [4X[25Xgap>[125X [27XSetName( Bn, "Bn" ); [127X[104X
+    [4X[25Xgap>[125X [27XIsIdeal( An, Bn ); [127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xactn := AlgebraActionByMultipliers( An, Bn, An );; [127X[104X
+    [4X[25Xgap>[125X [27XXn := XModAlgebraByIdeal( An, Bn ); [127X[104X
+    [4X[28X[ Bn -> An ][128X[104X
+    [4X[25Xgap>[125X [27XSetName( Xn, "Xn" ); [127X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X4.1-3 AugmentationXMod[101X
+  
+  [33X[1;0Y[29X[2XAugmentationXMod[102X( [3XA[103X ) [32X attribute[133X
+  
+  [33X[0;0YAs   a   special   case   of   the   previous   operation,   the   attribute
+  [10XAugmentationXMod(A)[110X  of  a  group algebra [22XA[122X is the [10XXModAlgebraByIdeal[110X formed
+  using the [10XAugmentationIdeal[110X of the group algebra.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XAk4 := GroupRing( GF(5), DihedralGroup(4) );[127X[104X
+    [4X[28X<algebra-with-one over GF(5), with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27XSize( Ak4 );[127X[104X
+    [4X[28X625[128X[104X
+    [4X[25Xgap>[125X [27XSetName( Ak4, "GF5[k4]" );[127X[104X
+    [4X[25Xgap>[125X [27XIAk4 := AugmentationIdeal( Ak4 );[127X[104X
+    [4X[28X<two-sided ideal in GF5[k4], (2 generators)>[128X[104X
+    [4X[25Xgap>[125X [27XSize( IAk4 );[127X[104X
+    [4X[28X125[128X[104X
+    [4X[25Xgap>[125X [27XSetName( IAk4, "I(GF5[k4])" );[127X[104X
+    [4X[25Xgap>[125X [27XXIAk4 := XModAlgebraByIdeal( Ak4, IAk4 );[127X[104X
+    [4X[28X[ I(GF5[k4]) -> GF5[k4] ][128X[104X
+    [4X[25Xgap>[125X [27XDisplay( XIAk4 );[127X[104X
+    [4X[28XCrossed module [I(GF5[k4])->GF5[k4]] :- [128X[104X
+    [4X[28X: Source algebra I(GF5[k4]) has generators:[128X[104X
+    [4X[28X  [ (Z(5)^2)*<identity> of ...+(Z(5)^0)*f1, (Z(5)^2)*<identity> of ...+(Z(5)^[128X[104X
+    [4X[28X    0)*f2 ][128X[104X
+    [4X[28X: Range algebra GF5[k4] has generators:[128X[104X
+    [4X[28X  [ (Z(5)^0)*<identity> of ..., (Z(5)^0)*f1, (Z(5)^0)*f2 ][128X[104X
+    [4X[28X: Boundary homomorphism maps source generators to:[128X[104X
+    [4X[28X  [ (Z(5)^2)*<identity> of ...+(Z(5)^0)*f1, (Z(5)^2)*<identity> of ...+(Z(5)^[128X[104X
+    [4X[28X    0)*f2 ][128X[104X
+    [4X[25Xgap>[125X [27XSize2d( XIAk4 );[127X[104X
+    [4X[28X[ 125, 625 ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X4.1-4 Source[101X
+  
+  [33X[1;0Y[29X[2XSource[102X( [3XX0[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XRange[102X( [3XX0[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XBoundary[102X( [3XX0[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XXModAlgebraAction[102X( [3XX0[103X ) [32X attribute[133X
+  
+  [33X[0;0YThese  four  attributes  are  used  in  the construction of a crossed module
+  [22XmathcalX[122X where:[133X
+  
+  [30X    [33X[0;6Y[10XSource(X)[110X  and  [10XRange(X)[110X  are the [13Xsource[113X and the [13Xrange[113X of the boundary
+        map respectively;[133X
+  
+  [30X    [33X[0;6Y[10XBoundary(X)[110X is the boundary map of the crossed module [22XmathcalX[122X;[133X
+  
+  [30X    [33X[0;6Y[10XXModAlgebraAction(X)[110X is the action used in the crossed module. This is
+        an  algebra  homomorphism from [10XRange(X)[110X to an algebra of endomorphisms
+        of [10XSource(X)[110X.[133X
+  
+  [33X[0;0YThe following standard [5XGAP[105X operations have special [5XXModAlg[105X implementations:[133X
+  
+  [30X    [33X[0;6Y[10XDisplay(X)[110X is used to list the components of [22XmathcalX[122X;[133X
+  
+  [30X    [33X[0;6Y[10XSize2d(X)[110X  for a crossed module [22XmathcalX[122X returns a [22X2[122X-element list, the
+        sizes of the source and range,[133X
+  
+  [30X    [33X[0;6Y[10XDimension(X)[110X  for  a crossed module [22XmathcalX[122X returns a [22X2[122X-element list,
+        the dimensions of the source and range,[133X
+  
+  [30X    [33X[0;6Y[10XName(X)[110X  is  used  for giving a name to the crossed module [22XmathcalX[122X by
+        associating the names of source and range algebras.[133X
+  
+  [33X[0;0YIn the following example, we construct a crossed module by using the algebra
+  [22XGF_5D_4[122X  and  its  augmentation  ideal. We also show usage of the attributes
+  listed above.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XRepresentationsOfObject( XIAk4 );[127X[104X
+    [4X[28X[ "IsComponentObjectRep", "IsAttributeStoringRep", "IsPreXModAlgebraObj" ][128X[104X
+    [4X[25Xgap>[125X [27XKnownPropertiesOfObject( XIAk4 );[127X[104X
+    [4X[28X[ "CanEasilyCompareElements", "CanEasilySortElements", "IsDuplicateFree", [128X[104X
+    [4X[28X  "IsLeftActedOnByDivisionRing", "IsAdditivelyCommutative", "IsLDistributive",[128X[104X
+    [4X[28X  "IsRDistributive", "IsPreXModDomain", "Is2dAlgebraObject", [128X[104X
+    [4X[28X  "IsPreXModAlgebra", "IsXModAlgebra" ][128X[104X
+    [4X[25Xgap>[125X [27XKnownAttributesOfObject( XIAk4 );[127X[104X
+    [4X[28X[ "Name", "LeftActingDomain", "Range", "Source", "Boundary", "Size2d", [128X[104X
+    [4X[28X  "XModAlgebraAction" ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X4.1-5 XModAlgebraByMultiplierAlgebra[101X
+  
+  [33X[1;0Y[29X[2XXModAlgebraByMultiplierAlgebra[102X( [3XA[103X ) [32X operation[133X
+  
+  [33X[0;0YWhen  [22XA[122X  is an algebra with multiplier algebra [22XM[122X, then the map [22XA -> M, ~ a ↦
+  μ_a[122X  is the boundary of a crossed module in which the action is the identity
+  map on [22XM[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XXAn := XModAlgebraByMultiplierAlgebra( An );[127X[104X
+    [4X[28X[ An -> <algebra of dimension 3 over GF(5)> ][128X[104X
+    [4X[25Xgap>[125X [27XXModAlgebraAction( XAn );[127X[104X
+    [4X[28XIdentityMapping( <algebra of dimension 3 over GF(5)> )[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X4.1-6 XModAlgebraBySurjection[101X
+  
+  [33X[1;0Y[29X[2XXModAlgebraBySurjection[102X( [3Xf[103X ) [32X operation[133X
+  
+  [33X[0;0YLet  [22X∂  : S→ R[122X be a surjective algebra homomorphism whose kernel lies in the
+  annihilator  of  [22XS[122X.  Define the action of [22XR[122X on [22XS[122X by [22Xr⋅ s = widetilders[122X where
+  [22Xwidetilder  ∈  ∂^-1(r)[122X,  as  described  in section [2XAlgebraActionBySurjection[102X
+  ([14X2.2-3[114X).  Then  [22XmathcalX=(∂  :  S→  R)[122X  is a crossed module with the defined
+  action.[133X
+  
+  [33X[0;0YContinuing with the example in that section,[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XX2 := XModAlgebraBySurjection( nat2 );; [127X[104X
+    [4X[25Xgap>[125X [27XDisplay( X2 ); [127X[104X
+    [4X[28XCrossed module [A2->Q2] :- [128X[104X
+    [4X[28X: Source algebra A2 has generators:[128X[104X
+    [4X[28X  [ [ [ 0, 1, 2, 3 ], [ 0, 0, 1, 2 ], [ 0, 0, 0, 1 ], [ 0, 0, 0, 0 ] ] ][128X[104X
+    [4X[28X: Range algebra Q2 has generators:[128X[104X
+    [4X[28X  [ v.1, v.2 ][128X[104X
+    [4X[28X: Boundary homomorphism maps source generators to:[128X[104X
+    [4X[28X  [ v.1 ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X4.1-7 XModAlgebraByBoundaryAndAction[101X
+  
+  [33X[1;0Y[29X[2XXModAlgebraByBoundaryAndAction[102X( [3Xbdy[103X, [3Xact[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XPreXModAlgebraByBoundaryAndAction[102X( [3Xbdy[103X, [3Xact[103X ) [32X operation[133X
+  
+  [33X[0;0YWhen   a  suitable  pair  of  algebra  homomorphisms  are  available,  these
+  operations  may  be  used.  The  example  uses the algebra action created in
+  section [14X2.2-4[114X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xbdy3 := AlgebraHomomorphismByImages( Rc3, A3, [ g3 ], [ m3 ] );[127X[104X
+    [4X[28X[ (1)*(1,2,3) ] -> [ [ [ 0, 1, 0 ], [ 0, 0, 1 ], [ 1, 0, 0 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XX3 := XModAlgebraByBoundaryAndAction( bdy3, actg3 );[127X[104X
+    [4X[28X[ GR(c3) -> A3 ][128X[104X
+    [4X[25Xgap>[125X [27XDisplay( X3 );[127X[104X
+    [4X[28XCrossed module [GR(c3) -> A3] :- [128X[104X
+    [4X[28X: Source algebra GR(c3) has generators:[128X[104X
+    [4X[28X  [ (1)*(), (1)*(1,2,3) ][128X[104X
+    [4X[28X: Range algebra A3 has generators:[128X[104X
+    [4X[28X  [ [ [ 0, 1, 0 ], [ 0, 0, 1 ], [ 1, 0, 0 ] ] ][128X[104X
+    [4X[28X: Boundary homomorphism maps source generators to:[128X[104X
+    [4X[28X  [ [ [ 1, 0, 0 ], [ 0, 1, 0 ], [ 0, 0, 1 ] ], [128X[104X
+    [4X[28X  [ [ 0, 1, 0 ], [ 0, 0, 1 ], [ 1, 0, 0 ] ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X4.1-8 XModAlgebraByModule[101X
+  
+  [33X[1;0Y[29X[2XXModAlgebraByModule[102X( [3Xalg[103X, [3Xleftmod[103X ) [32X operation[133X
+  
+  [33X[0;0YLet  [22XM[122X  be  an [22XA[122X-module. Then [22XmathcalX = (0 : A(M) → A)[122X is a crossed module,
+  where  [22XA(M)[122X  is  [22XM[122X  considered as an algebra with zero products (see section
+  [14X2.3-1[114X). The example uses the action [10Xact3[110X constructed in section [14X2.3-4[114X.[133X
+  
+  [33X[0;0YConversely,  given  a  crossed module [22XmathcalX = (∂ :M→ R)[122X, one can get that
+  [22Xker∂[122X is a [22X(R/∂ M)[122X-module.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XY3 := XModAlgebraByModule( A3, M3 );[127X[104X
+    [4X[28X[ A(M3) -> A3 ][128X[104X
+    [4X[25Xgap>[125X [27XImage( XModAlgebraAction( Y3 ), m3 ) = Image( act3, m3 ); [127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XDisplay( Y3 );[127X[104X
+    [4X[28XCrossed module [A(M3) -> A3] :- [128X[104X
+    [4X[28X: Source algebra A(M3) has generators:  [ [[ 1, 0, 0 ]], [[ 0, 1, 0 ]], [128X[104X
+    [4X[28X  [[ 0, 0, 1 ]] ][128X[104X
+    [4X[28X: Range algebra A3 has generators:  [128X[104X
+    [4X[28X[ [ [ 0, 1, 0 ], [ 0, 0, 1 ], [ 1, 0, 0 ] ] ][128X[104X
+    [4X[28X: Boundary homomorphism maps source generators to:[128X[104X
+    [4X[28X[ [ [ 0, 0, 0 ], [ 0, 0, 0 ], [ 0, 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0, 0 ], [ 0, 0, 0 ], [ 0, 0, 0 ] ], [128X[104X
+    [4X[28X  [ [ 0, 0, 0 ], [ 0, 0, 0 ], [ 0, 0, 0 ] ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X4.1-9 SubXModAlgebra[101X
+  
+  [33X[1;0Y[29X[2XSubXModAlgebra[102X( [3Xalg[103X, [3Xsrc[103X, [3Xrng[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XIsSubXModAlgebra[102X( [3Xalg[103X, [3Xsub[103X ) [32X operation[133X
+  
+  [33X[0;0YA  crossed  module  [22XmathcalX^' = (∂ ^' :S^'→ R^' )[122X is a subcrossed module of
+  the  crossed module [22XmathcalX = (∂ :S→ R)[122X if [22XS^' ≤ S[122X, [22XR^'≤ R[122X, [22X∂^' = ∂|_S^' }[122X,
+  and  the  action  of  [22XS^'[122X  on  [22XR^'[122X  is  induced by the action of [22XR[122X on [22XS[122X. The
+  operation [10XSubXModAlgebra[110X is used to construct a subcrossed module of a given
+  crossed module.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xe4 := Elements( IAk4 )[4];[127X[104X
+    [4X[28X(Z(5)^0)*<identity> of ...+(Z(5)^0)*f1+(Z(5)^2)*f2+(Z(5)^2)*f1*f2[128X[104X
+    [4X[25Xgap>[125X [27XJe4 := Ideal( IAk4, [e4] );;[127X[104X
+    [4X[25Xgap>[125X [27XSetName( Je4, "<e4>" );[127X[104X
+    [4X[25Xgap>[125X [27XKe4 := Subalgebra( Ak4, [e4] );;[127X[104X
+    [4X[25Xgap>[125X [27X[ Size( Je4 ), Size( Ke4 ) ];[127X[104X
+    [4X[28X[ 5, 5 ][128X[104X
+    [4X[25Xgap>[125X [27XSe4 := SubXModAlgebra( XIAk4, Je4, Ke4 );[127X[104X
+    [4X[28X[ <e4> -> <algebra of dimension 1 over GF(5)> ][128X[104X
+    [4X[25Xgap>[125X [27XIsSubXModAlgebra( XIAk4, Se4 ); [127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XDisplay( Se4 );[127X[104X
+    [4X[28XCrossed module [<e4> -> ..] :- [128X[104X
+    [4X[28X: Source algebra <e4> has generators:  [128X[104X
+    [4X[28X[ (Z(5)^0)*<identity> of ...+(Z(5)^0)*f1+(Z(5)^2)*f2+(Z(5)^2)*f1*f2 ][128X[104X
+    [4X[28X: Range algebra has generators:  [128X[104X
+    [4X[28X[ (Z(5)^0)*<identity> of ...+(Z(5)^0)*f1+(Z(5)^2)*f2+(Z(5)^2)*f1*f2 ][128X[104X
+    [4X[28X: Boundary homomorphism maps source generators to:[128X[104X
+    [4X[28X[ (Z(5)^0)*<identity> of ...+(Z(5)^0)*f1+(Z(5)^2)*f2+(Z(5)^2)*f1*f2 ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.2 [33X[0;0Y(Pre-)Crossed Module Morphisms[133X[101X
+  
+  [33X[0;0YLet  [22XmathcalX  = (∂:S→ R)[122X and [22XmathcalX^' = (∂^' :S^' → R^' )[122X be (pre)crossed
+  modules and let [22Xθ :S→ S^'[122X, [22Xφ : R→ R^'[122X be algebra homomorphisms. Then if[133X
+  
+  
+  [24X[33X[0;6Y\varphi  \circ  \partial  =  \partial ^{\prime } \circ \theta, \qquad \theta
+  (r\cdot s)=\varphi(r) \cdot \theta (s),[133X
+  
+  [124X
+  
+  [33X[0;0Yfor  all  [22Xr∈ R[122X, [22Xs∈ S,[122X the pair [22X(θ ,φ )[122X is called a morphism between [22XmathcalX[122X
+  and [22XmathcalX^'[122X[133X
+  
+  [33X[0;0YThe  conditions  can  be  thought  as  the  commutativity  of  the following
+  diagrams:[133X
+  
+  
+  [24X[33X[0;6Y\xymatrix@R=40pt@C=40pt{  S  \ar[d]_{\partial} \ar[r]^{\theta} & S^{\prime }
+  \ar[d]^{\partial^{\prime  }}  \\  R \ar[r]_{\varphi} & R^{\prime } } \ \ \ \
+  \xymatrix@R=40pt@C=40pt{  R \times S \ar[d] \ar[r]^{ \varphi \times \theta }
+  &  R^{\prime  } \times S^{\prime } \ar[d] \\ S \ar[r]_{ \theta } & S^{\prime
+  }. }[133X
+  
+  [124X
+  
+  [33X[0;0YIn  [5XGAP[105X  we  define  the  morphisms  between  algebraic  structures  such as
+  cat[22X^1[122X-algebras and crossed modules and they are investigated by the function
+  [10XMake2dAlgebraMorphism[110X.[133X
+  
+  [1X4.2-1 XModAlgebraMorphism[101X
+  
+  [33X[1;0Y[29X[2XXModAlgebraMorphism[102X( [3Xarg[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XIdentityMapping[102X( [3XXalg[103X ) [32X method[133X
+  [33X[1;0Y[29X[2XPreXModAlgebraMorphismByHoms[102X( [3Xsrc[103X, [3Xrng[103X, [3Xsrchom[103X, [3Xrnghom[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XXModAlgebraMorphismByHoms[102X( [3Xsrc[103X, [3Xrng[103X, [3Xsrchom[103X, [3Xrnghom[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XIsPreXModAlgebraMorphism[102X( [3Xmor[103X ) [32X property[133X
+  [33X[1;0Y[29X[2XIsXModAlgebraMorphism[102X( [3Xmor[103X ) [32X property[133X
+  [33X[1;0Y[29X[2XSource[102X( [3Xmor[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XRange[102X( [3Xmor[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XIsTotal[102X( [3Xmor[103X ) [32X method[133X
+  [33X[1;0Y[29X[2XIsSingleValued[102X( [3Xm0r[103X ) [32X method[133X
+  [33X[1;0Y[29X[2XName[102X( [3Xmor[103X ) [32X method[133X
+  
+  [33X[0;0YThese  operations construct crossed module homomorphisms, which may have the
+  attributes listed.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xc4 := CyclicGroup( 4 );;[127X[104X
+    [4X[25Xgap>[125X [27XAc4 := GroupRing( GF(2), c4 );[127X[104X
+    [4X[28X<algebra-with-one over GF(2), with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27XSetName( Ac4, "GF2[c4]" );[127X[104X
+    [4X[25Xgap>[125X [27XIAc4 := AugmentationIdeal( Ac4 );[127X[104X
+    [4X[28X<two-sided ideal in GF2[c4], (dimension 3)>[128X[104X
+    [4X[25Xgap>[125X [27XSetName( IAc4, "I(GF2[c4])" );[127X[104X
+    [4X[25Xgap>[125X [27XXIAc4 := XModAlgebra( Ac4, IAc4 );[127X[104X
+    [4X[28X[ I(GF2[c4]) -> GF2[c4] ][128X[104X
+    [4X[25Xgap>[125X [27XBk4 := GroupRing( GF(2), SmallGroup( 4, 2 ) );[127X[104X
+    [4X[28X<algebra-with-one over GF(2), with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27XSetName( Bk4, "GF2[k4]" );[127X[104X
+    [4X[25Xgap>[125X [27XIBk4 := AugmentationIdeal( Bk4 );[127X[104X
+    [4X[28X<two-sided ideal in GF2[k4], (dimension 3)>[128X[104X
+    [4X[25Xgap>[125X [27XSetName( IBk4, "I(GF2[k4])" );[127X[104X
+    [4X[25Xgap>[125X [27XXIBk4 := XModAlgebra( Bk4, IBk4 );[127X[104X
+    [4X[28X[ I(GF2[k4]) -> GF2[k4] ][128X[104X
+    [4X[25Xgap>[125X [27XIAc4 = IBk4;[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XhomIAIB := AllAlgebraHomomorphisms( IAc4, IBk4 );; [127X[104X
+    [4X[25Xgap>[125X [27Xtheta := homIAIB[3];; [127X[104X
+    [4X[25Xgap>[125X [27XhomAB := AllAlgebraHomomorphisms( Ac4, Bk4 );;[127X[104X
+    [4X[25Xgap>[125X [27Xphi := homAB[7];; [127X[104X
+    [4X[25Xgap>[125X [27Xmor := XModAlgebraMorphism( XIAc4, XIBk4, theta, phi );[127X[104X
+    [4X[28X[[I(GF2[c4])->GF2[c4]] => [I(GF2[k4])->GF2[k4]]][128X[104X
+    [4X[25Xgap>[125X [27XDisplay( mor );[127X[104X
+    [4X[28X[128X[104X
+    [4X[28XMorphism of crossed modules :- [128X[104X
+    [4X[28X: Source = [I(GF2[c4])->GF2[c4]][128X[104X
+    [4X[28X:  Range = [I(GF2[k4])->GF2[k4]][128X[104X
+    [4X[28X: Source Homomorphism maps source generators to:[128X[104X
+    [4X[28X  [ <zero> of ..., (Z(2)^0)*<identity> of ...+(Z(2)^0)*f1+(Z(2)^0)*f2+(Z(2)^[128X[104X
+    [4X[28X    0)*f1*f2, (Z(2)^0)*<identity> of ...+(Z(2)^0)*f1+(Z(2)^0)*f2+(Z(2)^[128X[104X
+    [4X[28X    0)*f1*f2 ][128X[104X
+    [4X[28X: Range Homomorphism maps range generators to:[128X[104X
+    [4X[28X  [ (Z(2)^0)*<identity> of ..., (Z(2)^0)*f1+(Z(2)^0)*f2+(Z(2)^0)*f1*f2, [128X[104X
+    [4X[28X  (Z(2)^0)*<identity> of ... ][128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XIsTotal( mor );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XIsSingleValued( mor );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X4.2-2 Kernel[101X
+  
+  [33X[1;0Y[29X[2XKernel[102X( [3Xmor[103X ) [32X method[133X
+  
+  [33X[0;0YLet  [22X(θ,φ)  :  mathcalX  = (∂ : S → R) → mathcalX^' = (∂^' : S^' → R^')[122X be a
+  crossed module homomorphism. Then the crossed module[133X
+  
+  
+  [24X[33X[0;6Y\ker(\theta,\varphi) = (\partial| : \ker\theta \rightarrow \ker\varphi )[133X
+  
+  [124X
+  
+  [33X[0;0Yis  called the [13Xkernel[113X of [22X(θ,φ)[122X. Also, [22Xker(θ ,φ )[122X is an ideal of [22XmathcalX[122X. An
+  example is given below.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XXmor := Kernel( mor );[127X[104X
+    [4X[28X[ <algebra of dimension 2 over GF(2)> -> <algebra of dimension 2 over GF(2)> ][128X[104X
+    [4X[25Xgap>[125X [27XIsXModAlgebra( Xmor );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XSize2d( Xmor );[127X[104X
+    [4X[28X[ 4, 4 ][128X[104X
+    [4X[25Xgap>[125X [27XIsSubXModAlgebra( XIAc4, Xmor );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X4.2-3 Image[101X
+  
+  [33X[1;0Y[29X[2XImage[102X( [3Xmor[103X ) [32X operation[133X
+  
+  [33X[0;0YLet  [22X(θ,φ)  :  mathcalX  = (∂ : S → R) → mathcalX^' = (∂^' : S^' → R^')[122X be a
+  crossed module homomorphism. Then the crossed module[133X
+  
+  
+  [24X[33X[0;6Y\Im(\theta,\varphi)    =   (\partial^{\prime}|   :   \Im\theta   \rightarrow
+  \Im\varphi)[133X
+  
+  [124X
+  
+  [33X[0;0Yis  called  the  image  of  [22X(θ,φ)[122X. Further, [22Xℑ(θ,φ)[122X is a subcrossed module of
+  [22X(S^',R^',∂^')[122X.[133X
+  
+  [33X[0;0YIn  this package, the image of a crossed module homomorphism can be obtained
+  by  the  command  [10XImagesSource[110X.  The operation [10XSub2dAlgObject[110X is effectively
+  used  for  finding the kernel and image crossed modules induced from a given
+  crossed module homomorphism.[133X
+  
+  [1X4.2-4 SourceHom[101X
+  
+  [33X[1;0Y[29X[2XSourceHom[102X( [3Xmor[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XRangeHom[102X( [3Xmor[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XIsInjective[102X( [3Xmor[103X ) [32X property[133X
+  [33X[1;0Y[29X[2XIsSurjective[102X( [3Xmor[103X ) [32X property[133X
+  [33X[1;0Y[29X[2XIsBijjective[102X( [3Xmor[103X ) [32X property[133X
+  
+  [33X[0;0YLet [22X(θ,φ)[122X be a homomorphism of crossed modules. If the homomorphisms [22Xθ[122X and [22Xφ[122X
+  are injective (surjective) then [22X(θ,φ)[122X is injective (surjective).[133X
+  
+  [33X[0;0YThe  attributes [10XSourceHom[110X and [10XRangeHom[110X store the two algebra homomorphisms [22Xθ[122X
+  and [22Xφ[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xic4 := One( Ac4 );;                                      [127X[104X
+    [4X[25Xgap>[125X [27Xe1 := ic4*c4.1 + ic4*c4.2;[127X[104X
+    [4X[28X(Z(2)^0)*f1+(Z(2)^0)*f2[128X[104X
+    [4X[25Xgap>[125X [27XImageElm( theta, e1 );  [127X[104X
+    [4X[28X(Z(2)^0)*<identity> of ...+(Z(2)^0)*f1+(Z(2)^0)*f2+(Z(2)^0)*f1*f2[128X[104X
+    [4X[25Xgap>[125X [27Xe2 := ic4*c4.1;[127X[104X
+    [4X[28X(Z(2)^0)*f1[128X[104X
+    [4X[25Xgap>[125X [27XImageElm( phi, e2 );[127X[104X
+    [4X[28X(Z(2)^0)*f1+(Z(2)^0)*f2+(Z(2)^0)*f1*f2[128X[104X
+    [4X[25Xgap>[125X [27XIsInjective( mor );[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XIsSurjective( mor );[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27Ximmor := ImagesSource2DimensionalMapping( mor );;[127X[104X
+    [4X[25Xgap>[125X [27XDisplay( immor );[127X[104X
+    [4X[28X[128X[104X
+    [4X[28XCrossed module [..->..] :- [128X[104X
+    [4X[28X: Source algebra has generators:[128X[104X
+    [4X[28X  [ (Z(2)^0)*<identity> of ...+(Z(2)^0)*f1+(Z(2)^0)*f2+(Z(2)^0)*f1*f2 ][128X[104X
+    [4X[28X: Range algebra has generators:[128X[104X
+    [4X[28X  [ (Z(2)^0)*f1+(Z(2)^0)*f2+(Z(2)^0)*f1*f2, (Z(2)^0)*<identity> of ... ][128X[104X
+    [4X[28X: Boundary homomorphism maps source generators to:[128X[104X
+    [4X[28X  [ (Z(2)^0)*<identity> of ...+(Z(2)^0)*f1+(Z(2)^0)*f2+(Z(2)^0)*f1*f2 ][128X[104X
+    [4X[28X[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  

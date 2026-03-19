@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<TitlePage>
+  <Title>
+    LinearAlgebraForCAP
+  </Title>
+  <Subtitle>
+    Category of Matrices over a Field for CAP
+  </Subtitle>
+  <Version>
+    2026.02-01
+  </Version>
+  <Author>
+    Sebastian Gutsche<Alt Only="LaTeX"><Br/></Alt>
+<Address>
+Department Mathematik<Br/>
+Universität Siegen<Br/>
+Walter-Flex-Straße 3<Br/>
+57068 Siegen<Br/>
+Germany<Br/>
+</Address>
+<Email>sebastian.gutsche@gmail.com</Email>
+<Homepage>https://sebasguts.github.io/</Homepage>
+
+  </Author>
+  <Author>
+    Sebastian Posur<Alt Only="LaTeX"><Br/></Alt>
+<Address>
+Department Mathematik<Br/>
+Universität Siegen<Br/>
+Walter-Flex-Straße 3<Br/>
+57068 Siegen<Br/>
+Germany<Br/>
+</Address>
+<Email>sebastian.posur@uni-muenster.de</Email>
+<Homepage>https://sebastianpos.github.io</Homepage>
+
+  </Author>
+  <Author>
+    Fabian Zickgraf<Alt Only="LaTeX"><Br/></Alt>
+<Address>
+Walter-Flex-Str. 3<Br/>
+57068 Siegen<Br/>
+Germany<Br/>
+</Address>
+<Email>f.zickgraf@dashdos.com</Email>
+<Homepage>https://github.com/zickgraf/</Homepage>
+
+  </Author>
+  <Date>
+    11 February 2026
+  </Date>
+  </TitlePage>

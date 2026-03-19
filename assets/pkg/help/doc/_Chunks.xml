@@ -1,0 +1,989 @@
+<#GAPDoc Label="Intro">
+ The purpose of this package is to provide functionalities to
+ work with torsion units in (integral) group rings.  It implements a 
+ method that was developed by I.S. Luthar and I.B.S. Passi in <Cite Key="LP"/> and which was
+ extended by M. Hertweck in <Cite Key="HertweckBrauer"/>. These names also constitute the name
+ of the method, suggested by O. Konovalov: <Emph>He</Emph>rtweck-<Emph>L</Emph>uthar-<Emph>P</Emph>assi.
+ The theory behind the method is briefly described in Chapter <Ref Chap='Chapter_Background'/>
+ and also in the survey article <Cite Key="BaMaHeLPArticle"/>.  <P/>
+<P/>
+ The package uses the software 4ti2 <Cite Key="4ti2"/> and/or normaliz 
+ <Cite Key="Normaliz"/> and hence is only properly working
+ on systems which have at least one of the two installed. Some functions though work without any of the two and they are available even if none of the packages 4ti2Interface or NormalizInterface can be loaded. normaliz
+ is usually automatically installed with the GAP-package NormalizInterface,
+ see the documentation of that package for details.
+ For more information on 4ti2 and to download it, please visit
+ <URL Text="4ti2.github.io">https://4ti2.github.io</URL>. 
+ To interact with these external software the package makes use of the
+ 4ti2-Interface and normaliz-Interface written by S. Gutsche, C. Söger and M. Horn. 
+ The 4ti2-Interface in turn uses the package IO, that needs a C-part to be compiled;
+ see the readme-file or the documentation of the IO-package for details.
+ The package also provides the possibility to use redund from the lrslib software <Cite Key="lrslib"/>,
+ to remove redundant inequalities before solving the system, which might speed up the computations
+ significantly when 4ti2 is used.  However, it is not a requirement to have lrslib installed.
+ If the above mentioned preconditions are fulfilled, one just has to copy the HeLP-package in the GAP pkg-directory.
+ Now the package can be loaded by typing <K>LoadPackage("HeLP");</K> during a GAP-session.
+ If the HeLP-package doesn't work properly on your computer, you might want to check Section 
+ <Ref Sect='Chapter_Remarks_on_technical_problems_and_the_implementation_Section_Making_the_HeLP-package_run'/>
+ for some trouble shooting.
+
+<#/GAPDoc>
+<#GAPDoc Label="ZCExample">
+<Example><![CDATA[
+gap> G := AlternatingGroup(5);
+Alt( [ 1 .. 5 ] )
+gap> HeLP_ZC(G);
+true
+gap> C := CharacterTable("A5");
+CharacterTable( "A5" )
+gap> HeLP_ZC(C);
+true
+gap> HeLP_sol;
+[ [ [ [ 1 ] ] ], [ [ [ 1 ] ] ], [ [ [ 1 ] ] ],, 
+  [ [ [ 0, 1 ] ], [ [ 1, 0 ] ] ], [  ],,,, [  ],,,,, [  ],,,,,,,,,,,,,,, [  ] 
+ ]
+gap> HeLP_PrintSolution(); 
+Solutions for elements of order 2:
+[ [         u ],
+  [  [ "2a" ] ],
+  [       --- ],
+  [     [ 1 ] ] ]
+Solutions for elements of order 3:
+[ [         u ],
+  [  [ "3a" ] ],
+  [       --- ],
+  [     [ 1 ] ] ]
+Solutions for elements of order 5:
+[ [               u ],
+  [  [ "5a", "5b" ] ],
+  [             --- ],
+  [        [ 0, 1 ] ],
+  [        [ 1, 0 ] ] ]
+There are no admissible partial augmentations for elements of order 6.
+There are no admissible partial augmentations for elements of order 10.
+There are no admissible partial augmentations for elements of order 15.
+There are no admissible partial augmentations for elements of order 30.
+]]></Example>
+
+
+  This is the classical example of Luthar and Passi to verify the Zassenhaus
+  Conjecture for the alternating group of degree 5, cf. <Cite Key="LP"/>.
+  In the first call of <K>HeLP_ZC</K> this is checked using the character table computed
+  by GAP using the given group, the second call uses the character table from the
+  character table library.
+  The entries of <K>HeLP_sol</K> are 
+<List>
+<Item>
+lists with entries 0 and 1 (at the spots 1, 2, 3 and 5, which correspond to torsion units that are conjugate to group elements),
+</Item>
+<Item>
+empty lists (at the spots 6, 10, 15 and 30, stating that there are no admissible partial augmentations for these orders),
+</Item>
+<Item>
+or are not bound (these orders were not checked as they don't divide the exponent of the group).
+</Item>
+</List>
+<P/>
+ The function <Ref Func='HeLP_PrintSolution'/> can be used to display the result in a pretty way.
+<Example><![CDATA[
+gap> C := CharacterTable( "A6" );
+CharacterTable( "A6" )
+gap> SetInfoLevel(HeLP_Info, 2);
+gap> HeLP_ZC(C);
+#I  Checking order 2.
+#I  Checking order 3.
+#I  Checking order 4.
+#I  Checking order 5.
+#I  Checking order 6.
+#I  Checking order 10.
+#I  Checking order 12.
+#I  Checking order 15.
+#I  Checking order 20.
+#I  Checking order 30.
+#I  Checking order 60.
+#I  ZC can't be solved, using the given data, for the orders: [ 6 ].
+false
+gap> HeLP_sol[6];                                          
+[ [ [ 1 ], [ 0, 1 ], [ -2, 2, 1 ] ], [ [ 1 ], [ 1, 0 ], [ -2, 1, 2 ] ] ]
+gap> HeLP_PrintSolution(6);                                
+Solutions for elements of order 6:
+[ [                   u^3,                   u^2,                     u ],
+  [              [ "2a" ],        [ "3a", "3b" ],  [ "2a", "3a", "3b" ] ],
+  [                   ---,                   ---,                   --- ],
+  [                 [ 1 ],              [ 0, 1 ],          [ -2, 2, 1 ] ],
+  [                 [ 1 ],              [ 1, 0 ],          [ -2, 1, 2 ] ] ]
+gap> SetInfoLevel(HeLP_Info, 1);
+]]></Example>
+
+
+  This is the example M. Hertweck deals with in his article <Cite Key="HerA6"/>.  The HeLP-method is not
+  sufficient to verify the Zassenhaus Conjecture for this group.  There are two tuples of
+  possible partial augmentations for torsion units of order 6 which are admissible by the HeLP method.
+  M. Hertweck used a different argument to eliminate these possibilities.
+<Example><![CDATA[
+gap> G := SmallGroup(48,30);;
+gap> StructureDescription(G);
+"A4 : C4"
+gap> HeLP_ZC(G);
+#I  ZC can't be solved, using the given data, for the orders: [ 4 ].
+false
+gap> Size(HeLP_sol[4]);
+10
+]]></Example>
+
+
+  The group SmallGroup(48,30) is the smallest group for which the HeLP method does not suffice to prove the Zassenhaus Conjecture. However
+  (ZC) was proved for this group in <Cite Key="HoefertKimmerle"/>, Proposition 4.2.
+<Example><![CDATA[
+gap> C1 := CharacterTable(SymmetricGroup(5));
+CharacterTable( Sym( [ 1 .. 5 ] ) )
+gap> HeLP_ZC(C1);
+#I  The Brauer tables for the following primes are not available: [ 2, 3, 5 ].
+#I  ZC can't be solved, using the given data, for the orders: [ 4, 6 ].
+false
+gap> C2 := CharacterTable("S5");
+CharacterTable( "A5.2" )
+gap> HeLP_ZC(C2); 
+true
+]]></Example>
+
+
+ This example demonstrates the advantage of using the GAP character table library: Since GAP can't
+ compute the Brauer tables from the ordinary table of <Math>S_5</Math> in the current implementation, they are not used
+ in the first calculation. But in the second 
+ calculation <K>HeLP_ZC</K> accesses the Brauer tables from the library and can prove the Zassenhaus 
+ Conjecture for this group, see <Cite Key="HertweckBrauer"/>, Section 5.  This example might of course change
+ as soon as GAP will be able to compute the needed Brauer tables.
+<Example><![CDATA[
+gap> C := CharacterTable("M11");
+CharacterTable( "M11" )
+gap> HeLP_ZC(C);
+#I  ZC can't be solved, using the given data, for the orders: [ 4, 6, 8 ].
+false
+gap> HeLP_sol[12];
+[  ]
+gap> HeLP_PrintSolution(8);
+Solutions for elements of order 8:
+[ [      u^4,                         u^2,                           u ],
+  [ [ "2a" ],              [ "2a", "4a" ],  [ "2a", "4a", "8a", "8b" ] ],
+  [      ---,                         ---,                         --- ],
+  [    [ 1 ],                    [ 0, 1 ],              [ 0, 0, 0, 1 ] ],
+  [    [ 1 ],                    [ 0, 1 ],              [ 0, 0, 1, 0 ] ],
+  [    [ 1 ],                    [ 0, 1 ],             [ 0, 2, -1, 0 ] ],
+  [    [ 1 ],                    [ 0, 1 ],             [ 0, 2, 0, -1 ] ],
+  [    [ 1 ],                   [ 2, -1 ],              [ 0, 0, 0, 1 ] ],
+  [    [ 1 ],                   [ 2, -1 ],              [ 0, 0, 1, 0 ] ],
+  [    [ 1 ],                   [ 2, -1 ],             [ 0, 2, -1, 0 ] ],
+  [    [ 1 ],                   [ 2, -1 ],             [ 0, 2, 0, -1 ] ] ]
+]]></Example>
+
+
+ Comparing this example to the result in <Cite Key="KonovalovM11"/> one sees, that the existence of elements
+ of order 12 in <Math>\mathrm{V}(\mathbb{Z}M_{11})</Math> may not be eliminated using only the HeLP method.
+ This may be done however by applying also the Wagner test, cf. Section <Ref Sect='Chapter_Background_Section_The_Wagner_test'/> and the example for the function <Ref Func='HeLP_WagnerTest'/>.<P/>
+ This example also demonstrates, why also the partial augmentations of the powers of <Math>u</Math> must be stored (and not only the partial augmentations of <Math>u</Math>).
+ To prove that all elements of order <Math>8</Math> in <Math>\mathrm{V}(\mathbb{Z}M_{11})</Math> are rationally conjugate to group elements, it is not 
+ enough to prove that all elements <Math>u</Math> of order <Math>8</Math> in <Math>\mathrm{V}(\mathbb{Z}M_{11})</Math> have all partial augmentations <Math>1</Math> and <Math>0</Math>, as
+ the fifth and sixth possibility from above still could exist in <Math>\mathrm{V}(\mathbb{Z}M_{11})</Math>, which would not be rationally conjugate to group elements.
+<Example><![CDATA[
+gap> G := SmallGroup(144, 117);
+<pc group of size 144 with 6 generators>
+gap> HeLP_ZC(G);
+true
+]]></Example>
+
+
+ This seems to contradict the result of <Cite Key="BaHeKoMaSi"/>. This is due to the fact that the HeLP-package, from version 4.0 on, does include
+ additional restrictions on partial augmentations, in particular a result of Hertweck on p-adic conjugacy which is relevant for this group,
+ cf. Section <Ref Sect='Chapter_Background_Section_Partial_augmentations_and_the_structure_of_HeLP_sol'/>. 
+
+<#/GAPDoc>
+<#GAPDoc Label="PQExample">
+<Example><![CDATA[
+gap> C := CharacterTable("A7");
+CharacterTable( "A7" )
+gap> HeLP_PQ(C);
+true
+]]></Example>
+
+
+ The Prime Graph Question for the alternating group of degree 7 was first proved by M. Salim <Cite Key="SalimA7A8"/>.
+<Example><![CDATA[
+gap> C := CharacterTable("L2(19)");
+CharacterTable( "L2(19)" )
+gap> HeLP_PQ(C);                   
+true
+gap> HeLP_ZC(C);
+#I  (ZC) can't be solved, using the given data, for the orders: [ 10 ].
+false
+gap> HeLP_sol[10];
+[ [ [ 1 ], [ 0, 1 ], [ 0, -1, 1, 0, 1 ] ], 
+  [ [ 1 ], [ 0, 1 ], [ 0, 0, 0, 1, 0 ] ], 
+  [ [ 1 ], [ 1, 0 ], [ 0, 0, 0, 0, 1 ] ], 
+  [ [ 1 ], [ 1, 0 ], [ 0, 1, -1, 1, 0 ] ] ]
+]]></Example>
+
+
+ The HeLP method provides an affirmative answer to the Prime Graph Question
+ for the group L2(19), although the method doesn't solve the Zassenhaus Conjecture for that
+ group, as there are two sets  of possible partial augmentations for units of order 10 left, which do not correspond
+ to elements which are rationally conjugate to group elements. The Zassenhaus Conjecture for this group is proved in <Cite Key="BaMaM10"/>.
+<Example><![CDATA[
+gap> C1 := CharacterTable(PSL(2,7));                                  
+CharacterTable( Group([ (3,7,5)(4,8,6), (1,2,6)(3,4,8) ]) )
+gap> HeLP_PQ(C1);
+#I  The Brauer tables for the following primes are not available: [ 2, 3, 7 ].
+#I  PQ can't be solved, using the given data, for the orders: [ 6 ].
+false
+gap> C2 := CharacterTable("L2(7)");  
+CharacterTable( "L3(2)" )
+gap> HeLP_PQ(C2);                  
+true
+]]></Example>
+
+
+ This example demonstrates the advantage of using tables from the GAP character table library: Since GAP can not
+ compute the Brauer tables corresponding to <K>C1</K> they are not used in the first calculation. But in the second 
+ calculation <K>HeLP_PQ</K> accesses the Brauer tables from the library and can prove the Prime
+ Graph Question for this group, see <Cite Key="HertweckBrauer"/>, Section 6. This example might change, 
+ as soon as GAP will be able to compute the Brauer tables needed.
+<Example><![CDATA[
+gap> SetInfoLevel(HeLP_Info,2);
+gap> C := CharacterTable("A6");
+CharacterTable( "A6" )
+gap> HeLP_PQ(C);
+#I  Checking order 2.
+#I  Checking order 3.
+#I  Checking order 5.
+#I  Checking order 6.
+#I  Checking order 10.
+#I  Checking order 15.
+#I  PQ can't be solved, using the given data, for the orders: [ 6 ].
+false
+gap> SetInfoLevel(HeLP_Info,1);
+]]></Example>
+
+
+ The Prime Graph Question can not be confirmed for the alternating group of degree 6 with the HeLP-method.
+ This group is handled in <Cite Key="HerA6"/> by other means.
+<Example><![CDATA[
+gap> C := CharacterTable("L2(49)");
+CharacterTable( "L2(49)" )
+gap> HeLP_PQ(C);
+#I  The Brauer tables for the following primes are not available: [ 7 ].
+#I  (PQ) can't be solved, using the given data, for the orders: [ 10, 15 ].
+false
+]]></Example>
+
+
+ This example shows the limitations of the program. Using the Brauer table for the prime 7 one can prove (PQ) for PSL(2,49), but this data is not available in GAP at the moment.
+ The fact that there are no torsion units of order 10 and 15 was proved in <Cite Key="HertweckBrauer"/>, Proposition 6.7. See also the example in Section <Ref Sect='Chapter_Extended_examples_Section_Non-standard_characters'/>. The other critical orders were handled in a more general context in <Cite Key="BaMa4prI"/>.
+
+<#/GAPDoc>
+<#GAPDoc Label="SPExample">
+ The Prime Graph Question for the first Janko group was studied in <Cite Key="BJK"/> and solved positively using the HeLP-method. We note that this is not possible for the Spectrum Problem.
+<Example><![CDATA[
+gap> C := CharacterTable("J1");
+CharacterTable( "J1" )
+gap> HeLP_PQ(C);
+true
+gap> HeLP_SP(C);
+#I  (SP) can't be solved, using the given data, for the orders: [ 30 ].
+false
+]]></Example>
+
+
+ The Spectrum Problem is still known to have a positive answer for the first Janko group by <Cite Key="BachleMargolisExamplesToMethods"/>, Proposition 3.8.
+
+<#/GAPDoc>
+<#GAPDoc Label="KPExample">
+<Example><![CDATA[
+gap> G := SmallGroup(216, 33);
+<pc group of size 216 with 6 generators>
+gap> HeLP_ZC(G);
+#I  (ZC) can't be solved, using the given data, for the orders: [ 12 ].
+false
+gap> HeLP_KP(G);
+true
+gap> C := CharacterTable("L2(19)");
+CharacterTable( "L2(19)" )
+HeLP_ZC(C);
+#I  (ZC) can't be solved, using the given data, for the orders: [ 10 ].
+false
+gap> HeLP_KP(C);
+true
+gap> C := CharacterTable("A7");
+CharacterTable( "A7" )
+gap> HeLP_KP(C);
+#I  (KP) can't be solved, using the given data, for the orders: [ 4, 6 ].
+false
+gap> HeLP_sol[6];
+[ [ [ 1 ], [ 0, 1 ], [ -2, 2, 1, 0 ] ], [ [ 1 ], [ 0, 1 ], [ 0, 1, -1, 1 ] ], 
+  [ [ 1 ], [ 0, 1 ], [ 2, -1, 1, -1 ] ], [ [ 1 ], [ 1, 0 ], [ -2, 1, 2, 0 ] ], 
+  [ [ 1 ], [ 1, 0 ], [ 0, 0, 0, 1 ] ], [ [ 1 ], [ 1, 0 ], [ 2, 0, 0, -1 ] ] ]
+]]></Example>
+
+
+ We remark that units of order 6 are known to be rationally conjugate to trivial units by other methods <Cite Key="BachleMargolisExamplesToMethods"/>. 
+ For order 4 however, this remains open.
+
+<#/GAPDoc>
+<#GAPDoc Label="GOExample">
+<Example><![CDATA[
+gap> C := CharacterTable("A5");
+CharacterTable( "A5" )
+gap> HeLP_WithGivenOrder(C, 5);
+#I  Number of solutions for elements of order 5: 2; stored in HeLP_sol[5].
+[ [ [ 0, 1 ] ], [ [ 1, 0 ] ] ]
+gap> HeLP_PrintSolution(5);
+Solutions for elements of order 5:
+[ [               u ],.
+  [  [ "5a", "5b" ] ],
+  [             --- ],
+  [        [ 0, 1 ] ],
+  [        [ 1, 0 ] ] ]
+]]></Example>
+
+
+ Tests which partial augmentations for elements of order 5 are admissible.
+<Example><![CDATA[
+gap> C := CharacterTable("A6");
+CharacterTable( "A6" )
+gap> HeLP_WithGivenOrder(C, 4);
+#I  Number of solutions for elements of order 4: 4; stored in HeLP_sol[4].
+[ [ [ 1 ], [ -1, 2 ] ], [ [ 1 ], [ 2, -1 ] ], [ [ 1 ], [ 1, 0 ] ], 
+  [ [ 1 ], [ 0, 1 ] ] ]
+gap> HeLP_sol[4];              
+[ [ [ 1 ], [ -1, 2 ] ], [ [ 1 ], [ 2, -1 ] ], [ [ 1 ], [ 1, 0 ] ], 
+  [ [ 1 ], [ 0, 1 ] ] ]
+]]></Example>
+
+
+ Two of the non-trivial partial augmentations can be eliminated by using the 
+ Brauer table modulo the prime <Math>3</Math>:
+<Example><![CDATA[
+gap> HeLP_WithGivenOrder(C mod 3, 4);                                                                    
+#I  Number of solutions for elements of order 4: 2; stored in HeLP_sol[4].
+[ [ [ 1 ], [ 1, 0 ] ], [ [ 1 ], [ 0, 1 ] ] ]
+]]></Example>
+
+
+ When using <K>HeLP_ZC</K> also the last remaining non-trivial partial augmentation disappears,
+ as this function applies the Wagner test, cf. <Ref Sect='Chapter_Background_Section_The_Wagner_test'/> and <Ref Func='HeLP_WagnerTest'/>:
+<Example><![CDATA[
+gap> HeLP_ZC(C);               
+#I  ZC can't be solved, using the given data, for the orders: [ 6 ].
+false
+gap> HeLP_sol[4]; HeLP_sol[6];
+[ [ [ 1 ], [ 0, 1 ] ] ]
+[ [ [ 1 ], [ 0, 1 ], [ -2, 2, 1 ] ], [ [ 1 ], [ 1, 0 ], [ -2, 1, 2 ] ] ]
+]]></Example>
+
+
+ The following example demonstrates how one can use lists of characters to 
+ obtain constraints for partial augmentations:
+<Example><![CDATA[
+gap> C := CharacterTable("L2(49).2_1");   
+CharacterTable( "L2(49).2_1" )
+gap> HeLP_WithGivenOrder(Irr(C), 7);;
+#I  Number of solutions for elements of order 7: 1; stored in HeLP_sol[7].
+gap> HeLP_WithGivenOrder(Irr(C){[2]}, 14);
+#I  The given data admit infinitely many solutions for elements of order 14.
+gap> HeLP_WithGivenOrder(Irr(C){[44]}, 14);
+#I  The given data admit infinitely many solutions for elements of order 14.
+gap> HeLP_WithGivenOrder(Irr(C){[2,44]}, 14);
+#I  Number of solutions for elements of order 14: 0; stored in HeLP_sol[14].
+[  ]
+]]></Example>
+
+
+ Brauer tables can provide more restrictions on partial augmentations of certain torsion units:
+<Example><![CDATA[
+gap> C := CharacterTable("J1");       
+CharacterTable( "J1" )
+gap> HeLP_WithGivenOrder(C, 6);;
+#I  Number of solutions for elements of order 6: 73; stored in HeLP_sol[6].
+gap> B := C mod 11;
+BrauerTable( "J1", 11 )
+gap> HeLP_WithGivenOrder(B, 6);;       
+#I  Number of solutions for elements of order 6: 6; stored in HeLP_sol[6].
+gap> HeLP_WithGivenOrder(Irr(B){[2,3]}, 6);;
+#I  Number of solutions for elements of order 6: 6; stored in HeLP_sol[6].
+gap> HeLP_PrintSolution(6);
+Solutions for elements of order 6:
+[ [                   u^3,                   u^2,                     u ],
+  [              [ "2a" ],              [ "3a" ],  [ "2a", "3a", "6a" ] ],
+  [                   ---,                   ---,                   --- ],
+  [                 [ 1 ],                 [ 1 ],          [ -2, 0, 3 ] ],
+  [                 [ 1 ],                 [ 1 ],          [ 2, 0, -1 ] ],
+  [                 [ 1 ],                 [ 1 ],           [ 0, 0, 1 ] ],
+  [                 [ 1 ],                 [ 1 ],          [ -4, 3, 2 ] ],
+  [                 [ 1 ],                 [ 1 ],          [ 0, 3, -2 ] ],
+  [                 [ 1 ],                 [ 1 ],          [ -2, 3, 0 ] ] ]
+]]></Example>
+
+
+ The result of the previous example can be found in <Cite Key="BJK"/>. The existence of such units was later excluded in <Cite Key="BachleMargolisExamplesToMethods"/>.  <P/>
+ When dealing with many variables using lists of characters instead of a complete character table might also speed up the calculations a lot,
+ see Section <Ref Sect='Chapter_Extended_examples_Section_Saving_time'/>.
+<Example><![CDATA[
+gap> C := CharacterTable("L2(27)");
+CharacterTable( "L2(27)" )
+gap> HeLP_WithGivenOrder(C,7);;
+#I  Number of solutions for elements of order 7: 78; stored in HeLP_sol[7].
+gap> SetInfoLevel(HeLP_Info,4);
+gap> HeLP_WithGivenOrder(C,3*7); 
+#I      Solutions for order 3 not yet calculated.  Restart for this order.
+#I  Number of solutions for elements of order 21: 0; stored in HeLP_sol[21].  
+[  ]
+gap> SetInfoLevel(HeLP_Info,1);
+]]></Example>
+
+
+ <K>HeLP_WithGivenOrder</K> often needs to consider many cases.  Set the info class HeLP_Info to a level 4 or higher to keep track
+ of the progress, see Section <Ref Sect='Chapter_Extended_examples_Section_Using_InfoLevels'/> on info levels. 
+
+<#/GAPDoc>
+<#GAPDoc Label="PAExample">
+<Example><![CDATA[
+gap> G := SmallGroup(48,33);; StructureDescription(G);
+"SL(2,3) : C2"
+gap> C := CharacterTable(G);;
+gap> HeLP_WithGivenOrder(C, 4);;
+#I  Number of solutions for elements of order 4: 4; stored in HeLP_sol[4].
+gap> HeLP_WithGivenOrder(C, 6);;
+#I  Number of solutions for elements of order 6: 2; stored in HeLP_sol[6].
+gap> HeLP_sol[4]; HeLP_sol[6];
+[ [ [ 1, 0 ], [ 0, 1, 0, 0, 0 ] ], [ [ 1, 0 ], [ 0, 0, 0, 0, 1 ] ], 
+  [ [ 1, 0 ], [ 0, 0, 0, 1, 0 ] ], [ [ 1, 0 ], [ 0, 0, 1, 0, 0 ] ] ]
+[ [ [ 1, 0 ], [ 0, 1 ], [ 0, 0, 0, 0, 1, 0 ] ], 
+  [ [ 1, 0 ], [ 1, 0 ], [ 0, 0, 0, 0, 0, 1 ] ] ]
+gap> HeLP_WithGivenOrderAndPA(C, 12, [ [ 1, 0 ],  [ 0, 1 ], [ 0, 0, 0, 0, 1 ],
+>     [ 0, 0, 0, 0, 1, 0 ] ]); 
+#I  Number of solutions for elements of order 12 with these partial augmentation
+s for the powers: 1.
+[ [ [ 1, 0 ], [ 0, 1 ], [ 0, 0, 0, 0, 1 ], [ 0, 0, 0, 0, 1, 0 ], 
+      [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 ] ] ]
+gap> HeLP_WithGivenOrderAndPA(C, 12, [ [ 1, 0 ],  [ 0, 1 ], [ 0, 0, 0, 1, 0 ],
+>     [ 0, 0, 0, 0, 1, 0 ] ]);
+#I  Number of solutions for elements of order 12 with these partial augmentation
+s for the powers: 0.
+[  ]
+]]></Example>
+
+
+ In the calls of <K>HeLP_WithGivenOrderAndPA</K> the function uses the following partial augmentations:
+<List>
+<Item>
+<K>[ 1, 0 ]</K> for the element <M>u^6</M> of order 2,
+</Item>
+<Item>
+<K>[ 0, 1 ]</K> for the element <M>u^4</M> of order 3,
+</Item>
+<Item>
+<K>[ 0, 0, 0, 0, 1 ]</K> and <K>[ 0, 0, 0, 1, 0 ]</K> for the element <M>u^3</M> of order 4 respectively,
+</Item>
+<Item>
+<K>[ 0, 0, 0, 0, 1, 0 ]</K> for the element <M>u^2</M> of order 6.
+</Item>
+</List>
+
+<#/GAPDoc>
+<#GAPDoc Label="PASSExample">
+<Example><![CDATA[
+gap> C := CharacterTable("A5");
+CharacterTable( "A5" )
+gap> chi := Irr(C)[2];; psi := Irr(C)[4];
+Character( CharacterTable( "A5" ), [ 4, 0, 1, -1, -1 ] )
+gap> HeLP_WithGivenOrderAndPAAndSpecificSystem([[chi, 1], [chi, 2]],
+>  5, [ ], true);
+[ [ [ [ 0, 1 ] ], [ [ 1, 0 ] ] ], [ [ -3/5, 2/5 ], [ 2/5, -3/5 ] ], [ 3/5, 3/5 ] ]
+gap> sol5 := HeLP_WithGivenOrderAndPAAndSpecificSystem([[chi, 1], [chi, 2]], 
+>  5, [ ]);      
+[ [ [ 0, 1 ] ], [ [ 1, 0 ] ] ]
+]]></Example>
+
+
+ The inequalities in the above examples are:
+ <Display>\frac{-3}{5}\varepsilon_{5a}(u) + \frac{2}{5}\varepsilon_{5b}(u) + \frac{3}{5} \in \mathbb{Z}_{\geq 0} \ \ {\rm{and}} \ \ \frac{2}{5}\varepsilon_{5a}(u) + \frac{-3}{5}\varepsilon_{5b}(u) + \frac{3}{5} \in \mathbb{Z}_{\geq 0}. </Display>
+ Continuing the above example:
+<Example><![CDATA[
+gap> HeLP_WithGivenOrderAndPAAndSpecificSystem([psi], 
+>  2*5, [[1], sol5[1][1]], true);     
+[ [  ], [ [ 0, -2/5, -2/5 ], [ 0, -1/10, -1/10 ], [ 0, 1/10, 1/10 ],
+ [ 0, -1/10, -1/10 ], [ 0, 1/10, 1/10 ], [ 0, 2/5, 2/5 ], 
+ [ 0, 1/10, 1/10 ], [ 0, -1/10, -1/10 ], [ 0, 1/10, 1/10 ], 
+[ 0, -1/10, -1/10 ] ], [ 0, 1/2, 1/2, 1/2, 1/2, 0, 1/2, 1/2, 1/2, 1/2 ] ]
+gap> HeLP_WithGivenOrderAndPAAndSpecificSystem([[psi, 0], [psi, 2], [psi, 5]], 
+>  2*5, [[1], sol5[2][1]], true); 
+[ [  ], [ [ 0, -2/5, -2/5 ], [ 0, 1/10, 1/10 ], [ 0, 2/5, 2/5 ] ], [ 0, 1/2, 0 ] ]
+]]></Example>
+
+
+
+<#/GAPDoc>
+<#GAPDoc Label="SCExample">
+<Example><![CDATA[
+gap> C := CharacterTable("A6");;
+gap> HeLP_WithGivenOrder(C, 6);            
+#I  Number of solutions for elements of order 6: 2; stored in HeLP_sol[6].
+[ [ [ 1 ], [ 0, 1 ], [ -2, 2, 1 ] ], [ [ 1 ], [ 1, 0 ], [ -2, 1, 2 ] ] ]
+gap> HeLP_WithGivenOrderSConstant(C, 2, 3);
+[ [ [ 0, 1 ], [ -2, 2, 1 ] ], [ [ 1, 0 ], [ -2, 1, 2 ] ] ]
+gap> HeLP_WithGivenOrderSConstant(C, 3, 2);     
+[ [ [ 1 ], [ 3, -2 ] ] ]
+]]></Example>
+
+
+<Example><![CDATA[
+gap> C := CharacterTable("Sz(8)");;
+gap> SetInfoLevel(HeLP_Info, 4);
+gap> HeLP_WithGivenOrderSConstant(C, 7, 13);
+#I    Partial augmentations for elements of order 13 not yet calculated.  Restar
+t for this order.
+#I    Number of non-trivial 7-constant characters in the list: 7.
+[  ]
+gap> SetInfoLevel(HeLP_Info, 1);
+]]></Example>
+
+
+ The last example can also be checked by using all characters in <K>C</K>, but this takes notably longer.
+<Example><![CDATA[
+gap> C := CharacterTable("Sz(32)");
+CharacterTable( "Sz(32)" )
+gap> L := Filtered(OrdersClassRepresentatives(C), x-> x = 31);; Size(L);
+15           # I.e. HeLP_WithGivenOrder(C,31) would take hopelessly long
+gap> HeLP_WithGivenOrderSConstant(C mod 2, 31, 5);
+[  ]
+gap> IsBound(HeLP_sol[31]);
+false 
+]]></Example>
+
+
+ We still have no clue about elements of order 31, but there are none of order 5*31.
+
+<#/GAPDoc>
+<#GAPDoc Label="AllOrdersExample">
+<Example><![CDATA[
+gap> C := CharacterTable(PSL(2,7));         
+CharacterTable( Group([ (3,7,5)(4,8,6), (1,2,6)(3,4,8) ]) )
+gap> HeLP_ZC(C);        
+#I  The Brauer tables for the following primes are not available: [ 2, 3, 7 ].
+#I  (ZC) can't be solved, using the given data, for the orders: [ 6 ].
+false
+gap> HeLP_sol[6] := [ ];
+[  ]
+gap> HeLP_AllOrders(C);
+true
+]]></Example>
+
+
+
+<#/GAPDoc>
+<#GAPDoc Label="AllOrdersExamplePQ">
+<Example><![CDATA[
+gap> C := CharacterTable("A12");
+CharacterTable( "A12" )
+gap> HeLP_WithGivenOrder(Irr(C){[2, 4, 7]}, 2);;
+#I  Number of solutions for elements of order 2: 37; stored in HeLP_sol[2].
+gap> HeLP_WithGivenOrderSConstant(C mod 3,11,2);
+[  ]
+gap> HeLP_WithGivenOrder(Irr(C mod 2){[2, 3, 4, 6]}, 3);;
+#I  Number of solutions for elements of order 3: 99; stored in HeLP_sol[3].
+gap> HeLP_WithGivenOrderSConstant(C mod 2, 11, 3);
+[  ]
+gap> HeLP_AllOrdersPQ(C);
+true
+]]></Example>
+
+
+ Thus the Prime Graph Question holds for the alternating group of degree 12. 
+ Just using <K>HeLP_PQ(C)</K> would take hopelessly long.
+
+<#/GAPDoc>
+<#GAPDoc Label="CCExample">
+ To keep track of the change of the character tables one can set HeLP_Info to level 5.
+ In this first example it is not realized that the character tables belong to the same group, so the
+ solutions for elements of order 2 are recalculated (they have been reset, as another character table
+ is used).
+<Example><![CDATA[
+gap> SetInfoLevel(HeLP_Info, 5);
+gap> C := CharacterTable(SymmetricGroup(4)); 
+CharacterTable( Sym( [ 1 .. 4 ] ) )
+gap> HeLP_WithGivenOrder(C mod 2, 3); 
+#I  USED CHARACTER TABLE CHANGED TO BrauerTable( SymmetricGroup( [ 1 .. 4 ] ), 2
+ ), ALL GLOBAL VARIABLES RESET.
+#I  Number of solutions for elements of order 3: 1; stored in HeLP_sol[3].
+[ [ [ 1 ] ] ]
+gap> HeLP_WithGivenOrder(C, 2*3);    
+#I  USED CHARACTER TABLE CHANGED TO CharacterTable( SymmetricGroup( [ 1 .. 4 ] )
+ ), ALL GLOBAL VARIABLES RESET.
+#I      Solutions for order 2 not yet calculated.  Restart for this order.
+#I      Solutions for order 3 not yet calculated.  Restart for this order.
+#I  Number of solutions for elements of order 6: 0; stored in HeLP_sol[6].
+[  ]
+]]></Example>
+
+
+ The recalculations of the solutions can be avoided by calling <K>HeLP_ChangeCharKeepSols</K>
+ before using another character table.
+<Example><![CDATA[
+gap> D := CharacterTable(SymmetricGroup(4));
+CharacterTable( Sym( [ 1 .. 4 ] ) )
+gap> HeLP_WithGivenOrder(D mod 2, 3);       
+#I  USED CHARACTER TABLE CHANGED TO BrauerTable( SymmetricGroup( [ 1 .. 4 ] ), 2
+ ), ALL GLOBAL VARIABLES RESET.
+#I  Number of solutions for elements of order 3: 1; stored in HeLP_sol[3].
+[ [ [ 1 ] ] ]
+gap> HeLP_ChangeCharKeepSols(D);
+#I  WARNING: Change used character table without checking if the character table
+s have the same underlying groups and the ordering of the conjugacy classes are 
+the same!
+gap> HeLP_WithGivenOrder(D, 2*3);    
+#I  Using same character table as until now; all known solutions kept.
+#I      Solutions for order 2 not yet calculated.  Restart for this order.
+#I  Number of solutions for elements of order 6: 0; stored in HeLP_sol[6].
+[  ]
+]]></Example>
+
+
+ When using tables from the ATLAS this is done automatically:
+<Example><![CDATA[
+gap> CA := CharacterTable("A5");
+CharacterTable( "A5" )
+gap> HeLP_WithGivenOrder(CA mod 2, 5);
+#I  USED CHARACTER TABLE CHANGED TO BrauerTable( "A5", 2 ), ALL GLOBAL VARIABLES
+ RESET.
+#I  Testing possibility 1 out of 1.
+#I  Number of solutions for elements of order 5: 2; stored in HeLP_sol[5].
+[ [ [ 0, 1 ] ], [ [ 1, 0 ] ] ]
+gap> HeLP_WithGivenOrder(CA, 2*5);    
+#I  Using character table of the same group; all known solutions kept.
+#I      Solutions for order 2 not yet calculated.  Restart for this order.
+#I  Number of solutions for elements of order 10: 0; stored in HeLP_sol[10].
+[  ]
+gap> SetInfoLevel(HeLP_Info, 1);
+]]></Example>
+
+
+
+<#/GAPDoc>
+<#GAPDoc Label="PRExample">
+  Sometimes it is desirable to perform calculations without redund (even if it is 
+  installed and in many cases improves the performance of the package) or with a higher
+  precision.
+  For example, determining the partial augmentations for units of order <Math>14</Math> for
+  <K>SmallGroup(392, 30)</K> involves very long calculations (when called with redund and precision 32)
+  or cause errors (when called without redund and precision 32).  However, the following works in a 
+  reasonable time.
+<Example><![CDATA[
+gap> C := CharacterTable(SmallGroup(392,30));
+CharacterTable( <pc group of size 392 with 5 generators> )
+gap> HeLP_Solver("4ti2");
+'4ti2' will be used from now on.
+gap> HeLP_UseRedund(false);
+The calculations will be performed without using 'redund' from now on.
+gap> HeLP_ZC(C);
+Error, 4ti2 Error:
+Results were near maximum precision (32bit).
+Please restart with higher precision!
+If you continue, your results might be wrong called from
+4ti2Interface_zsolve_equalities_and_inequalities( 
+ [ ListWithIdenticalEntries( Size( T[1] ), 1 ) ], [ 1 ], temp[1], - temp[2] 
+ ) called from
+HeLP_TestSystemINTERNAL( W[1], W[2], k, arg[3] ) called from
+HeLP_WithGivenOrderAndPAINTERNAL( C, k, pa ) called from
+HeLP_WithGivenOrderINTERNAL( Irr( T ), k ) called from
+<function "HeLP_ZC">( <arguments> )
+ called from read-eval loop at line 19 of *stdin*
+you can 'quit;' to quit to outer loop, or
+you can 'return;' to continue
+gap> brk> quit;
+#I  Options stack has been reset
+gap> HeLP_Change4ti2Precision("64");
+The calculations of 4ti2 will be performed with precision 64 from now on.
+gap> HeLP_ZC(C);
+true
+]]></Example>
+
+
+ The reproducibility of the above example depends on the versions of the progrmas involved and probably also your machine.
+
+<#/GAPDoc>
+<#GAPDoc Label="CSExample">
+<Example><![CDATA[
+gap> C := CharacterTable("A6");;
+gap> HeLP_WithGivenOrder(C, 4);
+#I  Number of solutions for elements of order 4: 4; stored in HeLP_sol[4].
+[ [ [ 1 ], [ -1, 2 ] ], [ [ 1 ], [ 2, -1 ] ], [ [ 1 ], [ 1, 0 ] ], 
+  [ [ 1 ], [ 0, 1 ] ] ]
+gap> HeLP_VerifySolution(C mod 3, 4);
+[ [ [ 1 ], [ 1, 0 ] ], [ [ 1 ], [ 0, 1 ] ] ]
+gap> HeLP_sol[4];
+[ [ [ 1 ], [ 1, 0 ] ], [ [ 1 ], [ 0, 1 ] ] ]
+]]></Example>
+
+
+<Example><![CDATA[
+gap> C := CharacterTable("S12");;
+gap> HeLP_WithGivenOrder(Irr(C mod 5){[2..6]}, 2);;
+#I  Number of solutions for elements of order 2: 563; stored in HeLP_sol[2].
+gap> HeLP_VerifySolution(C mod 5, 2);;
+gap> Size(HeLP_sol[2]);
+387
+gap> HeLP_VerifySolution(C mod 3, 2);;
+gap> Size(HeLP_sol[2]);
+324
+]]></Example>
+
+
+ Using <K>HeLP_WithGivenOrder(C mod 5, 2)</K> or <K>HeLP_WithGivenOrder(C mod 3, 2)</K> takes much longer
+ since in that case a bigger system of inequalities must be solved.
+
+<#/GAPDoc>
+<#GAPDoc Label="FCExample">
+
+<#/GAPDoc>
+<#GAPDoc Label="PPExample">
+<Example><![CDATA[
+gap> SetInfoLevel(HeLP_Info,4);
+gap> C := CharacterTable(SmallGroup(160,91));
+CharacterTable( <pc group of size 160 with 6 generators> )
+gap> HeLP_WithGivenOrder(C,4);;
+#I      Solutions for order 2 not yet calculated.  Restart for this order.
+#I  Number of solutions for elements of order 4: 22; stored in HeLP_sol[4].   
+gap> HeLP_WithGivenOrder(C,10);;
+#I      Solutions for order 5 not yet calculated.  Restart for this order.
+#I  Number of solutions for elements of order 10: 6; stored in HeLP_sol[10].  
+gap> LP := HeLP_PossiblePartialAugmentationsOfPowers(20);;
+gap> HeLP_WithGivenOrderAndPA(Irr(C){[2..20]},20,LP[1]);
+#I  Number of solutions for elements of order 20 with these partial augmentations
+ for the powers: 0.
+[  ]
+]]></Example>
+
+
+
+<#/GAPDoc>
+<#GAPDoc Label="TSExample">
+ With the character tables that are currently available in GAP, the Zassenhaus Conjecture
+ for elements of order <Math>4</Math> in <Math>\text{PSL}(2,49)</Math> cannot be solved. However it was proved in
+ <Cite Key="HertweckBrauer"/> using the Brauer table modulo <Math>7</Math>.
+<Example><![CDATA[
+gap> C := CharacterTable("L2(49)");
+CharacterTable( "L2(49)" )
+gap> HeLP_WithGivenOrder(C, 4);
+#I  Number of solutions for elements of order 4: 14; stored in HeLP_sol[4].
+[ [ [ 1 ], [ -6, 7 ] ], [ [ 1 ], [ -5, 6 ] ], [ [ 1 ], [ -4, 5 ] ], 
+  [ [ 1 ], [ -3, 4 ] ], [ [ 1 ], [ -2, 3 ] ], [ [ 1 ], [ -1, 2 ] ], 
+  [ [ 1 ], [ 0, 1 ] ], [ [ 1 ], [ 1, 0 ] ], [ [ 1 ], [ 2, -1 ] ], 
+  [ [ 1 ], [ 3, -2 ] ], [ [ 1 ], [ 4, -3 ] ], [ [ 1 ], [ 5, -4 ] ], 
+  [ [ 1 ], [ 6, -5 ] ], [ [ 1 ], [ 7, -6 ] ] ]
+gap> C mod 7;
+fail
+gap> HeLP_WriteTrivialSolution(C, 4);;
+gap> HeLP_sol[4];
+[ [ [ 1 ], [ 0, 1 ] ] ]
+]]></Example>
+
+
+
+<#/GAPDoc>
+<#GAPDoc Label="WTExample">
+<Example><![CDATA[
+gap> C := CharacterTable("M11");
+CharacterTable( "M11" )
+gap> HeLP_WithGivenOrder(C,8);;
+#I  Number of solutions for elements of order 8: 36; stored in HeLP_sol[8].
+gap> HeLP_sol[8] := HeLP_WagnerTest(8);;
+gap> Size(HeLP_sol[8]);
+24
+]]></Example>
+
+
+ Thus the Wagner-Test eliminates 12 possible partial augmentations for elements of order 8.
+ Continuing the example:
+<Example><![CDATA[
+gap> HeLP_WithGivenOrder(C,12);
+#I  Number of solutions for elements of order 12: 7; stored in HeLP_sol[12].
+[ [ [ 1 ], [ 1 ], [ 2, -1 ], [ 0, 3, -2 ], [ 1, 0, -1, 1 ] ], 
+  [ [ 1 ], [ 1 ], [ 1, 0 ], [ 0, 3, -2 ], [ 0, 0, 0, 1 ] ], 
+  [ [ 1 ], [ 1 ], [ -1, 2 ], [ 0, 3, -2 ], [ 0, 0, 2, -1 ] ], 
+  [ [ 1 ], [ 1 ], [ 0, 1 ], [ 0, 3, -2 ], [ 1, 0, 1, -1 ] ], 
+  [ [ 1 ], [ 1 ], [ 0, 1 ], [ 0, 3, -2 ], [ -1, 0, 1, 1 ] ], 
+  [ [ 1 ], [ 1 ], [ 1, 0 ], [ 0, -3, 4 ], [ 0, 0, 0, 1 ] ], 
+  [ [ 1 ], [ 1 ], [ -1, 2 ], [ 0, -3, 4 ], [ 1, 0, -1, 1 ] ] ]
+gap> HeLP_sol[12] := HeLP_WagnerTest(12);
+[ [ [ 1 ], [ 1 ], [ 1, 0 ], [ 0, 3, -2 ], [ 0, 0, 0, 1 ] ], 
+  [ [ 1 ], [ 1 ], [ -1, 2 ], [ 0, 3, -2 ], [ 0, 0, 2, -1 ] ], 
+  [ [ 1 ], [ 1 ], [ 1, 0 ], [ 0, -3, 4 ], [ 0, 0, 0, 1 ] ] ]
+gap> HeLP_sol[4] := HeLP_WagnerTest(4);;
+gap> HeLP_WithGivenOrder(C,12);
+#I  Number of solutions for elements of order 12: 3; stored in HeLP_sol[12].
+[ [ [ 1 ], [ 1 ], [ 2, -1 ], [ 0, 3, -2 ], [ 1, 0, -1, 1 ] ], 
+  [ [ 1 ], [ 1 ], [ 0, 1 ], [ 0, 3, -2 ], [ 1, 0, 1, -1 ] ], 
+  [ [ 1 ], [ 1 ], [ 0, 1 ], [ 0, 3, -2 ], [ -1, 0, 1, 1 ] ] ]
+gap> HeLP_sol[12] := HeLP_WagnerTest(12);
+[  ]
+]]></Example>
+
+
+ Thus there are no normalized units of order 12 in the integral group ring of <Math>M_{11}.</Math>
+<Example><![CDATA[
+gap> C := CharacterTable("M22");
+CharacterTable( "M22" )
+gap> HeLP_WagnerTest(12, [ [ [1], [1], [1,0], [0,0,1], [-3,3,2,3,-4] ] ],C);
+[  ]
+]]></Example>
+
+
+ This example is taken from the appendix of <Cite Key="KonovalovM22"/>.<P/>
+ Sometimes the Wagner-Test may even prove the Zassenhaus Conjecture:
+<Example><![CDATA[
+gap> G := SmallGroup(96,187);
+<pc group of size 96 with 6 generators>
+gap> C := CharacterTable(G);
+CharacterTable( <pc group of size 96 with 6 generators> )
+gap> HeLP_WithGivenOrder(C,4);;
+#I  Number of solutions for elements of order 4: 34; stored in HeLP_sol[4].
+gap> HeLP_WagnerTest(4);       
+[ [ [ 0, 0, 1, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 1 ] ],
+  [ [ 0, 0, 1, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 1, 0, 0 ] ],
+  [ [ 0, 1, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 1, 0, 0, 0 ] ], 
+  [ [ 0, 1, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 1, 0 ] ] ]
+gap> HeLP_ZC(C);
+true
+]]></Example>
+
+
+
+<#/GAPDoc>
+<#GAPDoc Label="AOExample">
+<Example><![CDATA[
+gap> C := CharacterTable("A6");;
+gap> HeLP_WithGivenOrder(C, 6);
+#I  Number of solutions for elements of order 6: 2; stored in HeLP_sol[6].
+[ [ [ 1 ], [ 0, 1 ], [ -2, 2, 1 ] ], [ [ 1 ], [ 1, 0 ], [ -2, 1, 2 ] ] ]
+gap> HeLP_AutomorphismOrbits(C, 6);
+[ [ [ 1 ], [ 0, 1 ], [ -2, 2, 1 ] ] ]
+]]></Example>
+
+
+
+<#/GAPDoc>
+<#GAPDoc Label="PSExample">
+<Example><![CDATA[
+gap> C := CharacterTable("A5");;
+gap> HeLP_ZC(C);          
+true
+gap> HeLP_PrintSolution();
+Solutions for elements of order 2:
+[ [         u ],
+  [  [ "2a" ] ],
+  [       --- ],
+  [     [ 1 ] ] ]
+Solutions for elements of order 3:
+[ [         u ],
+  [  [ "3a" ] ],
+  [       --- ],
+  [     [ 1 ] ] ]
+Solutions for elements of order 5:
+[ [               u ],
+  [  [ "5a", "5b" ] ],
+  [             --- ],
+  [        [ 0, 1 ] ],
+  [        [ 1, 0 ] ] ]
+There are no admissible partial augmentations for elements of order 6.
+There are no admissible partial augmentations for elements of order 10.
+There are no admissible partial augmentations for elements of order 15.
+There are no admissible partial augmentations for elements of order 30.
+gap> C := CharacterTable("A6");;
+gap> HeLP_ZC(C);           
+#I  ZC can't be solved, using the given data, for the orders: [ 6 ].
+false
+gap> HeLP_PrintSolution(6);
+Solutions for elements of order 6:
+[ [                   u^3,                   u^2,                     u ],
+  [              [ "2a" ],        [ "3a", "3b" ],  [ "2a", "3a", "3b" ] ],
+  [                   ---,                   ---,                   --- ],
+  [                 [ 1 ],              [ 0, 1 ],          [ -2, 2, 1 ] ],
+  [                 [ 1 ],              [ 1, 0 ],          [ -2, 1, 2 ] ] ]
+]]></Example>
+
+
+
+<#/GAPDoc>
+<#GAPDoc Label="EMCVExample">
+<Example><![CDATA[
+gap> C := CharacterTable("A6");;
+gap> HeLP_WithGivenOrder(C, 6);                               
+#I  Number of solutions for elements of order 6: 2; stored in HeLP_sol[6].
+[ [ [ 1 ], [ 0, 1 ], [ -2, 2, 1 ] ], [ [ 1 ], [ 1, 0 ], [ -2, 1, 2 ] ] ]
+gap> chi := Irr(C)[2];;   # a character of degree 5
+gap> HeLP_MultiplicitiesOfEigenvalues(chi, 6, HeLP_sol[6][2]);
+[ 1, 0, 1, 2, 1, 0 ]
+gap> HeLP_CharacterValue(chi, 6, HeLP_sol[6][2][3]);          
+-2
+gap> HeLP_CharacterValue(chi, 6, [-2,1,2]);
+-2
+gap> HeLP_CharacterValue(chi, 6, [-2,2,1]);
+1
+]]></Example>
+
+
+ These eigenvalues were computed manually by M. Hertweck and may be found in <Cite Key="HerA6"/>.
+
+<#/GAPDoc>
+<#GAPDoc Label="IOMNExample">
+<Example><![CDATA[
+gap> G := SmallGroup(144,117);
+<pc group of size 144 with 6 generators>
+gap> C := CharacterTable(G);
+CharacterTable( <pc group of size 144 with 6 generators> )
+gap> N := PCore(G, 3);
+Group([ f5, f6 ])
+gap> Size(N);
+9
+gap> HeLP_IsOneModuloN(C, 3, [1,0], G, N);
+true
+gap> HeLP_ZC(C);
+true
+]]></Example>
+
+
+ The fact that the unit of order 3 lies in the kernel of the map modulo <Math>N</Math> explains why <K>HeLP_ZC</K> produces a result different from the one
+ recorded in <Cite Key="BaHeKoMaSi"/>. Namely, the unit of order 6 described there has non-vanishing partial augmentations at classes of order 6 with non-conjugate
+ 3-parts, which contradicts the p-adic criterion of Hertweck <Cite Key="MargolisHertweck"/>, as the 3-part of the unit is trivial modulo the 3-core of the group.
+
+<#/GAPDoc>
+<#GAPDoc Label="FUGExample">
+ Continuing the previous example we see that the normal subgroup structure of the group is needed here to get a positive solution for (ZC).
+<Example><![CDATA[
+gap> CCop := HeLP_ForgetUnderlyingGroup(C);
+CharacterTable( "CT4" )
+gap> HeLP_ZC(CCop);
+#I  (ZC) can't be solved, using the given data, for the orders: [ 6 ].
+false
+]]></Example>
+
+
+
+<#/GAPDoc>
+<#GAPDoc Label="USKPExample">
+<Example><![CDATA[
+gap> C := CharacterTable("A7");
+CharacterTable( "A7" )
+gap> HeLP_ZC(C);
+#I  (ZC) can't be solved, using the given data, for the orders: [ 4, 6 ].
+false
+gap> HeLP_sol[4];
+[ [ [ 1 ], [ 0, 1 ] ], [ [ 1 ], [ 2, -1 ] ] ]
+gap> HeLP_UnitSatisfiesKP(C, 4, HeLP_sol[4][1]);
+true
+gap> HeLP_UnitSatisfiesKP(C, 4, HeLP_sol[4][2]);
+false
+]]></Example>
+
+
+
+<#/GAPDoc>

@@ -1,0 +1,200 @@
+<!-- ------------------------------------------------------------------- -->
+<!--                                                                     -->
+<!--  gpd2obj.xml           XMod documentation            Chris Wensley  -->
+<!--                                                                     -->
+<!--  Copyright (C) 2001-2025, Chris Wensley et al,                      --> 
+<!--                                                                     -->
+<!-- ------------------------------------------------------------------- -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Chapter Label="chap-gpd2o">
+
+<Heading>Crossed modules of groupoids</Heading>
+
+<Index>crossed module of groupoids</Index>
+
+The material documented in this chapter is experimental, 
+and is likely to be changed in due course. 
+
+<Section> 
+<Heading>Constructions for crossed modules of groupoids</Heading>
+
+<Index>crossed module over a groupoid</Index>
+<Index>2dimensional-domain with objects</Index>
+
+A typical example of a crossed module <M>\calX</M> 
+over a groupoid has for its range a connected groupoid. 
+This is a direct product of a group with a complete graph,
+and we call the vertices of the graph the <E>objects</E> 
+of the crossed module. 
+The source of <M>\calX</M> is a groupoid, with the same objects, 
+which is either discrete or connected.  
+The boundary morphism is constant on objects. 
+For details and other references see <Cite Key="AW2" />. 
+
+<ManSection>
+   <Oper Name="PreXModWithObjectsByBoundaryAndAction" 
+         Arg="bdy act" /> 
+<Description> 
+This is the groupoid generalisation of the operation
+<C>PreXModByBoundaryAndAction</C>.
+</Description>
+</ManSection>
+
+<ManSection>
+   <Oper Name="SinglePiecePreXModWithObjects" 
+         Arg="pxmod obs isdisc" /> 
+<Description> 
+At present the experimental operation <C>SinglePiecePreXModWithObjects</C> 
+accepts a precrossed module <C>pxmod</C>, a set of objects <C>obs</C>, 
+and a boolean <C>isdisc</C> which is <K>true</K> when the source groupoid 
+is homogeneous and discrete and <K>false</K> when the source groupoid 
+is connected.  
+Other operations will be added as time permits. 
+<P/> 
+In the example the crossed module <C>DX4</C> has discrete source, 
+while the crossed module <C>CX4</C> has connected source. 
+These are groupoid generalisations of <Ref Oper="XModByNormalSubgroup"/>
+and the example <C>X4</C> in <Ref Oper="NormalSubXMods"/>.
+<!-- ------------------------------------------------------------------- -->
+<!-- At one time I thought that:  These calculations are WRONG!          -->
+<!-- and:  Need more investigation of <C>XModAction</C>.                 -->
+<!-- but they do seem to be correct after all!                           -->
+<!-- ------------------------------------------------------------------- -->
+</Description>
+</ManSection>
+<P/>
+<Example>
+<![CDATA[
+gap> CX4 := SinglePiecePreXModWithObjects( X4, [-6,-5,-4], false );
+single piece precrossed module with objects
+  source groupoid:
+    single piece groupoid: < a4, [ -6, -5, -4 ] >
+  and range groupoid:
+    single piece groupoid: < s4, [ -6, -5, -4 ] >
+gap> SetName( CX4, "CX4" );
+gap> Ca4 := Source( CX4 );;  SetName( Ca4, "Ca4" );
+gap> Cs4 := Range( CX4 );;  SetName( Cs4, "Cs4" );
+gap> DX4 := SinglePiecePreXModWithObjects( X4, [-9,-8,-7], true );
+single piece precrossed module with objects
+  source groupoid:
+    homogeneous, discrete groupoid: < a4, [ -9, -8, -7 ] >
+  and range groupoid:
+    single piece groupoid: < s4, [ -9, -8, -7 ] >
+gap> SetName( DX4, "DX4" );
+gap> Da4 := Source( DX4 );;  SetName( Da4, "Da4" );
+gap> Ds4 := Range( DX4 );;  SetName( Ds4, "Ds4" );
+]]>
+</Example>
+
+<ManSection>
+   <Prop Name="IsXModWithObjects" 
+         Arg="pxmod" /> 
+   <Prop Name="IsPreXModWithObjects" 
+         Arg="pxmod" /> 
+<Description> 
+<Index>Is2DimensionalGroupWithObjects</Index> 
+The precrossed module <C>CX4</C> belongs to the category 
+<C>Is2DimensionalGroupWithObjects</C> and is, of course, a crossed module. 
+<P/> 
+</Description>
+</ManSection>
+<P/>
+<Example>
+<![CDATA[
+gap> Set( KnownPropertiesOfObject( CX4 ) );
+[ "CanEasilyCompareElements", "CanEasilySortElements", "IsAssociative", 
+  "IsDuplicateFree", "IsGeneratorsOfSemigroup", "IsPreXModWithObjects", 
+  "IsSinglePieceDomain", "IsXModWithObjects" ]
+]]>
+</Example>
+
+<ManSection>
+   <Prop Name="IsPermPreXModWithObjects" 
+         Arg="pxmod" /> 
+   <Prop Name="IsPcPreXModWithObjects" 
+         Arg="pxmod" /> 
+   <Prop Name="IsFpPreXModWithObjects" 
+         Arg="pxmod" /> 
+<Description> 
+To test these properties we test the precrossed modules from which 
+they were constructed. 
+<P/> 
+</Description>
+</ManSection>
+<P/>
+<Example>
+<![CDATA[
+gap> IsPermPreXModWithObjects( CX4 );
+true
+gap> IsPcPreXModWithObjects( CX4 );
+false
+gap> IsFpPreXModWithObjects( CX4 );
+false
+]]>
+</Example>
+
+<ManSection>
+   <Attr Name="Root2dGroup" 
+         Arg="pxmod" /> 
+   <Attr Name="XModAction" 
+         Arg="pxmod" Label="for crossed modules of groupoids" /> 
+<Description> 
+<Index>ObjectList</Index> 
+The attributes of a precrossed module with objects include the standard 
+<C>Source</C>; <C>Range</C>;
+<Ref Attr="Boundary" Label="for crossed modules"/>;
+and <Ref Meth="XModAction" Label="for crossed modules of groups"/>
+as with precrossed modules of groups. 
+There is also <C>ObjectList</C>, 
+as in the <Package>groupoids</Package> package. 
+Additionally there is <C>Root2dGroup</C> which is the underlying 
+precrossed module used in the construction. 
+<P/> 
+Note that <C>XModAction</C> is now a groupoid homomorphism 
+from the source groupoid to a one-object groupoid (with object <C>0</C>) 
+where the group is the automorphism group of the range groupoid. 
+<P/>
+</Description>
+</ManSection>
+<P/>
+<Example>
+<![CDATA[
+gap> Root2dGroup( CX4 );
+[a4->s4]
+gap> actC := XModAction( CX4 );;
+gap> Size( Range( actC ) );
+20736
+gap> r1 := Arrow( Cs4, (1,2,3,4), -4, -5 );;
+gap> ir1 := ImageElm( actC, r1 );
+[groupoid homomorphism : Ca4 -> Ca4
+[ [ [(1,2,3) : -6 -> -6], [(2,3,4) : -6 -> -6], [() : -6 -> -5], 
+      [() : -6 -> -4] ], 
+  [ [(2,3,4) : -4 -> -4], [(1,3,4) : -4 -> -4], [() : -4 -> -6], 
+      [() : -4 -> -5] ] ] : 0 -> 0]
+gap> s1 := Arrow( Ca4, (1,2,4), -5, -5 );;
+gap> ##  calculate s1^r1 
+gap> ims1 := ImageElmXModAction( CX4, s1, r1 );
+[(1,2,3) : -6 -> -6]
+gap> ## repeat using DX4
+gap> actD := XModAction( DX4 );;
+gap> SetName( Range( actD ), "autD" );
+gap> Size( Range( actD ) );
+82944
+gap> r2 := Arrow( Ds4, (1,2,3,4), -7, -8 );;
+gap> ImageElm( actD, r2 );
+[groupoid homomorphism : Da4 -> Da4
+ : 0 -> 0]
+gap> s2 := Arrow( Da4, (1,2,4), -8, -8 );;
+gap> ##  calculate s2^r2 
+gap> ims2 := ImageElmXModAction( DX4, s2, r2 );
+[(1,2,3) : -9 -> -9]
+]]>
+</Example>
+
+There is much more to be done with these constructions. 
+
+</Section>
+
+</Chapter>

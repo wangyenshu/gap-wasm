@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<#Include SYSTEM "_Chapter_The_PackageName_package.xml">
+<#Include SYSTEM "_Chapter_Mathematical_background.xml">
+<#Include SYSTEM "_Chapter_Twisted_conjugacy.xml">
+<#Include SYSTEM "_Chapter_Twisted_conjugacy_classes.xml">
+<#Include SYSTEM "_Chapter_Reidemeister_numbers_and_spectra.xml">
+<#Include SYSTEM "_Chapter_Reidemeister_zeta_and_generating_functions.xml">
+<#Include SYSTEM "_Chapter_Cosets_of_PcpGroups.xml">
+<#Include SYSTEM "_Chapter_Group_homomorphisms.xml">
+<#Include SYSTEM "_Chapter_Group_derivations.xml">
+<#Include SYSTEM "_Chapter_Affine_actions.xml">

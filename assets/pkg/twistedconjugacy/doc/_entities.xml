@@ -1,0 +1,18 @@
+<!ENTITY PackageName 'TwistedConjugacy'>
+<!ENTITY AutoDoc '<Package>AutoDoc</Package>'>
+<!ENTITY VERSION '3.2.0'>
+<!ENTITY RELEASEYEAR '2026'>
+<!ENTITY RELEASEDATE '11 February 2026'>
+<!ENTITY Polycyclic '<Package>Polycyclic</Package>'>
+<!ENTITY PackageManager '<Package>PackageManager</Package>'>
+<!ENTITY BibLaTeX 'Bib&LaTeX;'>
+<!ENTITY PACKAGENAME '<Package>TwistedConjugacy</Package>'>
+<!ENTITY ABBREV 'TC'>
+<!ENTITY AUTHOR 'Sam Tertooy'>
+<!ENTITY AUTHORREVERSED 'Tertooy, Sam'>
+<!ENTITY ARCHIVEURL 'https://github.com/stertooy/TwistedConjugacy/releases/download/v3.2.0/TwistedConjugacy-3.2.0'>
+<!ENTITY ISSUEURL 'https://github.com/stertooy/TwistedConjugacy/issues'>
+<!ENTITY HOMEURL 'https://stertooy.github.io/TwistedConjugacy'>
+<!ENTITY SUPPORTEMAIL 'sam.tertooy@kuleuven.be'>
+<!ENTITY SUBTITLE 'Computation with twisted conjugacy classes'>
+<!ENTITY TwistedConjugacy '<Package>TwistedConjugacy</Package>'>
