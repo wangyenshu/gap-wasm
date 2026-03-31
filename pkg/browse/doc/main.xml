@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE Book SYSTEM "gapdoc.dtd"
+   [ <!ENTITY Browse "<Package>Browse</Package>">
+     <!ENTITY XML "<Package>XML</Package>">
+   ]>
+
+<!-- Documentation of the Browse package. 
+     Copyright 2006-2026 by Thomas Breuer and Frank Lübeck
+     Lehrstuhl D für Mathematik, RWTH Aachen, Germany -->
+     
+<Book Name="Browse"> 
+
+<TitlePage>
+  <Title>&Browse;</Title>
+  <Version>( Version 
+<#Include SYSTEM "../version">
+ )
+  </Version>
+  <Author> Thomas Breuer
+    <Email>Thomas.Breuer@Math.RWTH-Aachen.De</Email>
+    <Homepage>https://www.math.rwth-aachen.de/~Thomas.Breuer</Homepage>
+  </Author>
+  <Author> Frank Lübeck 
+    <Email>Frank.Luebeck@Math.RWTH-Aachen.De</Email>
+    <Homepage>https://www.math.rwth-aachen.de/~Frank.Luebeck</Homepage>
+  </Author>
+  <Date>March 2026</Date>
+  <Copyright>
+    <Index>License</Index>
+    &copyright; 2006-2026 by Thomas Breuer and Frank Lübeck <P/>
+    This package may be distributed under the terms and conditions of the
+    GNU Public License Version 3 or later,
+    see <URL>http://www.gnu.org/licenses</URL>.
+  </Copyright>
+</TitlePage>
+
+<TableOfContents/>
+
+<Body>
+
+<#Include SYSTEM "intro.xml">
+
+<#Include SYSTEM "curses.xml">
+
+<#Include SYSTEM "util.xml">
+
+<#Include SYSTEM "browse.xml">
+
+<#Include SYSTEM "appl.xml">
+
+
+</Body>
+
+<#Include SYSTEM "brdbattr.xml">
+
+<Bibliography Databases="browsebib.xml,manualbib.xml" />
+<!-- manualbib.xml is fetched from GAPPATH/doc/manualbib.xml by makedocrel.g -->
+
+<TheIndex/>
+
+</Book>
+
+<!-- ==================================================================== -->
+

@@ -1,0 +1,108 @@
+#
+# Makefile rules for the digraphs package
+#
+KEXT_NAME = digraphs
+
+KEXT_CFLAGS = @CODE_COVERAGE_CFLAGS@ @WARNING_CFLAGS@
+KEXT_CXXFLAGS = @CODE_COVERAGE_CXXFLAGS@ @WARNING_CXXFLAGS@
+KEXT_LDFLAGS = @CODE_COVERAGE_LDFLAGS@
+
+KEXT_LDFLAGS += -lstdc++  # for bliss: add C++ library
+
+# configure settings
+GAPPATH = @GAPROOT@
+WITH_INCLUDED_BLISS = @WITH_INCLUDED_BLISS@
+WITH_INCLUDED_PLANARITY = @WITH_INCLUDED_PLANARITY@
+PLANARITY_SUITE_DIR = @PLANARITY_SUITE_DIR@
+
+# sources
+KEXT_SOURCES =  src/digraphs.c
+KEXT_SOURCES += src/bitarray.c
+KEXT_SOURCES += src/conditions.c
+KEXT_SOURCES += src/homos.c
+KEXT_SOURCES += src/cliques.c
+KEXT_SOURCES += src/homos-graphs.c
+KEXT_SOURCES += src/perms.c
+KEXT_SOURCES += src/planar.c
+KEXT_SOURCES += src/schreier-sims.c
+KEXT_SOURCES += src/safemalloc.c
+
+ifdef WITH_INCLUDED_BLISS
+  KEXT_SOURCES += extern/bliss-0.73/defs.cc
+  KEXT_SOURCES += extern/bliss-0.73/graph.cc
+  KEXT_SOURCES += extern/bliss-0.73/partition.cc
+  KEXT_SOURCES += extern/bliss-0.73/orbit.cc
+  KEXT_SOURCES += extern/bliss-0.73/uintseqhash.cc
+  KEXT_SOURCES += extern/bliss-0.73/heap.cc
+  KEXT_SOURCES += extern/bliss-0.73/timer.cc
+  KEXT_SOURCES += extern/bliss-0.73/utils.cc
+  KEXT_SOURCES += extern/bliss-0.73/bliss_C.cc
+
+  KEXT_CFLAGS += -Iextern
+else
+  KEXT_LDFLAGS += -lbliss
+endif
+
+
+ifdef WITH_INCLUDED_PLANARITY
+  KEXT_SOURCES += \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/graphDFSUtils.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/graphUtils.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/extensionSystem/graphExtensions.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/homeomorphSearch/graphK23Search.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/homeomorphSearch/graphK23Search_Extensions.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/homeomorphSearch/graphK33Search.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/homeomorphSearch/graphK33Search_Extensions.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/homeomorphSearch/graphK4Search.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/homeomorphSearch/graphK4Search_Extensions.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/io/g6-api-utilities.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/io/g6-read-iterator.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/io/g6-write-iterator.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/io/graphIO.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/io/strbuf.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/io/strOrFile.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/lowLevelUtils/apiutils.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/lowLevelUtils/listcoll.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/lowLevelUtils/stack.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/planarityRelated/graphDrawPlanar.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/planarityRelated/graphDrawPlanar_Extensions.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/planarityRelated/graphEmbed.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/planarityRelated/graphIsolator.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/planarityRelated/graphNonplanar.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/planarityRelated/graphOuterplanarObstruction.c \
+        $(PLANARITY_SUITE_DIR)/c/graphLib/planarityRelated/graphTests.c
+
+  KEXT_CFLAGS += -I$(PLANARITY_SUITE_DIR) -include extern/eaps_flags.h
+else
+  KEXT_LDFLAGS += -lplanarity
+endif
+
+
+# include shared GAP package build system
+KEXT_USE_AUTOCONF = 1
+include Makefile.gappkg
+
+# ensure pkgconfig.h is built
+$(KEXT_OBJS): gen/pkgconfig.h
+
+clean:
+	find . -name '*.gcda' -delete
+
+distclean:
+	rm -f *.tmp
+	rm -f coverage.info
+	rm -rf coverage/*
+	rm -rf bin/*
+
+lint:
+	etc/gaplint.sh
+	etc/cpplint.sh
+
+format:
+	clang-format -i src/*.[hc]
+
+.PHONY: debug lint format
+
+superclean: distclean
+	git clean -xdf --exclude *.swp --exclude *.swo
+.PHONY: superclean

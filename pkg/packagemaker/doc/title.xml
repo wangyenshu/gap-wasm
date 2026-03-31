@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<TitlePage>
+  <Title>
+    PackageMaker
+  </Title>
+  <Subtitle>
+    A &GAP; package for creating new &GAP; packages
+  </Subtitle>
+  <Version>
+    1.0.0
+  </Version>
+  <Author>
+    Max Horn<Alt Only="LaTeX"><Br/></Alt>
+<Address>
+Fachbereich Mathematik<Br/>
+RPTU Kaiserslautern-Landau<Br/>
+Gottlieb-Daimler-Straße 48<Br/>
+67663 Kaiserslautern<Br/>
+Germany<Br/>
+</Address>
+<Email>mhorn@rptu.de</Email>
+<Homepage>https://www.quendi.de/math</Homepage>
+
+  </Author>
+  <Date>
+    24 March 2026
+  </Date>
+  </TitlePage>

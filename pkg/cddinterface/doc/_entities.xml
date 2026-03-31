@@ -1,0 +1,6 @@
+<!ENTITY CAP 'GAP'>
+<!ENTITY CddInterface '<Package>CddInterface</Package>'>
+<!ENTITY RELEASEDATE '2 March 2026'>
+<!ENTITY RELEASEYEAR '2026'>
+<!ENTITY VERSION '2026.03.02'>
+<!ENTITY homalg 'homalg'>

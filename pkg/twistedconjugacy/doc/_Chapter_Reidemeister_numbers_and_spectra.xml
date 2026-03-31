@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<Chapter Label="Chapter_Reidemeister_numbers_and_spectra">
+<Heading>Reidemeister numbers and spectra</Heading>
+
+<Section Label="Chapter_Reidemeister_numbers_and_spectra_Section_Reidemeister_numbers">
+<Heading>Reidemeister numbers</Heading>
+
+ The number of twisted conjugacy classes is called the Reidemeister number
+ and is always a positive integer or infinity.
+<ManSection Label="ReidemeisterNumberGroup">
+  <Func Arg="hom1[, hom2]" Name="ReidemeisterNumber" />
+  <Func Arg="hom1[, hom2]" Name="NrTwistedConjugacyClasses" />
+ <Returns>the Reidemeister number of ( <A>hom1</A>, <A>hom2</A> ).
+</Returns>
+ <Description>
+ If <Math>G</Math> is abelian, this function relies on (a generalisation of)
+ <Cite Key='jian83-a' Where='Thm. 2.5'/>.
+ If <Math>G = H</Math>, <Math>G</Math> is finite non-abelian and <Math>\psi = \operatorname{id}_G</Math>, it
+ relies on <Cite Key='fh94-a' Where='Thm. 5'/>.
+ Otherwise, it simply calculates the twisted conjugacy classes and then
+ counts them.
+<P/>
+ </Description>
+</ManSection>
+
+
+</Section>
+
+
+<Section Label="Chapter_Reidemeister_numbers_and_spectra_Section_Reidemeister_spectra">
+<Heading>Reidemeister spectra</Heading>
+
+ The set of all Reidemeister numbers of automorphisms is called the
+ <Emph>Reidemeister spectrum</Emph> and is denoted by <Math>\operatorname{Spec}_R(G)</Math>, i.e.
+ <Display>\operatorname{Spec}_R(G) := \{\, R(\varphi) \mid \varphi \in \operatorname{Aut}(G) \,\}.</Display>
+ The set of all Reidemeister numbers of endomorphisms is called the
+ <Emph>extended Reidemeister spectrum</Emph> and is denoted by
+ <Math>\operatorname{ESpec}_R(G)</Math>, i.e.
+ <Display>\operatorname{ESpec}_R(G) := \{\, R(\varphi) \mid \varphi \in \operatorname{End}(G) \,\}.</Display>
+ The set of all Reidemeister numbers of pairs of homomorphisms from a group
+ <Math>H</Math> to a group <Math>G</Math> is called the <Emph>coincidence Reidemeister spectrum</Emph> of
+ <Math>H</Math> and <Math>G</Math> and is denoted by <Math>\operatorname{CSpec}_R(H,G)</Math>, i.e.
+ <Display>\operatorname{CSpec}_R(H,G) := \{\, R(\varphi, \psi) \mid \varphi,\psi \in \operatorname{Hom}(H,G) \,\}.</Display>
+ If <A>H</A> = <A>G</A> this is also denoted by <Math>\operatorname{CSpec}_R(G)</Math>.
+ The set of all Reidemeister numbers of pairs of homomorphisms from every
+ group <Math>H</Math> to a group <Math>G</Math> is called the <Emph>total Reidemeister spectrum</Emph> and
+ is denoted by <Math>\operatorname{TSpec}_R(G)</Math>, i.e.
+ <Display>\operatorname{TSpec}_R(G) := \bigcup_{H} \operatorname{CSpec}_R(H,G).</Display>
+ <P/>
+ Please note that the functions below are only implemented for finite groups.
+<ManSection>
+  <Func Arg="G" Name="ReidemeisterSpectrum" />
+ <Returns>the Reidemeister spectrum of <A>G</A>.
+</Returns>
+ <Description>
+ If <Math>G</Math> is abelian, this function relies on the results from
+ <Cite Key='send23-a'/>.
+ Otherwise, it relies on <Cite Key='fh94-a' Where='Thm. 5'/>.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="G" Name="ExtendedReidemeisterSpectrum" />
+ <Returns>the extended Reidemeister spectrum of <A>G</A>.
+</Returns>
+ <Description>
+ If <Math>G</Math> is abelian, this is just the set of all divisors of the order of
+ <A>G</A>.
+ Otherwise, this function relies on <Cite Key='fh94-a' Where='Thm. 5'/>.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="[H, ]G" Name="CoincidenceReidemeisterSpectrum" />
+ <Returns>the coincidence Reidemeister spectrum of <A>H</A> and <A>G</A>.
+</Returns>
+ <Description>
+<P/>
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="G" Name="TotalReidemeisterSpectrum" />
+ <Returns>the total Reidemeister spectrum of <A>H</A> and <A>G</A>.
+</Returns>
+ <Description>
+<P/>
+ </Description>
+</ManSection>
+
+
+<Example><![CDATA[
+gap> Q := QuaternionGroup( 8 );;
+gap> D := DihedralGroup( 8 );;
+gap> ReidemeisterSpectrum( Q );
+[ 2, 3, 5 ]
+gap> ExtendedReidemeisterSpectrum( Q );
+[ 1, 2, 3, 5 ]
+gap> CoincidenceReidemeisterSpectrum( Q );
+[ 1, 2, 3, 4, 5, 8 ]
+gap> CoincidenceReidemeisterSpectrum( D, Q );
+[ 4, 8 ]
+gap> CoincidenceReidemeisterSpectrum( Q, D );
+[ 2, 3, 4, 6, 8 ]
+gap> TotalReidemeisterSpectrum( Q );
+[ 1, 2, 3, 4, 5, 6, 8 ]
+]]></Example>
+
+
+</Section>
+
+
+</Chapter>
+

@@ -1,0 +1,292 @@
+  
+  [1X1 [33X[0;0YPackageMaker[133X[101X
+  
+  
+  [1X1.1 [33X[0;0YWhat is [5XPackageMaker[105X[101X[1X?[133X[101X
+  
+  [33X[0;0Y[5XPackageMaker[105X is a [5XGAP[105X package that makes it easy to create new [5XGAP[105X packages,
+  by  providing  a  [21Xwizard[121X  function  that  asks a few questions about the new
+  package,  such  as  its  name  and authors; and from that creates a complete
+  usable skeleton package. It optionally can set up several advanced features,
+  including:[133X
+  
+  [30X    [33X[0;6Ya git repository for use on GitHub;[133X
+  
+  [30X    [33X[0;6Ya simple C or C++ kernel extension, including a build system;[133X
+  
+  [30X    [33X[0;6Ycontinuous integration and release automation using GitHub Actions;[133X
+  
+  [30X    [33X[0;6Ycode coverage tracking;[133X
+  
+  [30X    [33X[0;6Y... and more.[133X
+  
+  [33X[0;0YThe  generated  package  is  meant  as  a  starting point, not as a finished
+  package  ready  for  release.  In  particular,  you  should  expect  to edit
+  [11XREADME.md[111X,  [11XPackageInfo.g[111X,  the  generated  tests  and,  depending  on  your
+  choices, the documentation, CI workflows or kernel extension sources.[133X
+  
+  
+  [1X1.2 [33X[0;0YBefore you start[133X[101X
+  
+  [33X[0;0YA typical session looks like this:[133X
+  
+  [30X    [33X[0;6Ystart  [5XGAP[105X  in  a  directory  where  it  is OK to create a new package
+        directory;[133X
+  
+  [30X    [33X[0;6Yload [5XPackageMaker[105X and run [10XPackageWizard()[110X;[133X
+  
+  [30X    [33X[0;6Yanswer the wizard questions;[133X
+  
+  [30X    [33X[0;6Yinspect and edit the generated files;[133X
+  
+  [30X    [33X[0;6Ymove  the  package  to a directory in which [5XGAP[105X looks for packages, or
+        run [5XGAP[105X with [10X--packagedirs[110X.[133X
+  
+  [33X[0;0YBy  default,  the  wizard  creates  the new package directory in the current
+  working directory of your [5XGAP[105X session. That is often convenient for creating
+  the  package,  but  it does not automatically make the package loadable. See
+  the  next  section  for  the  different  ways to make [5XGAP[105X find the generated
+  package.[133X
+  
+  [33X[0;0YIf  you  ask  [5XPackageMaker[105X  to  create  a  git  repository,  git should have
+  [10Xuser.name[110X  and  [10Xuser.email[110X  configured.  If  they  are missing, [5XPackageMaker[105X
+  explains  how to set them up, lets you retry, or keeps the generated package
+  directory without creating a git repository.[133X
+  
+  
+  [1X1.3 [33X[0;0YWhere should the generated package go?[133X[101X
+  
+  [33X[0;0YThe  generated  package  directory must eventually live in a place where [5XGAP[105X
+  searches for packages.[133X
+  
+  [33X[0;0YFor  normal  day-to-day use, the best destination is usually [11X~/.gap/pkg[111X. You
+  may  have  to  create  that directory first. Keeping personal packages there
+  means  they  survive  [5XGAP[105X  upgrades  and  are  separate  from  the  main [5XGAP[105X
+  installation.[133X
+  
+  [33X[0;0YAnother   natural   choice  is  the  [11Xpkg[111X  directory  inside  your  main  [5XGAP[105X
+  installation.  This  is common when you built [5XGAP[105X from source in a directory
+  that  you  control. The drawback is that when you later upgrade or reinstall
+  [5XGAP[105X,  it  is  easy  to  forget  to  copy  over packages that you added there
+  manually.[133X
+  
+  [33X[0;0YFor quick testing, [5XGAP[105X 4.15 or later can be started with [10Xgap --packagedirs .[110X
+  to tell [5XGAP[105X to search the current directory directly for packages.[133X
+  
+  [33X[0;0YThere are also more advanced alternatives:[133X
+  
+  [30X    [33X[0;6Ycommand  line  options  such  as  [10X-l[110X  (see  [14X'Reference:  Command  Line
+        Options'[114X)   can  change  the  configured  [5XGAP[105X  root  directories  (see
+        [14X'Reference: GAP Root Directories'[114X) when starting [5XGAP[105X;[133X
+  
+  [30X    [33X[0;6Y[2XExtendRootDirectories[102X     ([14XReference:    ExtendRootDirectories[114X)    and
+        [2XExtendPackageDirectories[102X ([14XReference: ExtendPackageDirectories[114X) can add
+        package search locations after [5XGAP[105X has already started;[133X
+  
+  [30X    [33X[0;6Y[2XSetPackagePath[102X ([14XReference: SetPackagePath[114X) can be useful when you want
+        to  force  loading  one  particular package from a specific path for a
+        session.[133X
+  
+  [33X[0;0YThese  advanced  options  are  useful  to know about, but for most users the
+  practical  advice  is simple: keep the package in [11X~/.gap/pkg[111X for normal use,
+  and use [10Xgap --packagedirs .[110X only as a quick-testing convenience when running
+  [5XGAP[105X 4.15 or newer.[133X
+  
+  
+  [1X1.4 [33X[0;0YA worked example[133X[101X
+  
+  [33X[0;0YThe  following  transcript shows a complete example session. It uses GitHub,
+  enables the generated workflows, chooses the MIT license, creates a C kernel
+  extension, and enters one author / maintainer record.[133X
+  
+  [1X1.4-1 PackageWizardInput[101X
+  
+  [33X[1;0Y[29X[2XPackageWizardInput[102X( [3Xarg[103X ) [32X function[133X
+  
+  [33X[0;0YInteractively  create  a package skeleton. You can abort by either answering
+  [21Xquit[121X or pressing [10XCtrl-D[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XPackageWizard();[127X[104X
+    [4X[28XWelcome to the GAP PackageMaker Wizard.[128X[104X
+    [4X[28XI will now guide you step-by-step through the package[128X[104X
+    [4X[28Xcreation process by asking you some questions.[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XWhat is the name of the package? DemoPackage[128X[104X
+    [4X[28XEnter a short (one sentence) description of your package: A package used to demonstrate PackageMaker[128X[104X
+    [4X[28XWhich license should the package use? MIT[128X[104X
+    [4X[28XShall I prepare your new package for GitHub? [Y/n] y[128X[104X
+    [4X[28XDo you want to use GitHub Actions for automated tests and making releases? [Y/n] y[128X[104X
+    [4X[28XThe release workflow updates the package website on GitHub Pages[128X[104X
+    [4X[28Xwhenever you make a package release.[128X[104X
+    [4X[28XI need to know the URL of the GitHub repository.[128X[104X
+    [4X[28XIt is of the form https://github.com/USER/REPOS.[128X[104X
+    [4X[28XWhat is USER (typically your GitHub username)? demo-user[128X[104X
+    [4X[28XWhat is REPOS, the repository name? DemoPackage[128X[104X
+    [4X[28XShall your package provide a GAP kernel extension? Yes, written in C[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XNext I will ask you about the package authors and maintainers.[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XLast name? Doe[128X[104X
+    [4X[28XFirst name(s)? Dana[128X[104X
+    [4X[28XIs this one of the package authors? [Y/n] y[128X[104X
+    [4X[28XIs this a package maintainer? [Y/n] y[128X[104X
+    [4X[28XEmail? dana@example.invalid[128X[104X
+    [4X[28XWWWHome? https://example.invalid/~dana/[128X[104X
+    [4X[28XGitHubUsername? demo-user[128X[104X
+    [4X[28XPostalAddress? Example Institute\nDepartment of Algebra\nExample Street 1\n12345 Example City[128X[104X
+    [4X[28XPlace? Example City, Country[128X[104X
+    [4X[28XInstitution? Example Institute[128X[104X
+    [4X[28XAdd another person? [y/N] n[128X[104X
+    [4X[28XCreating the git repository...[128X[104X
+    [4X[28XInitialized empty Git repository in .../DemoPackage/.git/[128X[104X
+    [4X[28X[main (root-commit) ...] initial import[128X[104X
+    [4X[28XDone creating git repository.[128X[104X
+    [4X[28XCreate <https://github.com/demo-user/DemoPackage> via <https://github.com/new> and then run:[128X[104X
+    [4X[28X  git push -u origin main[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAfter  this finishes, the new package lives in a directory named [11XDemoPackage[111X
+  below  the  current  directory.  You  can now inspect and edit the generated
+  files, move the package into a package directory, and try loading it in [5XGAP[105X.[133X
+  
+  [1X1.4-2 PackageWizardGenerate[101X
+  
+  [33X[1;0Y[29X[2XPackageWizardGenerate[102X( [3Xarg[103X ) [32X function[133X
+  
+  [1X1.4-3 PackageWizard[101X
+  
+  [33X[1;0Y[29X[2XPackageWizard[102X( [3Xarg[103X ) [32X function[133X
+  
+  
+  [1X1.5 [33X[0;0YImportant wizard choices[133X[101X
+  
+  [33X[0;0YSome  answers mainly affect metadata, while others determine which files are
+  generated.[133X
+  
+  
+  [1X1.5-1 [33X[0;0YPackage name[133X[101X
+  
+  [33X[0;0YThe  package name becomes the name of the top-level package directory and is
+  also  used  in file names such as [11Xgap/YourPackage.gd[111X, [11Xgap/YourPackage.gi[111X and
+  in many entries of [11XPackageInfo.g[111X. It therefore should be chosen with care.[133X
+  
+  
+  [1X1.5-2 [33X[0;0YLicense[133X[101X
+  
+  [33X[0;0YThe  license choice affects both the generated [11XLICENSE[111X file and the guidance
+  inserted  into  [11XREADME.md[111X.  By  default,  the  wizard uses [10XGPL-2.0-or-later[110X,
+  because  that  is  the  license  of  [5XGAP[105X itself and is also used by many [5XGAP[105X
+  packages. Other built-in choices are [10XGPL-3.0-or-later[110X, [10XMIT[110X and [10XBSD-3-Clause[110X.[133X
+  
+  [33X[0;0YIf you are unsure which license to use, then the following sites may help:[133X
+  
+  [30X    [33X[0;6Y[7Xhttps://choosealicense.com/[107X[133X
+  
+  [30X    [33X[0;6Y[7Xhttps://opensource.org/licenses/[107X[133X
+  
+  [30X    [33X[0;6Y[7Xhttps://spdx.org/licenses/[107X[133X
+  
+  [33X[0;0YIf  you  choose the custom option, then [5XPackageMaker[105X generates a placeholder
+  [11XLICENSE[111X  file  which  you  must  replace  with  the full text of your chosen
+  license.  You  should also make sure that the [10XLicense[110X field in [11XPackageInfo.g[111X
+  and the package [11XREADME.md[111X describe the same license.[133X
+  
+  
+  [1X1.5-3 [33X[0;0YGiHub setup[133X[101X
+  
+  [33X[0;0YSaying yes to GitHub setup does two things:[133X
+  
+  [30X    [33X[0;6Yit fills in repository-related URLs in [11XPackageInfo.g[111X;[133X
+  
+  [30X    [33X[0;6Yit  offers to create a local git repository with an initial commit and
+        a GitHub remote named [10Xorigin[110X.[133X
+  
+  [33X[0;0YIf  you  also  enable  GitHub Actions, then [5XPackageMaker[105X adds CI and release
+  workflows  below  [11X.github/workflows/[111X  and  creates [11X.codecov.yml[111X. The release
+  workflow  updates  the  package  website  on  GitHub  Pages  when you make a
+  release.[133X
+  
+  [33X[0;0YIf  you do not use GitHub setup, then [11XPackageInfo.g[111X contains placeholder URL
+  entries  instead. They work as reminders, but you should replace them before
+  publishing your package.[133X
+  
+  
+  [1X1.5-4 [33X[0;0YKernel extension[133X[101X
+  
+  [33X[0;0YThe  kernel  extension  choice  determines  whether  the  package  is purely
+  interpreted  [5XGAP[105X  code  or also contains code in [10XC[110X or [10XC++[110X. Choosing a kernel
+  extension  adds  files  such  as  [11Xsrc/YourPackage.c[111X  or  [11Xsrc/YourPackage.cc[111X,
+  together with [11Xconfigure[111X, [11XMakefile.in[111X and [11XMakefile.gappkg[111X.[133X
+  
+  
+  [1X1.6 [33X[0;0YWhat gets generated?[133X[101X
+  
+  [33X[0;0YEvery  generated  package  contains  the  basic files needed for a small but
+  usable package:[133X
+  
+  [30X    [33X[0;6Y[11XPackageInfo.g[111X with the package metadata;[133X
+  
+  [30X    [33X[0;6Y[11XREADME.md[111X with placeholder text to replace;[133X
+  
+  [30X    [33X[0;6Y[11Xinit.g[111X and [11Xread.g[111X;[133X
+  
+  [30X    [33X[0;6Y[11Xgap/YourPackage.gd[111X and [11Xgap/YourPackage.gi[111X;[133X
+  
+  [30X    [33X[0;6Y[11Xmakedoc.g[111X for building the package manual;[133X
+  
+  [30X    [33X[0;6Y[11Xtst/testall.g[111X as a starting point for tests;[133X
+  
+  [30X    [33X[0;6Y[11XLICENSE[111X.[133X
+  
+  [33X[0;0YDepending on your choices, the wizard may also create:[133X
+  
+  [30X    [33X[0;6Y[11X.gitattributes[111X and [11X.gitignore[111X when GitHub setup is enabled;[133X
+  
+  [30X    [33X[0;6Y[11X.github/workflows/CI.yml[111X,       [11X.github/workflows/release.yml[111X      and
+        [11X.codecov.yml[111X when GitHub Actions are enabled;[133X
+  
+  [30X    [33X[0;6Y[11Xsrc/[111X,   [11Xconfigure[111X,  [11XMakefile.in[111X  and  [11XMakefile.gappkg[111X  when  a  kernel
+        extension is requested.[133X
+  
+  [33X[0;0YA few of these files deserve immediate attention:[133X
+  
+  [30X    [33X[0;6Y[11XREADME.md[111X still contains TODO text and should be rewritten;[133X
+  
+  [30X    [33X[0;6Y[11XPackageInfo.g[111X  should  be  checked  carefully,  especially the package
+        URLs, description, authors and maintainers;[133X
+  
+  [30X    [33X[0;6Y[11Xtst/testall.g[111X is only the test driver, so you will usually want to add
+        actual [10X.tst[110X files;[133X
+  
+  [30X    [33X[0;6Ythe  generated  [11Xgap/[111X  and  optional  [11Xsrc/[111X  files  are  only a starting
+        skeleton and should be adapted to your package.[133X
+  
+  
+  [1X1.7 [33X[0;0YWhat next?[133X[101X
+  
+  [33X[0;0YOnce the wizard has finished, a typical next-step checklist is:[133X
+  
+  [30X    [33X[0;6Ydecide where the package should live, as explained in [14X1.3[114X;[133X
+  
+  [30X    [33X[0;6Yedit [11XREADME.md[111X and replace the TODO sections;[133X
+  
+  [30X    [33X[0;6Yreview [11XPackageInfo.g[111X and fix any remaining placeholder values;[133X
+  
+  [30X    [33X[0;6Yif  you  selected  the  custom license option, replace the placeholder
+        [11XLICENSE[111X text with the full license text;[133X
+  
+  [30X    [33X[0;6Yadd package code and tests;[133X
+  
+  [30X    [33X[0;6Yrun the package inside [5XGAP[105X and make sure it loads;[133X
+  
+  [30X    [33X[0;6Yif you asked for a kernel extension, run [10X./configure[110X and build it;[133X
+  
+  [30X    [33X[0;6Yif you enabled GitHub setup, create the GitHub repository and push the
+        generated initial commit.[133X
+  
+  [33X[0;0YFor  broader  guidance  on  package structure and release preparation, it is
+  worth reading the [5XGAP[105X manual chapter on [14X'Reference: Using and Developing GAP
+  Packages'[114X   as   well   as   the   manual  and  [11XPackageInfo.g[111X  file  of  the
+  [7Xhttps://github.com/gap-packages/example[107X package.[133X
+  

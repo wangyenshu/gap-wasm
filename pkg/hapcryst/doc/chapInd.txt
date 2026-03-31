@@ -1,0 +1,89 @@
+  
+  
+  [1XIndex[101X
+  
+  action of crystallographic groups 1.1-1 
+  [2XBasisChangeAffineMatOnRight[102X 2.2-2 
+  [2XBisectorInequalityFromPointPair[102X 2.3-3 
+  [2XBoundaryOfFreeZGLetter[102X B.1-9 
+  [2XBoundaryOfFreeZGLetter_LargeGroupRep[102X B.4-11 
+  [2XBoundaryOfFreeZGLetterNC[102X B.3-6 
+  [2XBoundaryOfFreeZGLetterNC_LargeGroupRep[102X B.4-11 
+  [2XBoundaryOfFreeZGWord[102X B.1-10 
+  [2XBoundaryOfFreeZGWord_LargeGroupRep[102X B.4-12 
+  [2XBoundaryOfFreeZGWordNC[102X B.3-7 
+  [2XBoundaryOfGenerator_LargeGroupRep[102X B.4-10 
+  [2XBoundaryOfGeneratorNC_LargeGroupRep[102X B.4-10 
+  [2XConvertLetterToStandardRep[102X B.2-3 
+  [2XConvertLetterToStandardRepNC[102X B.2-3 
+  [2XConvertStandardLetter[102X B.2-1 
+  [2XConvertStandardLetterNC[102X B.2-1 
+  [2XConvertStandardWord[102X B.2-2 
+  [2XConvertStandardWordNC[102X B.2-2 
+  [2XConvertWordToStandardRep[102X B.2-4 
+  [2XConvertWordToStandardRepNC[102X B.2-4 
+  [2XDimensionSquareMat[102X 2.1-4 
+  [2XFaceLatticeAndBoundaryBieberbachGroup[102X 4.2-2 
+  [2XFundamentalDomainBieberbachGroup[102X 4.1-2 
+  [2XFundamentalDomainFromGeneralPointAndOrbitPartGeometric[102X 4.1-3 
+  [2XFundamentalDomainStandardSpaceGroup[102X 4.1-1 
+  [2XGeneratorsOfModuleOfResolution_LargeGroupRep[102X B.4-9 
+  [2XGramianOfAverageScalarProductFromFiniteMatrixGroup[102X 2.3-1 
+  [2XGroupElementFromPosition[102X B.1-5 
+  [2XGroupRingOfResolution[102X B.4-1 
+  ineqThreshold 4.1-2 
+  [2XInfoHAPcryst[102X 1.3-1 
+  installation 1.2 
+  [2XIsFreeZGLetter[102X B.3-1 
+  [2XIsFreeZGLetter_LargeGroupRep[102X B.4-5 
+  [2XIsFreeZGLetterNoTermCheck_LargeGroupRep[102X B.4-3 
+  [2XIsFreeZGWord[102X B.3-2 
+  [2XIsFreeZGWord_LargeGroupRep[102X B.4-6 
+  [2XIsFreeZGWordNoTermCheck_LargeGroupRep[102X B.4-4 
+  [2XIsFundamentalDomainBieberbachGroup[102X 4.1-5 
+  [2XIsFundamentalDomainStandardSpaceGroup[102X 4.1-4 
+  [2XIsSquareMat[102X 2.1-3 
+  [2XIsValidGroupInt[102X B.1-4 
+  [2XLinearPartOfAffineMatOnRight[102X 2.2-1 
+  [2XMultiplyFreeZGLetterWithGroupElt[102X B.1-7 
+  [2XMultiplyFreeZGLetterWithGroupElt_LargeGroupRep[102X B.4-7 
+  [2XMultiplyFreeZGLetterWithGroupEltNC[102X B.3-4 
+  [2XMultiplyFreeZGLetterWithGroupEltNC_LargeGroupRep[102X B.4-7 
+  [2XMultiplyFreeZGWordWithGroupElt[102X B.1-8 
+  [2XMultiplyFreeZGWordWithGroupElt_LargeGroupRep[102X B.4-8 
+  [2XMultiplyFreeZGWordWithGroupEltNC[102X B.3-5 
+  [2XMultiplyFreeZGWordWithGroupEltNC_LargeGroupRep[102X B.4-8 
+  [2XMultiplyGroupElts[102X B.1-6 
+  [2XMultiplyGroupElts_LargeGroupRep[102X B.4-2 
+  [2XMultiplyGroupEltsNC[102X B.3-3 
+  [2XMultiplyGroupEltsNC_LargeGroupRep[102X B.4-2 
+  [2XOrbitPartAndRepresentativesInFacesStandardSpaceGroup[102X 3.1-5 
+  [2XOrbitPartInFacesStandardSpaceGroup[102X 3.1-4 
+  [2XOrbitPartInVertexSetsStandardSpaceGroup[102X 3.1-3 
+  [2XOrbitStabilizerInUnitCubeOnRight[102X 3.1-1 
+  [2XOrbitStabilizerInUnitCubeOnRightOnSets[102X 3.1-2 
+  [2XPartialContractingHomotopyLookup[102X C.1-2 
+  [2XPartialContractingHomotopyLookupNC[102X C.1-2 
+  [2XPointGroupRepresentatives[102X 2.4-1 
+  polymake 1.2-1 
+  [2XPositionInGroupOfResolution[102X B.1-3 
+  [2XPositionInGroupOfResolutionNC[102X B.1-3 
+  [2XRelativePositionPointAndPolygon[102X 2.3-5 
+  [2XRepresentativeActionOnRightOnSets[102X 3.1-7 
+  [2XResolutionBieberbachGroup[102X 4.2-1 
+  [2XResolutionFromFLandBoundary[102X 4.2-3 
+  [2XResolutionOfContractingHomotopy[102X C.1-1 
+  [2XShiftedOrbitPart[102X 3.1-9 
+  [2XSignRat[102X 2.1-1 
+  [2XStabilizerOnSetsStandardSpaceGroup[102X 3.1-6 
+  [2XStrongestValidRepresentationForLetter[102X B.1-1 
+  [2XStrongestValidRepresentationForWord[102X B.1-2 
+  [2XTranslationOnRightFromVector[102X 2.2-3 
+  [2XTranslationsToBox[102X 3.1-11 
+  [2XTranslationsToOneCubeAroundCenter[102X 3.1-10 
+  [2XVectorModOne[102X 2.1-2 
+  [2XWhichSideOfHyperplane[102X 2.3-4 
+  [2XWhichSideOfHyperplaneNC[102X 2.3-4 
+  
+  
+  -------------------------------------------------------

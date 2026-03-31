@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<Chapter Label="Chapter_PackageMaker">
+<Heading>PackageMaker</Heading>
+
+<Section Label="Chapter_PackageMaker_Section_What_is_PackageMaker">
+<Heading>What is &PackageMaker;?</Heading>
+
+ &PackageMaker; is a &GAP; package that makes it easy to create
+ new &GAP; packages, by providing a <Q>wizard</Q> function that
+ asks a few questions about the new package, such as its name
+ and authors; and from that creates a complete usable skeleton
+ package. It optionally can set up several advanced features,
+ including:
+<List>
+<Item>
+a git repository for use on GitHub;
+</Item>
+<Item>
+a simple C or C++ kernel extension, including a build system;
+</Item>
+<Item>
+continuous integration and release automation using GitHub Actions;
+</Item>
+<Item>
+code coverage tracking;
+</Item>
+<Item>
+... and more.
+</Item>
+</List>
+<P/>
+ The generated package is meant as a starting point, not as a finished
+ package ready for release. In particular, you should expect to edit
+ <F>README.md</F>, <F>PackageInfo.g</F>, the generated tests and,
+ depending on your choices, the documentation, CI workflows or kernel
+ extension sources.
+</Section>
+
+
+<Section Label="Chapter_PackageMaker_Section_Before_you_start">
+<Heading>Before you start</Heading>
+
+ A typical session looks like this:
+<List>
+<Item>
+start &GAP; in a directory where it is OK to create a new package
+   directory;
+</Item>
+<Item>
+load &PackageMaker; and run <C>PackageWizard()</C>;
+</Item>
+<Item>
+answer the wizard questions;
+</Item>
+<Item>
+inspect and edit the generated files;
+</Item>
+<Item>
+move the package to a directory in which &GAP; looks for packages,
+   or run &GAP; with <C>--packagedirs</C>.
+</Item>
+</List>
+<P/>
+ By default, the wizard creates the new package directory in the current
+ working directory of your &GAP; session. That is often convenient for
+ creating the package, but it does not automatically make the package
+ loadable. See the next section for the different ways to make &GAP; find
+ the generated package.
+<P/>
+ If you ask &PackageMaker; to create a git repository, git should have
+ <C>user.name</C> and <C>user.email</C> configured. If they are missing,
+ &PackageMaker; explains how to set them up, lets you retry, or keeps the
+ generated package directory without creating a git repository.
+<P/>
+</Section>
+
+
+<Section Label="Section_PackageDestination">
+<Heading>Where should the generated package go?</Heading>
+
+ The generated package directory must eventually live in a place where
+ &GAP; searches for packages.
+<P/>
+ For normal day-to-day use, the best destination is usually
+ <F>~/.gap/pkg</F>. You may have to create that directory first. Keeping
+ personal packages there means they survive &GAP; upgrades and are separate
+ from the main &GAP; installation.
+<P/>
+ Another natural choice is the <F>pkg</F> directory inside your main
+ &GAP; installation. This is common when you built &GAP; from source in a
+ directory that you control. The drawback is that when you later upgrade
+ or reinstall &GAP;, it is easy to forget to copy over packages that you
+ added there manually.
+<P/>
+ For quick testing, &GAP; 4.15 or later can be started with
+ <C>gap --packagedirs .</C> to tell &GAP; to search the current directory
+ directly for packages.
+<P/>
+ There are also more advanced alternatives:
+<List>
+<Item>
+command line options such as <C>-l</C> (see <Ref Sect="Command Line Options" BookName="ref"/>)
+   can change the configured &GAP; root directories (see <Ref Sect="GAP Root Directories" BookName="ref"/>)
+   when starting &GAP;;
+</Item>
+<Item>
+<Ref Func="ExtendRootDirectories" BookName="ref"/> and
+   <Ref Func="ExtendPackageDirectories" BookName="ref"/> can add
+   package search locations after &GAP; has already started;
+</Item>
+<Item>
+<Ref Func="SetPackagePath" BookName="ref"/> can be useful when you want to force loading one
+   particular package from a specific path for a session.
+</Item>
+</List>
+<P/>
+ These advanced options are useful to know about, but for most users the
+ practical advice is simple: keep the package in <F>~/.gap/pkg</F> for
+ normal use, and use <C>gap --packagedirs .</C> only as a quick-testing
+ convenience when running &GAP; 4.15 or newer.
+</Section>
+
+
+<Section Label="Chapter_PackageMaker_Section_A_worked_example">
+<Heading>A worked example</Heading>
+
+ The following transcript shows a complete example session. It uses
+ GitHub, enables the generated workflows, chooses the MIT license, creates
+ a C kernel extension, and enters one author / maintainer record.
+<P/>
+<ManSection>
+  <Func Arg="arg" Name="PackageWizardInput" />
+ <Description>
+ Interactively create a package skeleton. You can abort by either
+ answering <Q>quit</Q> or pressing <C>Ctrl-D</C>.
+<P/>
+<Log><![CDATA[
+gap> PackageWizard();
+Welcome to the GAP PackageMaker Wizard.
+I will now guide you step-by-step through the package
+creation process by asking you some questions.
+
+What is the name of the package? DemoPackage
+Enter a short (one sentence) description of your package: A package used to demonstrate PackageMaker
+Which license should the package use? MIT
+Shall I prepare your new package for GitHub? [Y/n] y
+Do you want to use GitHub Actions for automated tests and making releases? [Y/n] y
+The release workflow updates the package website on GitHub Pages
+whenever you make a package release.
+I need to know the URL of the GitHub repository.
+It is of the form https://github.com/USER/REPOS.
+What is USER (typically your GitHub username)? demo-user
+What is REPOS, the repository name? DemoPackage
+Shall your package provide a GAP kernel extension? Yes, written in C
+
+Next I will ask you about the package authors and maintainers.
+
+Last name? Doe
+First name(s)? Dana
+Is this one of the package authors? [Y/n] y
+Is this a package maintainer? [Y/n] y
+Email? dana@example.invalid
+WWWHome? https://example.invalid/~dana/
+GitHubUsername? demo-user
+PostalAddress? Example Institute\nDepartment of Algebra\nExample Street 1\n12345 Example City
+Place? Example City, Country
+Institution? Example Institute
+Add another person? [y/N] n
+Creating the git repository...
+Initialized empty Git repository in .../DemoPackage/.git/
+[main (root-commit) ...] initial import
+Done creating git repository.
+Create <https://github.com/demo-user/DemoPackage> via <https://github.com/new> and then run:
+  git push -u origin main
+]]></Log>
+
+
+<P/>
+ After this finishes, the new package lives in a directory named
+ <F>DemoPackage</F> below the current directory. You can now inspect and
+ edit the generated files, move the package into a package directory, and
+ try loading it in &GAP;.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="arg" Name="PackageWizardGenerate" />
+ <Description>
+<P/>
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="arg" Name="PackageWizard" />
+ <Description>
+<P/>
+ </Description>
+</ManSection>
+
+
+</Section>
+
+
+<Section Label="Chapter_PackageMaker_Section_Important_wizard_choices">
+<Heading>Important wizard choices</Heading>
+
+ Some answers mainly affect metadata, while others determine which files
+ are generated.
+<P/>
+<Subsection Label="Chapter_PackageMaker_Section_Important_wizard_choices_Subsection_Package_name">
+<Heading>Package name</Heading>
+
+ The package name becomes the name of the top-level package directory and is
+ also used in file names such as <F>gap/YourPackage.gd</F>,
+ <F>gap/YourPackage.gi</F> and in many entries of <F>PackageInfo.g</F>.
+ It therefore should be chosen with care.
+<P/>
+</Subsection>
+
+
+<Subsection Label="Chapter_PackageMaker_Section_Important_wizard_choices_Subsection_License">
+<Heading>License</Heading>
+
+ The license choice affects both the generated <F>LICENSE</F> file and the
+ guidance inserted into <F>README.md</F>. By default, the wizard uses
+ <C>GPL-2.0-or-later</C>, because that is the license of &GAP; itself and is
+ also used by many &GAP; packages. Other built-in choices are
+ <C>GPL-3.0-or-later</C>, <C>MIT</C> and <C>BSD-3-Clause</C>.
+<P/>
+ If you are unsure which license to use, then the following sites may help:
+<List>
+<Item>
+<URL>https://choosealicense.com/</URL>
+</Item>
+<Item>
+<URL>https://opensource.org/licenses/</URL>
+</Item>
+<Item>
+<URL>https://spdx.org/licenses/</URL>
+</Item>
+</List>
+<P/>
+ If you choose the custom option, then &PackageMaker; generates a
+ placeholder <F>LICENSE</F> file which you must replace with the full text
+ of your chosen license. You should also make sure that the
+ <C>License</C> field in <F>PackageInfo.g</F> and the package
+ <F>README.md</F> describe the same license.
+<P/>
+</Subsection>
+
+
+<Subsection Label="Chapter_PackageMaker_Section_Important_wizard_choices_Subsection_GiHub_setup">
+<Heading>GiHub setup</Heading>
+
+ Saying yes to GitHub setup does two things:
+<List>
+<Item>
+it fills in repository-related URLs in <F>PackageInfo.g</F>;
+</Item>
+<Item>
+it offers to create a local git repository with an initial commit and a
+   GitHub remote named <C>origin</C>.
+</Item>
+</List>
+<P/>
+ If you also enable GitHub Actions, then &PackageMaker; adds CI and release
+ workflows below <F>.github/workflows/</F> and creates <F>.codecov.yml</F>.
+ The release workflow updates the package website on GitHub Pages when you
+ make a release.
+<P/>
+ If you do not use GitHub setup, then <F>PackageInfo.g</F> contains
+ placeholder URL entries instead. They work as reminders, but you should
+ replace them before publishing your package.
+<P/>
+</Subsection>
+
+
+<Subsection Label="Chapter_PackageMaker_Section_Important_wizard_choices_Subsection_Kernel_extension">
+<Heading>Kernel extension</Heading>
+
+ The kernel extension choice determines whether the package is purely
+ interpreted &GAP; code or also contains code in <C>C</C> or <C>C++</C>.
+ Choosing a kernel extension adds files such as <F>src/YourPackage.c</F> or
+ <F>src/YourPackage.cc</F>, together with <F>configure</F>,
+ <F>Makefile.in</F> and <F>Makefile.gappkg</F>.
+</Subsection>
+
+
+</Section>
+
+
+<Section Label="Chapter_PackageMaker_Section_What_gets_generated">
+<Heading>What gets generated?</Heading>
+
+ Every generated package contains the basic files needed for a small but
+ usable package:
+<List>
+<Item>
+<F>PackageInfo.g</F> with the package metadata;
+</Item>
+<Item>
+<F>README.md</F> with placeholder text to replace;
+</Item>
+<Item>
+<F>init.g</F> and <F>read.g</F>;
+</Item>
+<Item>
+<F>gap/YourPackage.gd</F> and <F>gap/YourPackage.gi</F>;
+</Item>
+<Item>
+<F>makedoc.g</F> for building the package manual;
+</Item>
+<Item>
+<F>tst/testall.g</F> as a starting point for tests;
+</Item>
+<Item>
+<F>LICENSE</F>.
+</Item>
+</List>
+<P/>
+ Depending on your choices, the wizard may also create:
+<List>
+<Item>
+<F>.gitattributes</F> and <F>.gitignore</F> when GitHub setup is enabled;
+</Item>
+<Item>
+<F>.github/workflows/CI.yml</F>, <F>.github/workflows/release.yml</F>
+   and <F>.codecov.yml</F> when GitHub Actions are enabled;
+</Item>
+<Item>
+<F>src/</F>, <F>configure</F>, <F>Makefile.in</F> and
+   <F>Makefile.gappkg</F> when a kernel extension is requested.
+</Item>
+</List>
+<P/>
+ A few of these files deserve immediate attention:
+<List>
+<Item>
+<F>README.md</F> still contains TODO text and should be rewritten;
+</Item>
+<Item>
+<F>PackageInfo.g</F> should be checked carefully, especially the package
+   URLs, description, authors and maintainers;
+</Item>
+<Item>
+<F>tst/testall.g</F> is only the test driver, so you will usually want to
+   add actual <C>.tst</C> files;
+</Item>
+<Item>
+the generated <F>gap/</F> and optional <F>src/</F> files are only a
+   starting skeleton and should be adapted to your package.
+</Item>
+</List>
+</Section>
+
+
+<Section Label="Chapter_PackageMaker_Section_What_next">
+<Heading>What next?</Heading>
+
+ Once the wizard has finished, a typical next-step checklist is:
+<List>
+<Item>
+decide where the package should live, as explained in
+   <Ref Sect="Section_PackageDestination"/>;
+</Item>
+<Item>
+edit <F>README.md</F> and replace the TODO sections;
+</Item>
+<Item>
+review <F>PackageInfo.g</F> and fix any remaining placeholder values;
+</Item>
+<Item>
+if you selected the custom license option, replace the placeholder
+   <F>LICENSE</F> text with the full license text;
+</Item>
+<Item>
+add package code and tests;
+</Item>
+<Item>
+run the package inside &GAP; and make sure it loads;
+</Item>
+<Item>
+if you asked for a kernel extension, run <C>./configure</C> and build it;
+</Item>
+<Item>
+if you enabled GitHub setup, create the GitHub repository and push the
+   generated initial commit.
+</Item>
+</List>
+<P/>
+ For broader guidance on package structure and release preparation, it is
+ worth reading the &GAP; manual chapter on
+ <Ref Chap="Using and Developing GAP Packages" BookName="ref"/> as well as
+ the manual and <F>PackageInfo.g</F> file of the
+ <URL>https://github.com/gap-packages/example</URL> package.
+</Section>
+
+
+</Chapter>
+

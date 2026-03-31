@@ -1,0 +1,5 @@
+<!ENTITY VERSION '3.3.3'>
+<!ENTITY RELEASEYEAR '2025'>
+<!ENTITY RELEASEDATE '25 November 2025'>
+<!ENTITY AutPGrp '<Package>AutPGrp</Package>'>
+<!ENTITY ANUPQ '<Package>ANUPQ</Package>'>

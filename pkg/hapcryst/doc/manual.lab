@@ -1,0 +1,118 @@
+\GAPDocLabFile{hapcryst}
+\makelabel{hapcryst:Title page}{}{X7D2C85EC87DD46E5}
+\makelabel{hapcryst:Copyright}{}{X81488B807F2A1CF1}
+\makelabel{hapcryst:Acknowledgements}{}{X82A988D47DFAFCFA}
+\makelabel{hapcryst:Table of Contents}{}{X8537FEB07AF2BEC8}
+\makelabel{hapcryst:Introduction}{1}{X7DFB63A97E67C0A1}
+\makelabel{hapcryst:Abstract and Notation}{1.1}{X813275957BA5B5E0}
+\makelabel{hapcryst:The natural action of crystallographic groups}{1.1.1}{X7F4A00F481A1FB39}
+\makelabel{hapcryst:Requirements}{1.2}{X85A08CF187A6D986}
+\makelabel{hapcryst:Recommendation concerning polymake}{1.2.1}{X7990986A8114E0DB}
+\makelabel{hapcryst:Global Variables}{1.3}{X7D9044767BEB1523}
+\makelabel{hapcryst:Bits and Pieces}{2}{X86FBE5B77C2F9442}
+\makelabel{hapcryst:Matrices and Vectors}{2.1}{X8019925B8294F5B4}
+\makelabel{hapcryst:Affine Matrices OnRight}{2.2}{X86BD4FE4871379AD}
+\makelabel{hapcryst:Geometry}{2.3}{X84A0B0637F269E37}
+\makelabel{hapcryst:Inequalities}{2.3.2}{X866942167802E036}
+\makelabel{hapcryst:Space Groups}{2.4}{X7B14774981F80108}
+\makelabel{hapcryst:Algorithms of Orbit-Stabilizer Type}{3}{X7F6789767FB36E74}
+\makelabel{hapcryst:Orbit Stabilizer for Crystallographic Groups}{3.1}{X85CAB2EB85A6E17A}
+\makelabel{hapcryst:Getting other orbit parts}{3.1.8}{X8002407080DB3EA2}
+\makelabel{hapcryst:Resolutions of Crystallographic Groups}{4}{X852C41A77C759D82}
+\makelabel{hapcryst:Fundamental Domains}{4.1}{X7F48638F817A14B0}
+\makelabel{hapcryst:Face Lattice and Resolution}{4.2}{X78D68F6087238F97}
+\makelabel{hapcryst:Resolutions in Hap}{A}{X7C6DD73E7BB931AB}
+\makelabel{hapcryst:The Standard Representation HapResolutionRep}{A.1}{X804F611B7E23BDB1}
+\makelabel{hapcryst:The HapLargeGroupResolutionRep Representation}{A.2}{X8024014D8488FE30}
+\makelabel{hapcryst:Accessing and Manipulating Resolutions}{B}{X86374CEA7CDC6946}
+\makelabel{hapcryst:Representation-Independent Access Methods}{B.1}{X7A7225067E7895A9}
+\makelabel{hapcryst:Converting Between Representations}{B.2}{X7B94A2ED857C62D5}
+\makelabel{hapcryst:Special Methods for HapResolutionRep}{B.3}{X84FB45EB83B5822C}
+\makelabel{hapcryst:The HapLargeGroupResolutionRep Representation}{B.4}{X8024014D8488FE30}
+\makelabel{hapcryst:Contracting Homotopies}{C}{X792B9CC97C670AEA}
+\makelabel{hapcryst:The PartialContractingHomotopy Data Type}{C.1}{X7E957D2381DBE362}
+\makelabel{hapcryst:Bibliography}{Bib}{X7A6F98FD85F02BFE}
+\makelabel{hapcryst:References}{Bib}{X7A6F98FD85F02BFE}
+\makelabel{hapcryst:Index}{Ind}{X83A0356F839C696F}
+\makelabel{hapcryst:action of crystallographic groups}{1.1.1}{X7F4A00F481A1FB39}
+\makelabel{hapcryst:installation}{1.2}{X85A08CF187A6D986}
+\makelabel{hapcryst:polymake}{1.2.1}{X7990986A8114E0DB}
+\makelabel{hapcryst:InfoHAPcryst}{1.3.1}{X78B0A21E7FD0F3BB}
+\makelabel{hapcryst:SignRat}{2.1.1}{X7D58A1848182EC26}
+\makelabel{hapcryst:VectorModOne}{2.1.2}{X7C0552BA873515B9}
+\makelabel{hapcryst:IsSquareMat}{2.1.3}{X7BB083A57C474F45}
+\makelabel{hapcryst:DimensionSquareMat}{2.1.4}{X78C932A48515EF10}
+\makelabel{hapcryst:LinearPartOfAffineMatOnRight}{2.2.1}{X838946957FC75C17}
+\makelabel{hapcryst:BasisChangeAffineMatOnRight}{2.2.2}{X80DD4F2286D49F8D}
+\makelabel{hapcryst:TranslationOnRightFromVector}{2.2.3}{X81F3C49580958FB6}
+\makelabel{hapcryst:GramianOfAverageScalarProductFromFiniteMatrixGroup}{2.3.1}{X7A94DAE679AD73E3}
+\makelabel{hapcryst:BisectorInequalityFromPointPair}{2.3.3}{X80C365AA87BDDAFA}
+\makelabel{hapcryst:WhichSideOfHyperplane}{2.3.4}{X8790464D86D189F4}
+\makelabel{hapcryst:WhichSideOfHyperplaneNC}{2.3.4}{X8790464D86D189F4}
+\makelabel{hapcryst:RelativePositionPointAndPolygon}{2.3.5}{X83392C417B311B6B}
+\makelabel{hapcryst:PointGroupRepresentatives}{2.4.1}{X7E2F20607F278B70}
+\makelabel{hapcryst:OrbitStabilizerInUnitCubeOnRight}{3.1.1}{X7BED233684B2F811}
+\makelabel{hapcryst:OrbitStabilizerInUnitCubeOnRightOnSets}{3.1.2}{X82BD20307A67C119}
+\makelabel{hapcryst:OrbitPartInVertexSetsStandardSpaceGroup}{3.1.3}{X82CCCD597C86A08A}
+\makelabel{hapcryst:OrbitPartInFacesStandardSpaceGroup}{3.1.4}{X8022CD75819DE536}
+\makelabel{hapcryst:OrbitPartAndRepresentativesInFacesStandardSpaceGroup}{3.1.5}{X86A80FA17A4D6664}
+\makelabel{hapcryst:StabilizerOnSetsStandardSpaceGroup}{3.1.6}{X81DE08687F0DBCC6}
+\makelabel{hapcryst:RepresentativeActionOnRightOnSets}{3.1.7}{X83C6448679A54F9D}
+\makelabel{hapcryst:ShiftedOrbitPart}{3.1.9}{X8751429287034F4A}
+\makelabel{hapcryst:TranslationsToOneCubeAroundCenter}{3.1.10}{X82656DE584E8DC5D}
+\makelabel{hapcryst:TranslationsToBox}{3.1.11}{X858C787E83A902AB}
+\makelabel{hapcryst:FundamentalDomainStandardSpaceGroup}{4.1.1}{X79F4F7938116201E}
+\makelabel{hapcryst:FundamentalDomainBieberbachGroup}{4.1.2}{X7A07AB55831F212F}
+\makelabel{hapcryst:ineqThreshold}{4.1.2}{X7A07AB55831F212F}
+\makelabel{hapcryst:FundamentalDomainFromGeneralPointAndOrbitPartGeometric}{4.1.3}{X86A09AC4842827C9}
+\makelabel{hapcryst:IsFundamentalDomainStandardSpaceGroup}{4.1.4}{X824BC99584F5F865}
+\makelabel{hapcryst:IsFundamentalDomainBieberbachGroup}{4.1.5}{X7D79DD6E87BCC1DC}
+\makelabel{hapcryst:ResolutionBieberbachGroup}{4.2.1}{X7CA87AA478007468}
+\makelabel{hapcryst:FaceLatticeAndBoundaryBieberbachGroup}{4.2.2}{X7E854FC47F9E479E}
+\makelabel{hapcryst:ResolutionFromFLandBoundary}{4.2.3}{X79A0B28A7FAE31B9}
+\makelabel{hapcryst:StrongestValidRepresentationForLetter}{B.1.1}{X7CBC6D4C783383BE}
+\makelabel{hapcryst:StrongestValidRepresentationForWord}{B.1.2}{X7C10841285614D04}
+\makelabel{hapcryst:PositionInGroupOfResolution}{B.1.3}{X780AD2DB7F5D4935}
+\makelabel{hapcryst:PositionInGroupOfResolutionNC}{B.1.3}{X780AD2DB7F5D4935}
+\makelabel{hapcryst:IsValidGroupInt}{B.1.4}{X7A58EC7B8130D6E2}
+\makelabel{hapcryst:GroupElementFromPosition}{B.1.5}{X822604B67B2A9133}
+\makelabel{hapcryst:MultiplyGroupElts}{B.1.6}{X7D3673E8840FA0B6}
+\makelabel{hapcryst:MultiplyFreeZGLetterWithGroupElt}{B.1.7}{X8540F3B37BAC695F}
+\makelabel{hapcryst:MultiplyFreeZGWordWithGroupElt}{B.1.8}{X826835B185CA4DAF}
+\makelabel{hapcryst:BoundaryOfFreeZGLetter}{B.1.9}{X7D8B54D7828D7C5C}
+\makelabel{hapcryst:BoundaryOfFreeZGWord}{B.1.10}{X81A6037F82C3C31E}
+\makelabel{hapcryst:ConvertStandardLetter}{B.2.1}{X7EB515317948BE8E}
+\makelabel{hapcryst:ConvertStandardLetterNC}{B.2.1}{X7EB515317948BE8E}
+\makelabel{hapcryst:ConvertStandardWord}{B.2.2}{X7A1CB5DF7A459D76}
+\makelabel{hapcryst:ConvertStandardWordNC}{B.2.2}{X7A1CB5DF7A459D76}
+\makelabel{hapcryst:ConvertLetterToStandardRep}{B.2.3}{X83153E2682184860}
+\makelabel{hapcryst:ConvertLetterToStandardRepNC}{B.2.3}{X83153E2682184860}
+\makelabel{hapcryst:ConvertWordToStandardRep}{B.2.4}{X848203218271A166}
+\makelabel{hapcryst:ConvertWordToStandardRepNC}{B.2.4}{X848203218271A166}
+\makelabel{hapcryst:IsFreeZGLetter}{B.3.1}{X7B803CC184BD2612}
+\makelabel{hapcryst:IsFreeZGWord}{B.3.2}{X7A36FB7B84E9A892}
+\makelabel{hapcryst:MultiplyGroupEltsNC}{B.3.3}{X836D3F9886EED6AC}
+\makelabel{hapcryst:MultiplyFreeZGLetterWithGroupEltNC}{B.3.4}{X85893CC5823508A8}
+\makelabel{hapcryst:MultiplyFreeZGWordWithGroupEltNC}{B.3.5}{X8073DE7E7AD8B7CB}
+\makelabel{hapcryst:BoundaryOfFreeZGLetterNC}{B.3.6}{X7BD3994E7C414149}
+\makelabel{hapcryst:BoundaryOfFreeZGWordNC}{B.3.7}{X84B1DA21805A0880}
+\makelabel{hapcryst:GroupRingOfResolution}{B.4.1}{X861BE6C787FA8032}
+\makelabel{hapcryst:MultiplyGroupEltsLargeGroupRep}{B.4.2}{X8338F7A37F240E33}
+\makelabel{hapcryst:MultiplyGroupEltsNCLargeGroupRep}{B.4.2}{X8338F7A37F240E33}
+\makelabel{hapcryst:IsFreeZGLetterNoTermCheckLargeGroupRep}{B.4.3}{X86F91A948022DEBB}
+\makelabel{hapcryst:IsFreeZGWordNoTermCheckLargeGroupRep}{B.4.4}{X793BA61478AEBE16}
+\makelabel{hapcryst:IsFreeZGLetterLargeGroupRep}{B.4.5}{X85A7BFC284E9D9CB}
+\makelabel{hapcryst:IsFreeZGWordLargeGroupRep}{B.4.6}{X7BF4A7EC83BE61C8}
+\makelabel{hapcryst:MultiplyFreeZGLetterWithGroupEltLargeGroupRep}{B.4.7}{X7A4B682079630694}
+\makelabel{hapcryst:MultiplyFreeZGLetterWithGroupEltNCLargeGroupRep}{B.4.7}{X7A4B682079630694}
+\makelabel{hapcryst:MultiplyFreeZGWordWithGroupEltLargeGroupRep}{B.4.8}{X7F2365D2851E3E3C}
+\makelabel{hapcryst:MultiplyFreeZGWordWithGroupEltNCLargeGroupRep}{B.4.8}{X7F2365D2851E3E3C}
+\makelabel{hapcryst:GeneratorsOfModuleOfResolutionLargeGroupRep}{B.4.9}{X8355F6E8842B3D8C}
+\makelabel{hapcryst:BoundaryOfGeneratorLargeGroupRep}{B.4.10}{X840DF79086D5473E}
+\makelabel{hapcryst:BoundaryOfGeneratorNCLargeGroupRep}{B.4.10}{X840DF79086D5473E}
+\makelabel{hapcryst:BoundaryOfFreeZGLetterNCLargeGroupRep}{B.4.11}{X83D90EC28357DCCE}
+\makelabel{hapcryst:BoundaryOfFreeZGLetterLargeGroupRep}{B.4.11}{X83D90EC28357DCCE}
+\makelabel{hapcryst:BoundaryOfFreeZGWordLargeGroupRep}{B.4.12}{X78C681D37F8DC2A1}
+\makelabel{hapcryst:ResolutionOfContractingHomotopy}{C.1.1}{X7D899ACD7EB512FA}
+\makelabel{hapcryst:PartialContractingHomotopyLookup}{C.1.2}{X79C69C9B877C6D60}
+\makelabel{hapcryst:PartialContractingHomotopyLookupNC}{C.1.2}{X79C69C9B877C6D60}

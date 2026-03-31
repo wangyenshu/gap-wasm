@@ -1,0 +1,46 @@
+#SIXFORMAT  GapDocGAP
+HELPBOOKINFOSIXTMP := rec(
+encoding := "UTF-8",
+bookname := "PackageMaker",
+entries :=
+[ [ "Title page", "0.0", [ 0, 0, 0 ], 1, 1, "title page", "X7D2C85EC87DD46E5" 
+     ], 
+  [ "Table of Contents", "0.0-1", [ 0, 0, 1 ], 31, 2, "table of contents", 
+      "X8537FEB07AF2BEC8" ], 
+  [ "\033[1X\033[33X\033[0;-2YPackageMaker\033[133X\033[101X", "1", 
+      [ 1, 0, 0 ], 1, 3, "packagemaker", "X80AC704D873187E3" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat is \033[5XPackageMaker\033[105X\033[101X\\
+027\033[1X\027?\033[133X\033[101X", "1.1", [ 1, 1, 0 ], 4, 3, 
+      "what is packagemaker?", "X78E9A6927A4E1FBD" ], 
+  [ "\033[1X\033[33X\033[0;-2YBefore you start\033[133X\033[101X", "1.2", 
+      [ 1, 2, 0 ], 28, 3, "before you start", "X7E730E5A7DD77A50" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhere should the generated package go?\033[133X\\
+033[101X", "1.3", [ 1, 3, 0 ], 56, 4, "where should the generated package go?"
+        , "X7BB8C09C87932665" ], 
+  [ "\033[1X\033[33X\033[0;-2YA worked example\033[133X\033[101X", "1.4", 
+      [ 1, 4, 0 ], 95, 4, "a worked example", "X858C9C7F832B9C2C" ], 
+  [ "\033[1X\033[33X\033[0;-2YImportant wizard choices\033[133X\033[101X", 
+      "1.5", [ 1, 5, 0 ], 161, 6, "important wizard choices", 
+      "X87B127887E7D3B43" ], 
+  [ "\033[1X\033[33X\033[0;-2YPackage name\033[133X\033[101X", "1.5-1", 
+      [ 1, 5, 1 ], 167, 6, "package name", "X7B45A0267CB58132" ], 
+  [ "\033[1X\033[33X\033[0;-2YLicense\033[133X\033[101X", "1.5-2", 
+      [ 1, 5, 2 ], 174, 6, "license", "X861E5DF986F89AE2" ], 
+  [ "\033[1X\033[33X\033[0;-2YGiHub setup\033[133X\033[101X", "1.5-3", 
+      [ 1, 5, 3 ], 195, 6, "gihub setup", "X812040BA822BCC79" ], 
+  [ "\033[1X\033[33X\033[0;-2YKernel extension\033[133X\033[101X", "1.5-4", 
+      [ 1, 5, 4 ], 214, 7, "kernel extension", "X857DC0D182FFA23F" ], 
+  [ "\033[1X\033[33X\033[0;-2YWhat gets generated?\033[133X\033[101X", "1.6", 
+      [ 1, 6, 0 ], 222, 7, "what gets generated?", "X7D674D9B85B3F6C3" ], 
+  [ "\033[1X\033[33X\033[0;-2YWhat next?\033[133X\033[101X", "1.7", 
+      [ 1, 7, 0 ], 265, 7, "what next?", "X868D9A7B7BAAE5D3" ], 
+  [ "Index", "ind", [ "Ind", 0, 0 ], 1, 9, "index", "X83A0356F839C696F" ], 
+  [ "\033[2XPackageWizardInput\033[102X", "1.4-1", [ 1, 4, 1 ], 102, 4, 
+      "packagewizardinput", "X7ECA3E578388AD9A" ], 
+  [ "\033[2XPackageWizardGenerate\033[102X", "1.4-2", [ 1, 4, 2 ], 153, 5, 
+      "packagewizardgenerate", "X86E254658700A465" ], 
+  [ "\033[2XPackageWizard\033[102X", "1.4-3", [ 1, 4, 3 ], 157, 6, 
+      "packagewizard", "X7B19742884A7E49C" ] ]
+);
